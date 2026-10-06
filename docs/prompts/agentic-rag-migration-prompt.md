@@ -1,7 +1,7 @@
-# MISSION: Adopt the New Local Agentic RAG Architecture for DBLP Assistant
+﻿# MISSION: Adopt the New Local Agentic RAG Architecture for DBLP Assistant
 
 ## 1. Context & What Was Deprecated (The Old "Imitation RAG")
-The previous assistant implementation in `backend/app/routes/assistant.py` and `DBLP_Codex_Handoff.md` operated as a rigid rule-based router rather than a true RAG system:
+The previous assistant implementation in `backend/app/routes/assistant.py` and `docs/operations/DBLP_Codex_Handoff.md` operated as a rigid rule-based router rather than a true RAG system:
 - **Brittle Regex Routing:** Over 400 lines of hardcoded regular expressions matched only a few narrow phrasings; any natural variation was rejected with `outside_scope`.
 - **Canned Template Output:** The LLM was forbidden from generating natural language; answers were hardcoded string interpolations.
 - **Artificial Data Refusals:** Queries regarding institutions or citations were rejected with canned "unavailable" errors, despite tables like `institutions`, `author_institutions`, and `publication_citations` already existing in `database/dblp.duckdb`.
@@ -62,4 +62,4 @@ When working on the assistant, backend routes, or documentation, you must adhere
    - All SQL must remain read-only (`SELECT`/`WITH`). Never allow schema mutations.
    - Maintain the `AssistantQueryResponse` schema contract (`status`, `answer`, `sources`, `calculations`, `request_id`) so the React UI renders cleanly.
 5. **Update Handoff & Documentation:**
-   Update `DBLP_Codex_Handoff.md` and related docs to reflect this new Agentic RAG architecture and mark the legacy intent-interpreter as a fallback.
+   Update `docs/operations/DBLP_Codex_Handoff.md` and related docs to reflect this new Agentic RAG architecture and mark the legacy intent-interpreter as a fallback.

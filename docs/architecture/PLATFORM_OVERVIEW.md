@@ -1,4 +1,4 @@
-# DBLP Research Intelligence Platform — Comprehensive Specification & Context
+﻿# DBLP Research Intelligence Platform â€” Comprehensive Specification & Context
 
 > **Purpose of this document**: This specification provides a complete, self-contained overview of the DBLP Research Intelligence platform. It contains everything an AI assistant or engineer needs to visualize, understand, analyze, and build upon the existing system without needing prior context.
 
@@ -15,7 +15,7 @@ The dataset contains:
 - **32,498,462** co-authorship collaboration edges (derived from all paper co-authorships)
 
 The platform enables computer science researchers, department heads, and bibliometricians to:
-1. Explore macro-trends in computer science over the last 8 decades (1950s–2020s).
+1. Explore macro-trends in computer science over the last 8 decades (1950sâ€“2020s).
 2. Inspect individual researcher trajectories, career spans, venue preferences, and collaboration networks.
 3. Track publication venue volume, momentum, and researcher concentration.
 4. Discover rising researchers and emerging venues using statistical growth models.
@@ -27,24 +27,24 @@ The platform enables computer science researchers, department heads, and bibliom
 ## 2. Architecture & Technology Stack
 
 ```
-                                 ┌─────────────────────────────────────────┐
-                                 │       React + Vite Frontend (SPA)       │
-                                 │  (History API, Recharts, D3 Force Sim)   │
-                                 └────────────────────┬────────────────────┘
-                                                      │ HTTP / REST (JSON)
-                                                      ▼
-                                 ┌─────────────────────────────────────────┐
-                                 │          FastAPI Backend Engine         │
-                                 │ (Pydantic v2 Models, LRU Query Caching, │
-                                 │      Single-Flight Worker Locks)        │
-                                 └────────────────────┬────────────────────┘
-                                                      │ Read-Only SQL (duckdb)
-                                                      ▼
-                                 ┌─────────────────────────────────────────┐
-                                 │       DuckDB Database (Local File)      │
-                                 │           `database/dblp.duckdb`        │
-                                 │  (8.7M papers, 32.5M ties, pre-agg stats│
-                                 └─────────────────────────────────────────┘
+                                 â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                                 â”‚       React + Vite Frontend (SPA)       â”‚
+                                 â”‚  (History API, Recharts, D3 Force Sim)   â”‚
+                                 â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                                                      â”‚ HTTP / REST (JSON)
+                                                      â–¼
+                                 â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                                 â”‚          FastAPI Backend Engine         â”‚
+                                 â”‚ (Pydantic v2 Models, LRU Query Caching, â”‚
+                                 â”‚      Single-Flight Worker Locks)        â”‚
+                                 â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                                                      â”‚ Read-Only SQL (duckdb)
+                                                      â–¼
+                                 â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                                 â”‚       DuckDB Database (Local File)      â”‚
+                                 â”‚           `database/dblp.duckdb`        â”‚
+                                 â”‚  (8.7M papers, 32.5M ties, pre-agg statsâ”‚
+                                 â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### Backend Architecture
@@ -54,7 +54,7 @@ The platform enables computer science researchers, department heads, and bibliom
   - In-process **single-flight lock** serializes heavy analytical queries per worker to prevent memory spikes on multi-million row scans.
   - Read-only database connection barrier rejects any modifying statements (`INSERT`, `UPDATE`, `DROP`).
   - Strict **45-second query timeout** interrupts runaway queries.
-- **Caching**: In-memory LRU cache (128 entries per process, 10-minute TTL) caches SQL results keyed by SQL string + bound parameter tuples. Cold queries run in 50ms–2.2s; warm queries respond in < 5ms.
+- **Caching**: In-memory LRU cache (128 entries per process, 10-minute TTL) caches SQL results keyed by SQL string + bound parameter tuples. Cold queries run in 50msâ€“2.2s; warm queries respond in < 5ms.
 - **Validation**: Strict Pydantic v2 schemas in `backend/app/schemas/models.py`.
 
 ### Frontend Architecture
@@ -64,7 +64,7 @@ The platform enables computer science researchers, department heads, and bibliom
   - **Recharts**: Composed charts, dual-axis volume/growth lines, donut breakdowns, multi-line evolution charts, and bar charts.
   - **D3.js (v7)**: Force-directed network simulations (`d3-force`, `d3-zoom`, `d3-selection`) for collaboration graph exploration.
 - **Design System & Styling**:
-  - Plain additive CSS (`tokens.css` and `intelligence.css`) using modern CSS variables, OKLCH color spaces, and an 8pt spatial grid.
+  - Plain additive CSS (`dashboard/src/styles/tokens.css` and `dashboard/src/intelligence.css`) using modern CSS variables, OKLCH color spaces, and an 8pt spatial grid.
   - Anti-AI-slop philosophy (inspired by Hallmark & Apple HIG): No generic pastel blobs, no fake metrics, honest labels, high visual hierarchy, roman headings, and dense tabular scanability.
 
 ---
@@ -100,8 +100,8 @@ The DuckDB database consists of core normalized tables and pre-computed analytic
   - Mobile hamburger toggle for smaller viewports.
 - **Sticky Sidebar**:
   - Sticky vertical flex navigation (`/`, `/trends`, `/authors`, `/venues`, `/network`, `/insights`).
-  - Active route highlighting with directional indicators (`↗`).
-  - Anchored footer note: *"A field guide to computer science research · DBLP indexed records"*.
+  - Active route highlighting with directional indicators (`â†—`).
+  - Anchored footer note: *"A field guide to computer science research Â· DBLP indexed records"*.
 
 ---
 
@@ -112,14 +112,14 @@ The DuckDB database consists of core normalized tables and pre-computed analytic
    - `8.7M` Total Publications
    - `4.3M` Computer Science Researchers
    - `21.2K` Publication Venues
-   - `1936–2027` Active Historical Span (92 active publication years)
+   - `1936â€“2027` Active Historical Span (92 active publication years)
    - `3.44` Average Authors per Paper
 2. **Main Historical Trajectory Chart (`PublicationGrowthCombinedChart`)**:
    - Dual-axis interactive chart:
      - Left axis: Annual publication volume (clean line).
      - Right axis: Year-over-Year (YoY) growth percentage (bar chart).
    - View mode toggle: `Combined`, `Volume Only`, `Growth % Only`.
-   - Recharts interactive Brush slider at bottom to zoom into specific eras (e.g., 1990–2025).
+   - Recharts interactive Brush slider at bottom to zoom into specific eras (e.g., 1990â€“2025).
 3. **Publication Format Intelligence**:
    - Left: `PublicationTypeDonutChart` showing distribution across `article` (journals), `inproceedings` (conferences), `book`, and others.
    - Right: `PublicationTypeTimelineChart` showing the evolution of publication types from 1970 to 2025.
@@ -139,7 +139,7 @@ The DuckDB database consists of core normalized tables and pre-computed analytic
 1. **Collaboration Evolution Multi-Metric Chart**:
    - Tracks the historical rise of team science: average authors per paper over time, alongside the proportion of solo vs. multi-authored works.
 2. **Team Size Distribution Breakdown**:
-   - Categorizes papers into team size tiers: Solo (1 author), Small Team (2–3 authors), Medium Team (4–5 authors), Large Team (6+ authors).
+   - Categorizes papers into team size tiers: Solo (1 author), Small Team (2â€“3 authors), Medium Team (4â€“5 authors), Large Team (6+ authors).
 3. **Leading Venues Historical Activity**:
    - Multi-line comparative timeline comparing the annual output of the top 10 computer science venues (e.g., *CoRR*, *IEEE Access*, *Lecture Notes in Computer Science*).
 
@@ -159,7 +159,7 @@ A multi-tab intelligence suite with 5 specialized views:
 4. **Longest Active Research Careers**:
    - Ranks researchers with the longest spans between their first and most recent publications (minimum 20 papers threshold).
 5. **Rising Researchers (10-Year Momentum)**:
-   - Statistical momentum engine comparing recent output (**2016–2025**) against all historical output prior to 2016.
+   - Statistical momentum engine comparing recent output (**2016â€“2025**) against all historical output prior to 2016.
    - Computes percentage growth: `(recent - historical) / historical * 100`.
    - Server-side sorting (`growth_rate`, `recent_publications`, `historical_publications`, `name`), configurable threshold (`minimum_recent`), and deterministic pagination.
 
@@ -172,7 +172,7 @@ A multi-tab intelligence suite with 3 specialized views:
 1. **Fastest Growing Venues**:
    - 10-Year momentum ranking for publication venues, filtering by minimum recent publication volume with sortable columns and pagination.
 2. **Venue Activity Heatmap (`VenueActivityHeatmap`)**:
-   - Interactive Year (2005–2025) × Venue (top 12 global venues) intensity matrix.
+   - Interactive Year (2005â€“2025) Ã— Venue (top 12 global venues) intensity matrix.
    - Cells colored dynamically using OKLCH heat scales with tooltips displaying exact paper counts.
    - Horizontal scrolling features a sticky left column ensuring venue names remain legible at all times.
 3. **Largest Publication Venues**:
@@ -193,8 +193,8 @@ A multi-tab intelligence suite with 3 specialized views:
    - Distribution chart & table grouping all 32.5M collaboration ties into strength tiers:
      - *1 paper only* (~70% of ties)
      - *2 papers*
-     - *3–5 papers*
-     - *6–10 papers*
+     - *3â€“5 papers*
+     - *6â€“10 papers*
      - *11+ papers* (long-term scientific partnerships)
 3. **Interactive D3 Force-Directed Network Graph (`NetworkGraph.tsx`)**:
    - Can center on any focal researcher (defaults to most prolific or query parameter `?author_id=...`).
@@ -251,8 +251,8 @@ All analytical endpoints are `GET`, read-only, and automatically documented in O
 | `GET /api/publications/timeline` | Complete yearly paper counts (zero-filled) | None | < 3ms |
 | `GET /api/publications/growth` | Annual volumes + YoY growth % | None | < 3ms |
 | `GET /api/publications/types` | Breakdown by publication type | None | < 3ms |
-| `GET /api/publications/types/timeline` | Format evolution by year (1970–2025) | None | < 4ms |
-| `GET /api/trends/decades` | 8-decade comparison (1950s–2020s) | None | < 4ms |
+| `GET /api/publications/types/timeline` | Format evolution by year (1970â€“2025) | None | < 4ms |
+| `GET /api/trends/decades` | 8-decade comparison (1950sâ€“2020s) | None | < 4ms |
 | `GET /api/trends/collaboration-evolution`| Authors per paper over time | None | < 5ms |
 | `GET /api/trends/team-distribution` | Papers by team size tier | None | < 4ms |
 | `GET /api/authors/{author_id}` | Full researcher profile + top venues/coauthors | None | < 3ms |
@@ -264,7 +264,7 @@ All analytical endpoints are `GET`, read-only, and automatically documented in O
 | `GET /api/venues/{venue_id}` | Venue profile + yearly history + top authors | None | < 4ms |
 | `GET /api/venues/top` | Top venues by publication volume | `limit` (max 100) | < 3ms |
 | `GET /api/venues/growth` | 10-year momentum venue ranking | `limit`, `offset`, `minimum_recent`, `sort_by`, `order` | < 3ms |
-| `GET /api/venues/heatmap` | Year × Venue publication matrix | `start_year`, `end_year` | < 4ms |
+| `GET /api/venues/heatmap` | Year Ã— Venue publication matrix | `start_year`, `end_year` | < 4ms |
 | `GET /api/venues/trends` | Yearly output for top venues | `limit` (default 10) | < 5ms |
 | `GET /api/collaboration` | Ego-network for D3 force simulation | `author_id`, `limit` (up to 500), `min_weight`, `start_year`, `end_year` | < 7ms |
 | `GET /api/network/stats` | Macro network totals + tie distribution | None | < 3ms |
@@ -274,7 +274,7 @@ All analytical endpoints are `GET`, read-only, and automatically documented in O
 
 ## 6. Design System & Styling Tokens
 
-The visual style is governed by `tokens.css` and `intelligence.css`. It embodies an **editorial academic aesthetic** with high data density:
+The visual style is governed by `dashboard/src/styles/tokens.css` and `dashboard/src/intelligence.css`. It embodies an **editorial academic aesthetic** with high data density:
 
 - **Typography**:
   - Display/Headings: Clean sans-serif system stack (`Inter`, `-apple-system`, `BlinkMacSystemFont`, `Segoe UI`, `sans-serif`) with strict roman posture (no italicized headers).
@@ -345,5 +345,7 @@ For any future AI assistant or developer looking to enhance this platform, here 
    - *Current state*: Single light editorial theme.
    - *Enhancement*: Implement a theme switcher utilizing CSS custom property overrides (e.g., dark slate/navy theme).
 5. **Mobile Navigation Drawer & Breakpoint Verification**:
-   - *Current state*: Responsive CSS exists, but visual verification on real mobile viewports (320px–414px) has not been tested with automated browser tools.
+   - *Current state*: Responsive CSS exists, but visual verification on real mobile viewports (320pxâ€“414px) has not been tested with automated browser tools.
+
+
 

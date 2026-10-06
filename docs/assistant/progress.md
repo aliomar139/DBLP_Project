@@ -13,7 +13,7 @@ opened read-only.
 This integration and documentation update has not been tested in this pass.
 Prior live spot checks described by the project owner are not a substitute for
 a reviewed end-to-end evaluation; latency, grounding, and concurrency remain to
-be measured. See `DBLP_Codex_Handoff.md` for the current architecture summary.
+be measured. See `../operations/DBLP_Codex_Handoff.md` for the current architecture summary.
 
 ## 2026-10-01: schema-aware natural-language query path
 

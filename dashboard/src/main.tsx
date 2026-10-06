@@ -1,7 +1,7 @@
 import { Component, StrictMode, type ErrorInfo, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles.css'
-import '../../tokens.css'
+import './styles/tokens.css'
 import './intelligence.css'
 import App from './App'
 

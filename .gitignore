@@ -36,6 +36,7 @@ database/indexes/
 *.parquet
 
 # --- Large Raw Datasets & Archives ---
+*.xml
 data/dblp.xml
 data/compressed/dblp.xml.gz
 *.gz

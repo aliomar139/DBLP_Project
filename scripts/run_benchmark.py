@@ -1,6 +1,10 @@
 import time
 import json
 import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
 from backend.app.services.agentic_rag import stream_agentic_rag, ask_agentic_rag
 
 queries = [
