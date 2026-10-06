@@ -8,6 +8,14 @@ const statusLabels: Record<AssistantStatus, string> = {
   insufficient_evidence: 'Insufficient DBLP evidence', outside_scope: 'Outside the assistant’s scope', unavailable: 'Information unavailable'
 }
 
+function renderAnswerLine(line: string) {
+  return line.split(/(\*\*[^*]+\*\*)/g).map((part, index) =>
+    part.startsWith('**') && part.endsWith('**')
+      ? <strong key={index}>{part.slice(2, -2)}</strong>
+      : part
+  )
+}
+
 export default function Assistant() {
   const [query, setQuery] = useState('')
   const [result, setResult] = useState<AssistantResponse | null>(null)
@@ -96,76 +104,23 @@ export default function Assistant() {
       <div className="assistant-result-top"><span className="assistant-status">{statusLabels[result.status]}</span>
         <span className="assistant-request-id">Request {result.request_id}</span></div>
       {result.is_all_papers && (
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '12px',
-          background: 'rgba(16, 185, 129, 0.08)',
-          border: '1px solid rgba(16, 185, 129, 0.4)',
-          borderRadius: '8px',
-          padding: '12px 18px',
-          margin: '16px 0 20px 0'
-        }}>
+        <div className="assistant-catalog-actions">
           <div>
-            <strong style={{ display: 'block', fontSize: '1rem', color: 'var(--text-main, #0f172a)' }}>
-              Complete Research Catalog ({result.sources.length} publications)
-            </strong>
-            <span style={{ fontSize: '0.85rem', color: 'var(--text-muted, #64748b)' }}>
-              Includes verified DBLP titles, publication years, venues, and enriched scientific abstracts.
-            </span>
+            <strong className="assistant-catalog-title">Complete Research Catalog ({result.sources.length} publications)</strong>
+            <span className="assistant-catalog-description">Includes verified DBLP titles, publication years, venues, and available abstracts.</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
-            <button
-              type="button"
-              onClick={() => downloadCatalog('xlsx')}
-              disabled={downloadingFormat !== null}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                backgroundColor: '#059669',
-                color: '#ffffff',
-                padding: '9px 16px',
-                borderRadius: '6px',
-                fontSize: '0.875rem',
-                fontWeight: 600,
-                border: 'none',
-                cursor: downloadingFormat ? 'wait' : 'pointer',
-                opacity: downloadingFormat ? 0.75 : 1,
-                boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-              }}
-            >
-              {downloadingFormat === 'xlsx' ? '⏳ Generating Excel...' : '📊 Download Excel (.xlsx)'}
+          <div className="assistant-download-actions">
+            <button className="assistant-download-button" type="button" onClick={() => downloadCatalog('xlsx')} disabled={downloadingFormat !== null}>
+              {downloadingFormat === 'xlsx' ? 'Generating Excel...' : 'Download Excel (.xlsx)'}
             </button>
-            <button
-              type="button"
-              onClick={() => downloadCatalog('csv')}
-              disabled={downloadingFormat !== null}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                backgroundColor: '#2563eb',
-                color: '#ffffff',
-                padding: '9px 16px',
-                borderRadius: '6px',
-                fontSize: '0.875rem',
-                fontWeight: 600,
-                border: 'none',
-                cursor: downloadingFormat ? 'wait' : 'pointer',
-                opacity: downloadingFormat ? 0.75 : 1,
-                boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-              }}
-            >
-              {downloadingFormat === 'csv' ? '⏳ Generating CSV...' : '📄 Download CSV (.csv)'}
+            <button className="assistant-download-button" type="button" onClick={() => downloadCatalog('csv')} disabled={downloadingFormat !== null}>
+              {downloadingFormat === 'csv' ? 'Generating CSV...' : 'Download CSV (.csv)'}
             </button>
           </div>
         </div>
       )}
       <h2 id="assistant-result-title">Response</h2>
-      <div className="assistant-answer">{result.answer.split('\n').map((line, index) => <p key={`${index}-${line}`}>{line || '\u00a0'}</p>)}</div>
+      <div className="assistant-answer">{result.answer.split('\n').map((line, index) => <p key={`${index}-${line}`}>{line ? renderAnswerLine(line) : '\u00a0'}</p>)}</div>
 
       {result.claims.length > 0 && <div className="assistant-claims"><h3>Evidence for each statement</h3>
         {result.claims.map(claim => <article className="assistant-claim" key={claim.claim_id}>

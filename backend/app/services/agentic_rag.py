@@ -17,8 +17,12 @@ from uuid import uuid4
 from contextlib import closing
 from threading import Timer
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
 ROOT = Path(__file__).resolve().parents[3]
+load_dotenv(ROOT / ".env")
 
 import httpx
 from openai import OpenAI
@@ -35,8 +39,16 @@ from .abstract_service import get_or_fetch_abstract, get_cached_abstract
 
 logger = logging.getLogger(__name__)
 
-OLLAMA_BASE_URL = "http://localhost:11434/v1"
-DEFAULT_MODEL = "qwen2.5-coder:7b"
+# Primary Online Provider (Groq)
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", "").strip()
+GROQ_BASE_URL = os.getenv("GROQ_BASE_URL", "https://api.groq.com/openai/v1").strip()
+GROQ_MODEL = os.getenv("GROQ_MODEL", "qwen/qwen3.8-27b").strip()
+
+# Offline Local Fallback (Ollama)
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434/v1").strip()
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen2.5-coder:7b").strip()
+DEFAULT_MODEL = GROQ_MODEL if GROQ_API_KEY else OLLAMA_MODEL
+
 QUERY_TIMEOUT_SECONDS = 12.0
 MAX_SQL_ROWS = 40
 OLLAMA_OPTIONS = {"num_thread": 8, "num_ctx": 2048, "num_predict": 450}
@@ -433,6 +445,16 @@ Guidelines:
 """
 
 
+def _get_groq_client() -> OpenAI | None:
+    if not GROQ_API_KEY:
+        return None
+    return OpenAI(
+        base_url=GROQ_BASE_URL,
+        api_key=GROQ_API_KEY,
+        timeout=httpx.Timeout(8.0, connect=3.5),
+    )
+
+
 def _get_ollama_client() -> OpenAI:
     return OpenAI(
         base_url=OLLAMA_BASE_URL,
@@ -441,10 +463,10 @@ def _get_ollama_client() -> OpenAI:
     )
 
 
-def is_ollama_ready(model: str = DEFAULT_MODEL) -> bool:
+def is_local_ollama_ready(model: str = OLLAMA_MODEL) -> bool:
     """Check if the local Ollama instance is running and has the model available."""
     try:
-        resp = httpx.get(f"http://localhost:11434/api/tags", timeout=1.5)
+        resp = httpx.get(f"http://localhost:11434/api/tags", timeout=1.0)
         if resp.status_code == 200:
             models = resp.json().get("models", [])
             model_names = [m.get("name", "") for m in models]
@@ -452,6 +474,59 @@ def is_ollama_ready(model: str = DEFAULT_MODEL) -> bool:
     except Exception:
         pass
     return False
+
+
+def is_online_llm_ready() -> bool:
+    """Check if online Groq credentials are configured."""
+    return bool(GROQ_API_KEY)
+
+
+def is_agentic_rag_ready() -> bool:
+    """Ready if either online Groq is configured OR local Ollama is active."""
+    return is_online_llm_ready() or is_local_ollama_ready()
+
+
+def is_ollama_ready(model: str = DEFAULT_MODEL) -> bool:
+    """Backward compatibility alias for existing routes and tests."""
+    return is_agentic_rag_ready()
+
+
+def call_rag_llm(
+    messages: list[dict[str, str]],
+    max_tokens: int,
+    temperature: float = 0.0,
+    stream: bool = False,
+):
+    """
+    Unified LLM dispatcher for RAG:
+    1. Primary (Online): Groq Cloud (fast inference ~400 t/s).
+    2. Fallback (Offline): Local Ollama on CPU if network fails or offline.
+    """
+    groq_client = _get_groq_client()
+    if groq_client:
+        try:
+            return groq_client.chat.completions.create(
+                model=GROQ_MODEL,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                stream=stream,
+            )
+        except Exception as exc:
+            logger.warning(
+                "Online LLM provider (%s) unavailable or network failed (%s). Falling back to local Ollama (%s)...",
+                GROQ_MODEL, exc, OLLAMA_MODEL,
+            )
+
+    ollama_client = _get_ollama_client()
+    return ollama_client.chat.completions.create(
+        model=OLLAMA_MODEL,
+        messages=messages,
+        temperature=temperature,
+        max_tokens=max_tokens,
+        stream=stream,
+        extra_body={"options": OLLAMA_OPTIONS},
+    )
 
 
 def execute_safe_sql(sql: str) -> tuple[list[dict[str, Any]], str | None]:
@@ -576,18 +651,17 @@ def ask_agentic_rag(query: str, request_id: str | None = None) -> AssistantQuery
     """Main Agentic RAG workflow: Plan -> Execute (SQL/Vector + Exact Booster) -> Synthesize Answer."""
     req_id = request_id or str(uuid4())
 
-    if not is_ollama_ready(DEFAULT_MODEL):
+    if not is_agentic_rag_ready():
         return AssistantQueryResponse(
             status="unavailable",
             answer=(
-                "The local AI model (Qwen 2.5 Coder 7B) is currently downloading or offline in Ollama. "
-                "Please verify that 'ollama run qwen2.5-coder:7b' is completed and running."
+                "Neither online AI service (Groq) nor local AI model (Ollama) is available. "
+                "Please connect to the internet or start local Ollama ('ollama run qwen2.5-coder:7b')."
             ),
             request_id=req_id,
             limitation_code="model_unavailable",
         )
 
-    client = _get_ollama_client()
     is_all = _is_all_papers_request(query)
     clean_topic = _extract_all_papers_topic(query) if is_all else None
 
@@ -630,15 +704,13 @@ def ask_agentic_rag(query: str, request_id: str | None = None) -> AssistantQuery
             plan = {"action": "title_search", "search_query": concept_match.group(1).strip("?\"' .")}
         else:
             try:
-                plan_resp = client.chat.completions.create(
-                    model=DEFAULT_MODEL,
+                plan_resp = call_rag_llm(
                     messages=[
                         {"role": "system", "content": ROUTER_SYSTEM_PROMPT},
                         {"role": "user", "content": query},
                     ],
                     temperature=0.0,
                     max_tokens=160,
-                    extra_body={"options": OLLAMA_OPTIONS},
                 )
                 plan_text = plan_resp.choices[0].message.content or ""
                 plan = _extract_json(plan_text)
@@ -666,15 +738,13 @@ def ask_agentic_rag(query: str, request_id: str | None = None) -> AssistantQuery
             if err:
                 logger.warning("Initial SQL failed (%s), attempting self-correction...", err)
                 try:
-                    fix_resp = client.chat.completions.create(
-                        model=DEFAULT_MODEL,
+                    fix_resp = call_rag_llm(
                         messages=[
                             {"role": "system", "content": f"{DB_SCHEMA_PROMPT}\nYou fix failed DuckDB SQL. Return pure SQL only."},
                             {"role": "user", "content": f"The query '{sql_query}' produced error: {err}. Please fix it for question: '{query}'."},
                         ],
                         temperature=0.0,
                         max_tokens=260,
-                        extra_body={"options": OLLAMA_OPTIONS},
                     )
                     fixed_sql = re.sub(r"```(?:sql)?|```", "", fix_resp.choices[0].message.content or "").strip()
                     rows, err = execute_safe_sql(fixed_sql)
@@ -804,18 +874,16 @@ def ask_agentic_rag(query: str, request_id: str | None = None) -> AssistantQuery
                 "user_question": query,
                 "retrieved_evidence": evidence_rows[:8],
             }
-        ask_tokens = 110
+        ask_tokens = 250 if GROQ_API_KEY else 110
 
     try:
-        synth_resp = client.chat.completions.create(
-            model=DEFAULT_MODEL,
+        synth_resp = call_rag_llm(
             messages=[
                 {"role": "system", "content": SYNTHESIS_SYSTEM_PROMPT},
                 {"role": "user", "content": json.dumps(synthesis_payload, ensure_ascii=False)},
             ],
             temperature=0.2,
             max_tokens=ask_tokens,
-            extra_body={"options": OLLAMA_OPTIONS},
         )
         answer_text = intro_text + (synth_resp.choices[0].message.content or "No response could be generated.")
     except Exception as exc:
@@ -841,14 +909,12 @@ def stream_agentic_rag(query: str, request_id: str | None = None):
     """Yield SSE formatted events as the model synthesizes the response in real-time."""
     req_id = request_id or str(uuid4())
 
-    if not is_ollama_ready(DEFAULT_MODEL):
-        yield f"data: {json.dumps({'type': 'error', 'message': 'Ollama model is offline or not loaded.'})}\n\n"
+    if not is_agentic_rag_ready():
+        yield f"data: {json.dumps({'type': 'error', 'message': 'Neither online LLM nor local Ollama is available.'})}\n\n"
         return
 
     is_all = _is_all_papers_request(query)
     clean_topic = _extract_all_papers_topic(query) if is_all else None
-
-    client = _get_ollama_client()
 
     if is_all and clean_topic:
         yield f"data: {json.dumps({'type': 'status', 'message': f'Retrieving all matching papers for "{clean_topic}" from DBLP database...'})}\n\n"
@@ -890,15 +956,13 @@ def stream_agentic_rag(query: str, request_id: str | None = None):
         else:
             yield f"data: {json.dumps({'type': 'status', 'message': 'Analyzing question...'})}\n\n"
             try:
-                plan_resp = client.chat.completions.create(
-                    model=DEFAULT_MODEL,
+                plan_resp = call_rag_llm(
                     messages=[
                         {"role": "system", "content": ROUTER_SYSTEM_PROMPT},
                         {"role": "user", "content": query},
                     ],
                     temperature=0.0,
                     max_tokens=160,
-                    extra_body={"options": OLLAMA_OPTIONS},
                 )
                 plan_text = plan_resp.choices[0].message.content or ""
                 plan = _extract_json(plan_text)
@@ -928,15 +992,13 @@ def stream_agentic_rag(query: str, request_id: str | None = None):
             if err:
                 logger.warning("Initial SQL failed (%s), attempting self-correction...", err)
                 try:
-                    fix_resp = client.chat.completions.create(
-                        model=DEFAULT_MODEL,
+                    fix_resp = call_rag_llm(
                         messages=[
                             {"role": "system", "content": f"{DB_SCHEMA_PROMPT}\nYou fix failed DuckDB SQL. Return pure SQL only."},
                             {"role": "user", "content": f"The query '{sql_query}' produced error: {err}. Please fix it for question: '{query}'."},
                         ],
                         temperature=0.0,
                         max_tokens=260,
-                        extra_body={"options": OLLAMA_OPTIONS},
                     )
                     fixed_sql = re.sub(r"```(?:sql)?|```", "", fix_resp.choices[0].message.content or "").strip()
                     rows, err = execute_safe_sql(fixed_sql)
@@ -1083,11 +1145,10 @@ def stream_agentic_rag(query: str, request_id: str | None = None):
                 "user_question": query,
                 "retrieved_evidence": evidence_rows[:8],
             }
-        stream_tokens = 110
+        stream_tokens = 300 if GROQ_API_KEY else 110
 
     try:
-        stream = client.chat.completions.create(
-            model=DEFAULT_MODEL,
+        stream = call_rag_llm(
             messages=[
                 {"role": "system", "content": SYNTHESIS_SYSTEM_PROMPT},
                 {"role": "user", "content": json.dumps(synthesis_payload, ensure_ascii=False)},
@@ -1095,7 +1156,6 @@ def stream_agentic_rag(query: str, request_id: str | None = None):
             temperature=0.2,
             max_tokens=stream_tokens,
             stream=True,
-            extra_body={"options": OLLAMA_OPTIONS},
         )
         for chunk in stream:
             content = chunk.choices[0].delta.content or ""

@@ -1,5 +1,24 @@
 # Hybrid RAG implementation status
 
+## 2026-10-06: Hybrid Online-First RAG with Local Offline Fallback (Groq + Ollama)
+
+Upgraded the Agentic RAG engine in `backend/app/services/agentic_rag.py` to support dual-tier
+LLM routing via `call_rag_llm()`, resolving the laptop CPU memory-bandwidth bottleneck:
+1. **Online Tier (Primary):** Powered by Groq Cloud (`qwen/qwen3.8-27b`), streaming answers
+   at ~400+ tokens/sec. Query planning, self-correction, and final markdown synthesis complete
+   in 1–2 seconds (compared to 25–45s on local CPU).
+2. **Offline Fallback (Automatic):** If no network connection is available, connection times out,
+   or Groq encounters an API error, `call_rag_llm()` automatically catches the failure and falls
+   back to local Ollama (`qwen2.5-coder:7b`) with `OLLAMA_OPTIONS` (8 CPU threads, 2048 ctx).
+3. **Environment Security:** Configured via `.env` with `python-dotenv` (already covered by `.gitignore`).
+4. **Readiness Probe:** Added `is_agentic_rag_ready()` and backward-compatible `is_ollama_ready()`
+   alias so `/api/assistant/query` and streaming `/query/stream` remain active whenever either online
+   or local inference is ready.
+5. **Token Limits:** Output generation token limit increased to 250–300 tokens online (110 tokens offline)
+   for more thorough research synthesis and citations.
+6. **Verification:** Live integration test against `/api/assistant/query` passed with HTTP 200, returning
+   fully grounded author rankings and citation cards.
+
 ## 2026-10-03: Agentic RAG is the primary API path
 
 `/api/assistant/query` now dispatches to the local Ollama Agentic RAG service
