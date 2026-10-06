@@ -1,0 +1,189 @@
+{
+  "version": 1,
+  "status": "full_corpus_development_probe_evaluation",
+  "index_manifest_sha256": "bb0a8cc64155306d3e3977bf344c9a9f9484258d72ed269001ab3596083c1f8d",
+  "database_sha256": "3b1b26662df6e8759ff0e5247fc073403c15b21815cc697d9dd66d279482e250",
+  "probe_file_sha256": "cf80f9ac6dff4d6137d4ccb40fa340135cf21eec1d1dadd22e9b9bd627eafc35",
+  "probe_count": 12,
+  "coverage": {
+    "eligible_titles": 8738331,
+    "empty_title_exclusions": 0,
+    "vector_ids_unique": true,
+    "fts_rowids_unique": true,
+    "all_vectors_verified": true
+  },
+  "ef_search": 64,
+  "candidate_limit": 50,
+  "semantic_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "retrieval": {
+    "exact_title_semantic_target_hit_at_10": 1.0,
+    "exact_title_keyword_target_hit_at_10": 1.0,
+    "paraphrase_semantic_target_hit_at_10": 1.0,
+    "paraphrase_keyword_target_hit_at_10": 0.8333333333333334,
+    "paraphrase_hybrid_target_hit_at_10": 0.9166666666666666
+  },
+  "latency_ms": {
+    "semantic_ms": {
+      "mean": 4.406741665055354,
+      "p95": 10.793474999809398,
+      "max": 16.71560000977479
+    },
+    "lexical_ms": {
+      "mean": 4212.947425000796,
+      "p95": 6611.742740002228,
+      "max": 6690.494599999511
+    },
+    "hybrid_ms": {
+      "mean": 0.013916667133647328,
+      "p95": 0.019140008225804195,
+      "max": 0.019800005247816443
+    }
+  },
+  "cases": [
+    {
+      "case_id": "robot_failure_explanations",
+      "target_id": 114143,
+      "exact_title": "Effects of Incoherence in Multimodal Explanations of Robot Failures.",
+      "paraphrase": "inconsistent multimodal explanations for robot failures",
+      "paraphrase_semantic_rank": 1,
+      "paraphrase_lexical_rank": 1,
+      "hybrid_rank": 1,
+      "exact_title_semantic_rank": 1,
+      "exact_title_lexical_rank": 1,
+      "candidates_all_valid_ids": true
+    },
+    {
+      "case_id": "lisp_http",
+      "target_id": 671157,
+      "exact_title": "Woo: a Fast HTTP Server for Common Lisp.",
+      "paraphrase": "high speed web server written in Common Lisp",
+      "paraphrase_semantic_rank": 1,
+      "paraphrase_lexical_rank": 1,
+      "hybrid_rank": 1,
+      "exact_title_semantic_rank": 1,
+      "exact_title_lexical_rank": 1,
+      "candidates_all_valid_ids": true
+    },
+    {
+      "case_id": "companion_robot_acceptance",
+      "target_id": 947105,
+      "exact_title": "What makes people accept or reject companion robots?: A research agenda.",
+      "paraphrase": "reasons people accept or refuse companion robots",
+      "paraphrase_semantic_rank": 1,
+      "paraphrase_lexical_rank": 1,
+      "hybrid_rank": 1,
+      "exact_title_semantic_rank": 1,
+      "exact_title_lexical_rank": 1,
+      "candidates_all_valid_ids": true
+    },
+    {
+      "case_id": "hadoop_replicas",
+      "target_id": 1797202,
+      "exact_title": "Towards a Better Replica Management for Hadoop Distributed File System.",
+      "paraphrase": "improving replica management in Hadoop distributed storage",
+      "paraphrase_semantic_rank": 1,
+      "paraphrase_lexical_rank": 1,
+      "hybrid_rank": 1,
+      "exact_title_semantic_rank": 1,
+      "exact_title_lexical_rank": 1,
+      "candidates_all_valid_ids": true
+    },
+    {
+      "case_id": "iot_interaction",
+      "target_id": 3219453,
+      "exact_title": "Supporting interaction with the Internet of Things across objects, time and space.",
+      "paraphrase": "interacting with internet of things objects across time and space",
+      "paraphrase_semantic_rank": 1,
+      "paraphrase_lexical_rank": 1,
+      "hybrid_rank": 1,
+      "exact_title_semantic_rank": 1,
+      "exact_title_lexical_rank": 1,
+      "candidates_all_valid_ids": true
+    },
+    {
+      "case_id": "cold_start_credit",
+      "target_id": 3783907,
+      "exact_title": "Spatial-Enhanced Temporal Graph Networks for Credit Risk Prediction to Cold-Start Users.",
+      "paraphrase": "predicting credit risk for new users with temporal graph networks",
+      "paraphrase_semantic_rank": 1,
+      "paraphrase_lexical_rank": 1,
+      "hybrid_rank": 1,
+      "exact_title_semantic_rank": 1,
+      "exact_title_lexical_rank": 1,
+      "candidates_all_valid_ids": true
+    },
+    {
+      "case_id": "children_wearables",
+      "target_id": 5218726,
+      "exact_title": "Analysis of security and privacy issues in wearables for minors.",
+      "paraphrase": "security and privacy concerns in wearable devices for children",
+      "paraphrase_semantic_rank": 1,
+      "paraphrase_lexical_rank": null,
+      "hybrid_rank": null,
+      "exact_title_semantic_rank": 1,
+      "exact_title_lexical_rank": 1,
+      "candidates_all_valid_ids": true
+    },
+    {
+      "case_id": "uav_circle",
+      "target_id": 6098205,
+      "exact_title": "Circular Formation Control of Target Enclosing for Fixed-Wing UAVs in Three-Dimensional Space.",
+      "paraphrase": "fixed wing drones flying in a circular formation around a target in 3D",
+      "paraphrase_semantic_rank": 1,
+      "paraphrase_lexical_rank": 1,
+      "hybrid_rank": 1,
+      "exact_title_semantic_rank": 1,
+      "exact_title_lexical_rank": 1,
+      "candidates_all_valid_ids": true
+    },
+    {
+      "case_id": "medical_contours",
+      "target_id": 6371789,
+      "exact_title": "Region competition based active contour for medical object extraction.",
+      "paraphrase": "extracting medical objects using active contours and competing regions",
+      "paraphrase_semantic_rank": 1,
+      "paraphrase_lexical_rank": null,
+      "hybrid_rank": 3,
+      "exact_title_semantic_rank": 1,
+      "exact_title_lexical_rank": 1,
+      "candidates_all_valid_ids": true
+    },
+    {
+      "case_id": "video_summary",
+      "target_id": 6931578,
+      "exact_title": "AC-SUM-GAN: Connecting Actor-Critic and Generative Adversarial Networks for Unsupervised Video Summarization.",
+      "paraphrase": "unsupervised video summarization combining actor critic and generative adversarial networks",
+      "paraphrase_semantic_rank": 1,
+      "paraphrase_lexical_rank": 1,
+      "hybrid_rank": 1,
+      "exact_title_semantic_rank": 1,
+      "exact_title_lexical_rank": 1,
+      "candidates_all_valid_ids": true
+    },
+    {
+      "case_id": "smart_air_conditioner",
+      "target_id": 7484121,
+      "exact_title": "Development of CNN-based visual recognition air conditioner for smart buildings.",
+      "paraphrase": "air conditioning with convolutional neural network visual recognition in smart buildings",
+      "paraphrase_semantic_rank": 1,
+      "paraphrase_lexical_rank": 2,
+      "hybrid_rank": 1,
+      "exact_title_semantic_rank": 1,
+      "exact_title_lexical_rank": 1,
+      "candidates_all_valid_ids": true
+    },
+    {
+      "case_id": "qa_generation",
+      "target_id": 8045438,
+      "exact_title": "Variational Question-Answer Pair Generation for Machine Reading Comprehension.",
+      "paraphrase": "generating question and answer pairs for machine reading comprehension",
+      "paraphrase_semantic_rank": 1,
+      "paraphrase_lexical_rank": 4,
+      "hybrid_rank": 2,
+      "exact_title_semantic_rank": 1,
+      "exact_title_lexical_rank": 1,
+      "candidates_all_valid_ids": true
+    }
+  ],
+  "qualification": "12-item development probe set only; results are not held-out or user-reviewed answer accuracy."
+}

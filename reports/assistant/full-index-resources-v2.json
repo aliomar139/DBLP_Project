@@ -1,0 +1,66 @@
+{
+  "builder_peak_working_set_bytes": {
+    "8872": 847425536,
+    "16016": 4759552
+  },
+  "sidecar_bytes_at_end": 399849,
+  "monitor_seconds": 71.23878830000012,
+  "final_manifest": {
+    "format_version": 1,
+    "status": "interrupted",
+    "corpus_id": "dblp-title-v2-3b1b26662df6e875",
+    "corpus_sha256": "3b1b26662df6e8759ff0e5247fc073403c15b21815cc697d9dd66d279482e250",
+    "model": {
+      "repository": "sentence-transformers/all-MiniLM-L6-v2",
+      "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+      "sha256": {
+        "onnx/model_quint8_avx2.onnx": "b941bf19f1f1283680f449fa6a7336bb5600bdcd5f84d10ddc5cd72218a0fd21",
+        "tokenizer.json": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+        "tokenizer_config.json": "acb92769e8195aabd29b7b2137a9e6d6e25c476a4f15aa4355c233426c61576b",
+        "config.json": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+        "sentence_bert_config.json": "fc1993fde0a95c24ec6c022539d41cf6e2f7c9721e5415d6fb6897472a9cd4b7",
+        "1_Pooling/config.json": "4be450dde3b0273bb9787637cfbd28fe04a7ba6ab9d36ac48e92b11e350ffc23",
+        "README.md": "dcd602d2fd35c203a247304a06fec6654a12f7941b739f9221a064fe8dc3b7f0"
+      },
+      "purpose": "local offline embedding feasibility benchmark and versioned candidate-index construction"
+    },
+    "embedding_dimensions": 384,
+    "index": {
+      "type": "Faiss HNSW scalar-8 inner product",
+      "M": 32,
+      "ef_construction": 120
+    },
+    "fts": {
+      "engine": "SQLite FTS5",
+      "tokenizer": "unicode61"
+    },
+    "expected_eligible_titles": 8738331,
+    "empty_title_exclusions": 0,
+    "processed_titles": 2048,
+    "checkpoint_vectors": 0,
+    "checkpoint_id_digest": "",
+    "checkpoint_slot": null,
+    "timing_seconds": {
+      "embedding": 8.790329700000257,
+      "fts_inserts": 0.01836719999982961,
+      "faiss_add": 0.5442398000000139,
+      "index_training": 75.13405839999996,
+      "elapsed": 97.79420709999977
+    },
+    "started_at_utc": "2026-09-27T10:10:38.609980+00:00",
+    "last_resumed_at_utc": "2026-09-27T10:10:38.609980+00:00",
+    "index_training": {
+      "sample_count": 20000,
+      "seed": 42,
+      "strategy": "single-thread corpus-wide reservoir, sample sorted by publication ID",
+      "sample_id_sha256": "5598d9ea471f5be286587437795aee287ec9ccc4bb271d2141a7797486a420d5",
+      "seconds": 75.13405839999996
+    },
+    "index_training_sample_sha256": "5598d9ea471f5be286587437795aee287ec9ccc4bb271d2141a7797486a420d5",
+    "vector_count": 2048,
+    "current_id_digest": "ae48b896b2a4a9604e95d4c1a03d33c8f1f920a10c68650906527fb1b487aabd",
+    "error_category": "UnboundLocalError",
+    "peak_process_working_set_bytes": 847425536,
+    "resumable_from_checkpoint": true
+  }
+}

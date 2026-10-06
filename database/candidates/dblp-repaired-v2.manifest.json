@@ -1,0 +1,125 @@
+{
+  "version": 2,
+  "state": "candidate_review_only",
+  "created_at_utc": "2026-09-26T21:40:31.719526+00:00",
+  "source_database": "C:\\DBLP_Project\\database\\candidates\\dblp-titles-v1.duckdb",
+  "source_sha256": "576d2656db982989d22c3f8bbfdcf9cb5c068329aad87e60591f1770ac7fe0db",
+  "active_database": "C:\\DBLP_Project\\database\\dblp.duckdb",
+  "active_sha256": "8bda23faf854d4cee491b86e3eae6ccdf4e193f6d7f09ce2e0b0c5b0a50aa548",
+  "candidate_database": "C:\\DBLP_Project\\database\\candidates\\dblp-repaired-v2.duckdb",
+  "xml_sha256": "ffca48717fdb3704fd506c56d8d927cf16dcf859d89371ca588da3eb8e5dc4b6",
+  "dtd_sha256": "03ec35cb34a4227572a0e89da407b06b6e44a6cc23e19cabc3b49b702a5f897d",
+  "stages_seconds": {
+    "author_repair": 136.67986350000137,
+    "classification_rebuild": 74.68629040000087
+  },
+  "author_ids_merged": 0,
+  "active_database_modified": false,
+  "authors": {
+    "xml_records_inspected": 8738331,
+    "changed_raw_author_strings": 1185299,
+    "changed_author_names": 246481,
+    "ambiguous_author_ids_preserved": 0,
+    "collision_name_groups": 0,
+    "collision_author_ids": 0
+  },
+  "classification": {
+    "publication_topic_pairs": 1323430,
+    "classification_label": "title-based project classification",
+    "rules": {
+      "first_year": 1970,
+      "max_distinct_topics_per_publication": 2,
+      "topic_tie_break": "weight DESC, topic_id ASC",
+      "year_stats_range": [
+        1970,
+        2026
+      ],
+      "growth_historical": "year < 2016",
+      "growth_recent": [
+        2016,
+        2025
+      ],
+      "author_topic_min_publications": 2,
+      "venue_topic_min_publications": 5,
+      "counts": "distinct publication IDs"
+    }
+  },
+  "corpus": {
+    "publications": 8738331,
+    "eligible_titles": 8738331,
+    "empty_title_exclusions": 0
+  },
+  "author_examples": [
+    [
+      77,
+      "Rog&eacute;rio Schmidt Feris",
+      "Rogério Schmidt Feris"
+    ],
+    [
+      120,
+      "Angela Vit&oacute;ria Mota Vieira",
+      "Angela Vitória Mota Vieira"
+    ],
+    [
+      137,
+      "Andr&eacute; Richter",
+      "André Richter"
+    ],
+    [
+      139,
+      "Hannes H&uuml;bel",
+      "Hannes Hübel"
+    ],
+    [
+      164,
+      "J&uacute;lio C&eacute;sar Medeiros Diniz",
+      "Júlio César Medeiros Diniz"
+    ],
+    [
+      174,
+      "C&aacute;ndido Caballero-Gil",
+      "Cándido Caballero-Gil"
+    ],
+    [
+      191,
+      "Guillermo von H&uuml;nefeld",
+      "Guillermo von Hünefeld"
+    ],
+    [
+      242,
+      "Janina Bindsch&auml;del",
+      "Janina Bindschädel"
+    ],
+    [
+      245,
+      "Joan Sosa-Garc&iacute;a",
+      "Joan Sosa-García"
+    ],
+    [
+      271,
+      "Kathinka von M&ouml;ller",
+      "Kathinka von Möller"
+    ]
+  ],
+  "collision_examples": [],
+  "candidate_sha256": "3b1b26662df6e8759ff0e5247fc073403c15b21815cc697d9dd66d279482e250",
+  "candidate_bytes": 3395301376,
+  "seconds": 266.73959040000045,
+  "retained_excluded_snapshots": [
+    "publication_citations",
+    "author_impact_stats",
+    "institutions",
+    "author_institutions",
+    "institution_topics",
+    "institution_year_stats",
+    "institution_collaboration",
+    "field_statistics",
+    "topic_forecast_signals",
+    "paper_citation_lineage",
+    "external_ecosystem_metadata",
+    "paper_embeddings",
+    "author_embeddings",
+    "topic_embeddings"
+  ],
+  "activation_limit": "Excluded legacy snapshots are not refreshed factual evidence. Candidate has no activation authorization."
+}

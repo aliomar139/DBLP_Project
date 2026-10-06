@@ -1,0 +1,47 @@
+{
+  "milestone": "4",
+  "version": 1,
+  "status": "bounded_tools_and_initial_deterministic_routing_implemented",
+  "database": "active DBLP DuckDB; resolved dynamically from DBLP_DB_PATH or repository default",
+  "index_connected": false,
+  "supported_paths": [
+    "exact author and venue name resolution; no fuzzy substitution",
+    "corpus, author, and venue publication counts",
+    "inclusive year-filtered counts and author/venue comparisons",
+    "venue publication-count rankings with deterministic ID tie-break",
+    "publication trends with null years disclosed",
+    "coauthorship verified from shared publication rows",
+    "exact stored-title lookup",
+    "title-keyword project classification, explicitly labeled"
+  ],
+  "safety_bounds": {
+    "sql": "developer-owned fixed SELECT/CTE forms with bound values",
+    "database_mode": "read-only",
+    "query_timeout_seconds": 8,
+    "rows_per_query_max": 60,
+    "duckdb_memory_limit_per_connection": "4 GiB",
+    "concurrent_assistant_queries_max": 2,
+    "request_max_length": 1000,
+    "question_text_logged": false,
+    "llm_connected": false
+  },
+  "measured_observations": {
+    "active_database_publication_count": 8738331,
+    "title_classification_example": "Large Language Models",
+    "title_classification_elapsed_seconds_single_run": 6.41,
+    "qualification": "One local request observation; no representative mean or p95 latency claim."
+  },
+  "verification": {
+    "command": "python -m unittest backend.tests.test_trusted_boundary backend.tests.test_api backend.tests.test_final_intelligence backend.tests.test_strategic_intelligence",
+    "tests_passed": 71,
+    "tests_failed": 0
+  },
+  "limitations": [
+    "The full-title sidecar was built from the review candidate and remains disconnected.",
+    "Fuzzy and alternate-wording title discovery are not routed through the index.",
+    "Not every question in the version-one evaluation plan has a route yet.",
+    "Structured claim-to-evidence validation and local LLM explanation are not implemented.",
+    "No end-to-end p95 latency, cache rate, or release answer-accuracy measurement is available."
+  ],
+  "activation": "The active database and existing dashboard routes remain unchanged."
+}

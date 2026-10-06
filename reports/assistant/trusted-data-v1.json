@@ -1,0 +1,1085 @@
+{
+  "contract_version": "dblp-evidence-v1",
+  "audit_version": 1,
+  "observed_at_utc": "2026-09-26T20:50:13.863840+00:00",
+  "database_path": "C:\\DBLP_Project\\database\\dblp.duckdb",
+  "database_bytes": 2407542784,
+  "database_sha256": "8bda23faf854d4cee491b86e3eae6ccdf4e193f6d7f09ce2e0b0c5b0a50aa548",
+  "checks": {
+    "schema": [
+      {
+        "table_name": "author_collaboration",
+        "column_name": "author1_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_collaboration",
+        "column_name": "author2_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_collaboration",
+        "column_name": "weight",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_collaboration_dashboard",
+        "column_name": "author1_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_collaboration_dashboard",
+        "column_name": "author2_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_collaboration_dashboard",
+        "column_name": "weight",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_collaboration_dashboard_named",
+        "column_name": "author1",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "author_collaboration_dashboard_named",
+        "column_name": "author2",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "author_collaboration_dashboard_named",
+        "column_name": "weight",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_embeddings",
+        "column_name": "entity_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_embeddings",
+        "column_name": "embedding_vector",
+        "data_type": "FLOAT[]"
+      },
+      {
+        "table_name": "author_embeddings",
+        "column_name": "model_name",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "author_embeddings",
+        "column_name": "generated_date",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "author_embeddings",
+        "column_name": "dimensions",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "author_impact_stats",
+        "column_name": "author_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_impact_stats",
+        "column_name": "total_citations",
+        "data_type": "HUGEINT"
+      },
+      {
+        "table_name": "author_impact_stats",
+        "column_name": "avg_citations_per_paper",
+        "data_type": "DOUBLE"
+      },
+      {
+        "table_name": "author_impact_stats",
+        "column_name": "h_index",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_impact_stats",
+        "column_name": "citation_velocity",
+        "data_type": "DOUBLE"
+      },
+      {
+        "table_name": "author_impact_stats",
+        "column_name": "highly_cited_papers_count",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_institutions",
+        "column_name": "author_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_institutions",
+        "column_name": "institution_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_momentum",
+        "column_name": "author_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_momentum",
+        "column_name": "name",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "author_momentum",
+        "column_name": "momentum_rank",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_momentum",
+        "column_name": "momentum_score",
+        "data_type": "DOUBLE"
+      },
+      {
+        "table_name": "author_momentum",
+        "column_name": "damped_growth_rate",
+        "data_type": "DOUBLE"
+      },
+      {
+        "table_name": "author_momentum",
+        "column_name": "raw_growth_rate",
+        "data_type": "DOUBLE"
+      },
+      {
+        "table_name": "author_momentum",
+        "column_name": "recent_publications",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_momentum",
+        "column_name": "historical_publications",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_momentum",
+        "column_name": "recent_collaborators",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_momentum",
+        "column_name": "career_stage",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "author_momentum",
+        "column_name": "career_span",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "author_momentum",
+        "column_name": "primary_topic",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "author_momentum",
+        "column_name": "explanation",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "author_stats",
+        "column_name": "author_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_stats",
+        "column_name": "name",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "author_stats",
+        "column_name": "publication_count",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_topics",
+        "column_name": "author_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_topics",
+        "column_name": "topic_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_topics",
+        "column_name": "publication_count",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "author_topics",
+        "column_name": "share_percentage",
+        "data_type": "DOUBLE"
+      },
+      {
+        "table_name": "authors",
+        "column_name": "author_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "authors",
+        "column_name": "name",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "dashboard_summary",
+        "column_name": "total_publications",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "dashboard_summary",
+        "column_name": "total_authors",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "dashboard_summary",
+        "column_name": "total_venues",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "dashboard_summary",
+        "column_name": "first_year",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "dashboard_summary",
+        "column_name": "last_year",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "external_ecosystem_metadata",
+        "column_name": "entity_type",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "external_ecosystem_metadata",
+        "column_name": "entity_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "external_ecosystem_metadata",
+        "column_name": "source",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "external_ecosystem_metadata",
+        "column_name": "external_id",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "external_ecosystem_metadata",
+        "column_name": "external_url",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "external_ecosystem_metadata",
+        "column_name": "metric_key",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "external_ecosystem_metadata",
+        "column_name": "metric_value",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "external_ecosystem_metadata",
+        "column_name": "confidence",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "external_ecosystem_metadata",
+        "column_name": "last_updated",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "field_statistics",
+        "column_name": "field_id",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "field_statistics",
+        "column_name": "field_name",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "field_statistics",
+        "column_name": "publication_count",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "field_statistics",
+        "column_name": "author_count",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "field_statistics",
+        "column_name": "total_citations",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "field_statistics",
+        "column_name": "avg_citations_per_paper",
+        "data_type": "DOUBLE"
+      },
+      {
+        "table_name": "field_statistics",
+        "column_name": "avg_citations_per_author",
+        "data_type": "DOUBLE"
+      },
+      {
+        "table_name": "field_statistics",
+        "column_name": "avg_publications_per_author",
+        "data_type": "DOUBLE"
+      },
+      {
+        "table_name": "field_statistics",
+        "column_name": "avg_growth_rate",
+        "data_type": "DOUBLE"
+      },
+      {
+        "table_name": "field_statistics",
+        "column_name": "avg_authors_per_paper",
+        "data_type": "DOUBLE"
+      },
+      {
+        "table_name": "institution_collaboration",
+        "column_name": "institution1_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "institution_collaboration",
+        "column_name": "institution2_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "institution_collaboration",
+        "column_name": "weight",
+        "data_type": "HUGEINT"
+      },
+      {
+        "table_name": "institution_topics",
+        "column_name": "institution_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "institution_topics",
+        "column_name": "topic_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "institution_topics",
+        "column_name": "publication_count",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "institution_year_stats",
+        "column_name": "institution_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "institution_year_stats",
+        "column_name": "year",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "institution_year_stats",
+        "column_name": "publication_count",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "institutions",
+        "column_name": "institution_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "institutions",
+        "column_name": "name",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "institutions",
+        "column_name": "short_name",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "institutions",
+        "column_name": "country",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "institutions",
+        "column_name": "type",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "institutions",
+        "column_name": "publication_count",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "institutions",
+        "column_name": "citation_count",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "institutions",
+        "column_name": "h_index",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "paper_citation_lineage",
+        "column_name": "citing_paper_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "paper_citation_lineage",
+        "column_name": "cited_paper_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "paper_citation_lineage",
+        "column_name": "citation_year",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "paper_citation_lineage",
+        "column_name": "citation_strength",
+        "data_type": "FLOAT"
+      },
+      {
+        "table_name": "paper_citation_lineage",
+        "column_name": "influence_type",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "paper_embeddings",
+        "column_name": "entity_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "paper_embeddings",
+        "column_name": "embedding_vector",
+        "data_type": "FLOAT[]"
+      },
+      {
+        "table_name": "paper_embeddings",
+        "column_name": "model_name",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "paper_embeddings",
+        "column_name": "generated_date",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "paper_embeddings",
+        "column_name": "dimensions",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "publication_authors",
+        "column_name": "publication_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "publication_authors",
+        "column_name": "author_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "publication_citations",
+        "column_name": "publication_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "publication_citations",
+        "column_name": "citations",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "publication_citations",
+        "column_name": "influential_citations",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "publication_citations",
+        "column_name": "citation_velocity",
+        "data_type": "FLOAT"
+      },
+      {
+        "table_name": "publication_topics",
+        "column_name": "publication_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "publication_topics",
+        "column_name": "topic_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "publication_topics",
+        "column_name": "confidence_score",
+        "data_type": "FLOAT"
+      },
+      {
+        "table_name": "publication_year_stats",
+        "column_name": "year",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "publication_year_stats",
+        "column_name": "publication_count",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "publications",
+        "column_name": "publication_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "publications",
+        "column_name": "db_key",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "publications",
+        "column_name": "type",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "publications",
+        "column_name": "title",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "publications",
+        "column_name": "year",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "publications",
+        "column_name": "venue_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "raw_publications",
+        "column_name": "id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "raw_publications",
+        "column_name": "type",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "raw_publications",
+        "column_name": "db_key",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "raw_publications",
+        "column_name": "title",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "raw_publications",
+        "column_name": "year",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "raw_publications",
+        "column_name": "venue",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "raw_publications",
+        "column_name": "authors",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "research_fields",
+        "column_name": "field_id",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "research_fields",
+        "column_name": "name",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "research_fields",
+        "column_name": "slug",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "research_fields",
+        "column_name": "description",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "research_fields",
+        "column_name": "icon",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "top_authors",
+        "column_name": "author_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "topic_embeddings",
+        "column_name": "entity_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "topic_embeddings",
+        "column_name": "embedding_vector",
+        "data_type": "FLOAT[]"
+      },
+      {
+        "table_name": "topic_embeddings",
+        "column_name": "model_name",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "topic_embeddings",
+        "column_name": "generated_date",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "topic_embeddings",
+        "column_name": "dimensions",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "topic_forecast_signals",
+        "column_name": "topic_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "topic_forecast_signals",
+        "column_name": "topic_name",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "topic_forecast_signals",
+        "column_name": "category",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "topic_forecast_signals",
+        "column_name": "publication_growth",
+        "data_type": "FLOAT"
+      },
+      {
+        "table_name": "topic_forecast_signals",
+        "column_name": "growth_acceleration",
+        "data_type": "FLOAT"
+      },
+      {
+        "table_name": "topic_forecast_signals",
+        "column_name": "researcher_inflow",
+        "data_type": "FLOAT"
+      },
+      {
+        "table_name": "topic_forecast_signals",
+        "column_name": "new_researchers_count",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "topic_forecast_signals",
+        "column_name": "citation_momentum",
+        "data_type": "FLOAT"
+      },
+      {
+        "table_name": "topic_forecast_signals",
+        "column_name": "venue_adoption_level",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "topic_forecast_signals",
+        "column_name": "collaboration_expansion",
+        "data_type": "FLOAT"
+      },
+      {
+        "table_name": "topic_forecast_signals",
+        "column_name": "opportunity_score",
+        "data_type": "FLOAT"
+      },
+      {
+        "table_name": "topic_forecast_signals",
+        "column_name": "trend_status",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "topic_forecast_signals",
+        "column_name": "forecast_summary",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "topic_forecast_signals",
+        "column_name": "strategic_recommendation",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "topic_keywords",
+        "column_name": "topic_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "topic_keywords",
+        "column_name": "keyword",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "topic_keywords",
+        "column_name": "weight",
+        "data_type": "FLOAT"
+      },
+      {
+        "table_name": "topic_year_stats",
+        "column_name": "topic_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "topic_year_stats",
+        "column_name": "year",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "topic_year_stats",
+        "column_name": "publication_count",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "topics",
+        "column_name": "topic_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "topics",
+        "column_name": "topic_name",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "topics",
+        "column_name": "category",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "topics",
+        "column_name": "description",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "topics",
+        "column_name": "first_seen_year",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "topics",
+        "column_name": "latest_activity_year",
+        "data_type": "INTEGER"
+      },
+      {
+        "table_name": "topics",
+        "column_name": "publication_count",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "topics",
+        "column_name": "growth_rate",
+        "data_type": "FLOAT"
+      },
+      {
+        "table_name": "venue_stats",
+        "column_name": "name",
+        "data_type": "VARCHAR"
+      },
+      {
+        "table_name": "venue_stats",
+        "column_name": "publication_count",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "venue_topics",
+        "column_name": "venue_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "venue_topics",
+        "column_name": "topic_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "venue_topics",
+        "column_name": "publication_count",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "venue_topics",
+        "column_name": "share_percentage",
+        "data_type": "DOUBLE"
+      },
+      {
+        "table_name": "venues",
+        "column_name": "venue_id",
+        "data_type": "BIGINT"
+      },
+      {
+        "table_name": "venues",
+        "column_name": "name",
+        "data_type": "VARCHAR"
+      }
+    ],
+    "corpus": [
+      {
+        "publications": 8738331,
+        "empty_title_exclusions": 8194,
+        "eligible_titles": 8730137,
+        "missing_years": 3,
+        "min_year": 1936,
+        "max_year": 2027
+      }
+    ],
+    "core_sizes": [
+      {
+        "author_name_records": 4301538,
+        "venue_name_records": 21224,
+        "authorship_rows": 30051543
+      }
+    ],
+    "duplicate_publication_identifiers": [
+      {
+        "repeated_ids": 0,
+        "repeated_or_null_keys": 0
+      }
+    ],
+    "raw_normalized_mismatches": [
+      {
+        "mismatches": 0
+      }
+    ],
+    "orphan_authorship": [
+      {
+        "orphan_rows": 0
+      }
+    ],
+    "duplicate_authorship": [
+      {
+        "repeated_pairs": 303,
+        "extra_rows": 304
+      }
+    ],
+    "duplicate_classification": [
+      {
+        "repeated_pairs": 29414,
+        "extra_rows": 29414
+      }
+    ],
+    "legacy_embedding_pool": [
+      {
+        "model_name": "scibert-semantic-v1",
+        "dimensions": 64,
+        "vectors": 4965,
+        "min_dimensions": 64,
+        "max_dimensions": 64
+      }
+    ],
+    "year_stats_mismatches": [
+      {
+        "mismatches": 0
+      }
+    ],
+    "author_count_samples": [
+      {
+        "author_id": 1,
+        "name": "Yunhui Guo",
+        "distinct_publications": 107,
+        "authorship_rows": 107,
+        "legacy_count": 107
+      },
+      {
+        "author_id": 2,
+        "name": "Chia-Ping Chen",
+        "distinct_publications": 113,
+        "authorship_rows": 113,
+        "legacy_count": 113
+      },
+      {
+        "author_id": 3,
+        "name": "Tianwei Zhang 0004",
+        "distinct_publications": 490,
+        "authorship_rows": 490,
+        "legacy_count": 490
+      },
+      {
+        "author_id": 4,
+        "name": "Gerhard Neumann",
+        "distinct_publications": 326,
+        "authorship_rows": 326,
+        "legacy_count": 326
+      },
+      {
+        "author_id": 5,
+        "name": "Heng Huang 0001",
+        "distinct_publications": 794,
+        "authorship_rows": 794,
+        "legacy_count": 794
+      },
+      {
+        "author_id": 6,
+        "name": "Furu Wei",
+        "distinct_publications": 672,
+        "authorship_rows": 672,
+        "legacy_count": 672
+      },
+      {
+        "author_id": 7,
+        "name": "Patrick Gallinari",
+        "distinct_publications": 435,
+        "authorship_rows": 435,
+        "legacy_count": 435
+      },
+      {
+        "author_id": 8,
+        "name": "Dennis Wei",
+        "distinct_publications": 140,
+        "authorship_rows": 140,
+        "legacy_count": 140
+      }
+    ],
+    "xml_raw_sample": [
+      {
+        "checked_records": 10000,
+        "mismatches": 0
+      }
+    ]
+  },
+  "timings_seconds": {
+    "schema": 0.011691,
+    "corpus": 1.455697,
+    "core_sizes": 0.002003,
+    "duplicate_publication_identifiers": 0.656197,
+    "raw_normalized_mismatches": 1.694792,
+    "orphan_authorship": 1.328241,
+    "duplicate_authorship": 0.861012,
+    "duplicate_classification": 0.037511,
+    "legacy_embedding_pool": 0.001969,
+    "year_stats_mismatches": 0.018504,
+    "author_count_samples": 0.374364,
+    "xml_raw_sample": 0.017595
+  },
+  "table_policy": {
+    "author_collaboration": "excluded",
+    "author_collaboration_dashboard": "excluded",
+    "author_collaboration_dashboard_named": "excluded",
+    "author_embeddings": "excluded",
+    "author_impact_stats": "excluded",
+    "author_institutions": "excluded",
+    "author_momentum": "excluded",
+    "author_stats": "excluded",
+    "author_topics": "excluded",
+    "authors": "core_fields_only",
+    "dashboard_summary": "excluded",
+    "external_ecosystem_metadata": "excluded",
+    "field_statistics": "excluded",
+    "institution_collaboration": "excluded",
+    "institution_topics": "excluded",
+    "institution_year_stats": "excluded",
+    "institutions": "excluded",
+    "paper_citation_lineage": "excluded",
+    "paper_embeddings": "excluded",
+    "publication_authors": "core_fields_only",
+    "publication_citations": "excluded",
+    "publication_topics": "excluded",
+    "publication_year_stats": "excluded",
+    "publications": "core_fields_only",
+    "raw_publications": "excluded",
+    "research_fields": "excluded",
+    "top_authors": "excluded",
+    "topic_embeddings": "excluded",
+    "topic_forecast_signals": "excluded",
+    "topic_keywords": "labeled_classification_fields_only",
+    "topic_year_stats": "excluded",
+    "topics": "labeled_classification_fields_only",
+    "venue_stats": "excluded",
+    "venue_topics": "excluded",
+    "venues": "core_fields_only"
+  },
+  "xml_sample": {
+    "strategy": "first N supported XML records; not a random sample",
+    "records": 10000,
+    "title_child_loss_examples": [
+      {
+        "publication_id": 2,
+        "db_key": "ms/Ley2006",
+        "stored_title": "Der Einfluss kleiner naturnaher Retentionsma",
+        "xml_title": "<title>Der Einfluss kleiner naturnaher Retentionsma&szlig;nahmen in der Fl&auml;che auf den Hochwasserabfluss - Kleinr&uuml;ckhaltebecken -.</title>"
+      },
+      {
+        "publication_id": 354,
+        "db_key": "series/class/ChouakriaN06",
+        "stored_title": "Improved Fr",
+        "xml_title": "<title>Improved Fr&eacute;chet Distance for Time Series.</title>"
+      },
+      {
+        "publication_id": 460,
+        "db_key": "series/class/Meyer-Waarden05",
+        "stored_title": "Loyalty Programs and Their Impact on Repeat Purchase Behaviour: An Extension on the \"Single Source\" Panel",
+        "xml_title": "<title>Loyalty Programs and Their Impact on Repeat Purchase Behaviour: An Extension on the \"Single Source\" Panel <i>BehaviorScan</i>.</title>"
+      },
+      {
+        "publication_id": 509,
+        "db_key": "series/class/GardnerR06",
+        "stored_title": "Sub-species of",
+        "xml_title": "<title>Sub-species of <i>Homopus Areolatus?</i> Biplots and Small Class Inference with Analysis of Distance.</title>"
+      },
+      {
+        "publication_id": 650,
+        "db_key": "series/hhl/Novaes08",
+        "stored_title": "Logic in the 14",
+        "xml_title": "<title>Logic in the 14<sup>th</sup> century after Ockham.</title>"
+      },
+      {
+        "publication_id": 658,
+        "db_key": "series/hhl/AttenK09",
+        "stored_title": "G",
+        "xml_title": "<title>G&ouml;del's Logic.</title>"
+      },
+      {
+        "publication_id": 668,
+        "db_key": "series/hhl/Peckhaus04",
+        "stored_title": "Schr",
+        "xml_title": "<title>Schr&ouml;der's logic.</title>"
+      },
+      {
+        "publication_id": 679,
+        "db_key": "series/hhl/Parsons08",
+        "stored_title": "The development of supposition theory in the later 12",
+        "xml_title": "<title>The development of supposition theory in the later 12<sup>th</sup> through 14<sup>th</sup> centuries.</title>"
+      },
+      {
+        "publication_id": 709,
+        "db_key": "series/hhl/Lecq08",
+        "stored_title": "Logic and theories of meaning in the late 13",
+        "xml_title": "<title>Logic and theories of meaning in the late 13<sup>th</sup> and early 14<sup>th</sup> century including the modistae.</title>"
+      },
+      {
+        "publication_id": 725,
+        "db_key": "series/hhl/Steprans12",
+        "stored_title": "History of the Continuum in the 20",
+        "xml_title": "<title>History of the Continuum in the 20<sup>th</sup> Century.</title>"
+      }
+    ],
+    "limitation": "Confirms parser reproducibility, not complete source fidelity. Author XML entities can also be unresolved."
+  },
+  "database_unchanged": true,
+  "total_seconds": 9.98803
+}

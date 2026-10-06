@@ -1,0 +1,8 @@
+{
+  "process_peak_working_set_bytes": {
+    "15728": 8959987712,
+    "23196": 4841472
+  },
+  "monitor_seconds": 319.49552830000175,
+  "qualification": "Windows process lifetime peak observed during candidate build; separate process maxima, not a summed system peak"
+}

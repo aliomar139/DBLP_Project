@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "status": "partial_corpus_keyword_scaling_experiment",
+  "results": [
+    {
+      "records": 100012,
+      "build_seconds": 1.6086478999932297,
+      "bytes": 21434368,
+      "policies": {
+        "all_terms_or": {
+          "mean_ms": 36.69296666582037,
+          "p95_ms": 60.940665000089204,
+          "development_target_hit_at_10": 0.8333333333333334,
+          "query_count": 12
+        },
+        "four_rarest_terms_or": {
+          "mean_ms": 1.7596166690054815,
+          "p95_ms": 2.734160003456054,
+          "development_target_hit_at_10": 0.75,
+          "query_count": 12
+        }
+      }
+    },
+    {
+      "records": 1000010,
+      "build_seconds": 20.28615010000067,
+      "bytes": 163811328,
+      "policies": {
+        "all_terms_or": {
+          "mean_ms": 434.5391083334107,
+          "p95_ms": 737.8637750036432,
+          "development_target_hit_at_10": 0.8333333333333334,
+          "query_count": 12
+        },
+        "four_rarest_terms_or": {
+          "mean_ms": 13.10150000063004,
+          "p95_ms": 20.808134994877037,
+          "development_target_hit_at_10": 0.6666666666666666,
+          "query_count": 12
+        }
+      }
+    }
+  ],
+  "qualification": "Only 12 development paraphrases; timings include rare-term selection. Full-corpus latency and recall remain unmeasured."
+}

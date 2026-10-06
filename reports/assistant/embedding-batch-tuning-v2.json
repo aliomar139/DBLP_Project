@@ -1,0 +1,222 @@
+{
+  "version": 1,
+  "status": "completed",
+  "candidate_sha256": "3b1b26662df6e8759ff0e5247fc073403c15b21815cc697d9dd66d279482e250",
+  "model_manifest_sha256": "17f8fbd3a0474129576a6da07471f455a9a95861800beac0507876e7201fcc82",
+  "sample_seed": 20260927,
+  "sample_size": 12000,
+  "sample_publication_id_sha256": "71da8d5e041147808b52a2cd71f0a0a29c66558ea3bc938958c95bd61db79c8e",
+  "configuration_results": [
+    {
+      "threads": 6,
+      "batch_size": 64,
+      "titles": 12000,
+      "seconds": 23.61879919999774,
+      "titles_per_second": 508.0698598767523,
+      "batch_latency_ms": {
+        "mean": 125.62932287241989,
+        "p95": 205.71498499921296,
+        "max": 1027.671100000589
+      },
+      "truncated_titles": 0
+    },
+    {
+      "threads": 6,
+      "batch_size": 128,
+      "titles": 12000,
+      "seconds": 35.98041160000139,
+      "titles_per_second": 333.51480615078725,
+      "batch_latency_ms": {
+        "mean": 382.76707127659665,
+        "p95": 826.5660749986633,
+        "max": 2231.5320000016072
+      },
+      "truncated_titles": 0
+    },
+    {
+      "threads": 6,
+      "batch_size": 256,
+      "titles": 12000,
+      "seconds": 47.3331700000017,
+      "titles_per_second": 253.52200158999636,
+      "batch_latency_ms": {
+        "mean": 1007.0855404254813,
+        "p95": 1907.572720001553,
+        "max": 4420.812399999704
+      },
+      "truncated_titles": 0
+    },
+    {
+      "threads": 6,
+      "batch_size": 512,
+      "titles": 12000,
+      "seconds": 59.092679400000634,
+      "titles_per_second": 203.07083926202662,
+      "batch_latency_ms": {
+        "mean": 2462.192083333472,
+        "p95": 6123.640789999985,
+        "max": 8792.909600000712
+      },
+      "truncated_titles": 0
+    },
+    {
+      "threads": 8,
+      "batch_size": 64,
+      "titles": 12000,
+      "seconds": 27.733704299997044,
+      "titles_per_second": 432.686519990093,
+      "batch_latency_ms": {
+        "mean": 147.5167601064002,
+        "p95": 237.73039999960025,
+        "max": 1064.6516999986488
+      },
+      "truncated_titles": 0
+    },
+    {
+      "threads": 8,
+      "batch_size": 128,
+      "titles": 12000,
+      "seconds": 40.16084499999852,
+      "titles_per_second": 298.7984939062025,
+      "batch_latency_ms": {
+        "mean": 427.2382882978065,
+        "p95": 862.721660001079,
+        "max": 2254.8605000010866
+      },
+      "truncated_titles": 0
+    },
+    {
+      "threads": 8,
+      "batch_size": 256,
+      "titles": 12000,
+      "seconds": 50.92327319999822,
+      "titles_per_second": 235.64863854824674,
+      "batch_latency_ms": {
+        "mean": 1083.4701531916544,
+        "p95": 1977.995949998512,
+        "max": 4439.650100001018
+      },
+      "truncated_titles": 0
+    },
+    {
+      "threads": 8,
+      "batch_size": 512,
+      "titles": 12000,
+      "seconds": 62.46628630000123,
+      "titles_per_second": 192.1036243833782,
+      "batch_latency_ms": {
+        "mean": 2602.7573583332924,
+        "p95": 6308.048895001223,
+        "max": 9517.585500001587
+      },
+      "truncated_titles": 0
+    },
+    {
+      "threads": 10,
+      "batch_size": 64,
+      "titles": 12000,
+      "seconds": 29.067733699997916,
+      "titles_per_second": 412.8288818058375,
+      "batch_latency_ms": {
+        "mean": 154.61210904245394,
+        "p95": 250.8391249992201,
+        "max": 1063.2546999986516
+      },
+      "truncated_titles": 0
+    },
+    {
+      "threads": 10,
+      "batch_size": 128,
+      "titles": 12000,
+      "seconds": 38.439729399997304,
+      "titles_per_second": 312.1770154813015,
+      "batch_latency_ms": {
+        "mean": 408.9295297872013,
+        "p95": 822.6399749990373,
+        "max": 2293.3083000025363
+      },
+      "truncated_titles": 0
+    },
+    {
+      "threads": 10,
+      "batch_size": 256,
+      "titles": 12000,
+      "seconds": 53.202141999998275,
+      "titles_per_second": 225.55482822478066,
+      "batch_latency_ms": {
+        "mean": 1131.9557063832187,
+        "p95": 2581.890259998545,
+        "max": 4332.672000000457
+      },
+      "truncated_titles": 0
+    },
+    {
+      "threads": 10,
+      "batch_size": 512,
+      "titles": 12000,
+      "seconds": 82.81495379999978,
+      "titles_per_second": 144.90136683503204,
+      "batch_latency_ms": {
+        "mean": 3450.617691666745,
+        "p95": 8124.186560000628,
+        "max": 11567.542000000685
+      },
+      "truncated_titles": 0
+    },
+    {
+      "threads": 12,
+      "batch_size": 64,
+      "titles": 12000,
+      "seconds": 44.245494200000394,
+      "titles_per_second": 271.2140573174995,
+      "batch_latency_ms": {
+        "mean": 235.34516702157487,
+        "p95": 458.741390000796,
+        "max": 1535.9229000023333
+      },
+      "truncated_titles": 0
+    },
+    {
+      "threads": 12,
+      "batch_size": 128,
+      "titles": 12000,
+      "seconds": 57.6416524999986,
+      "titles_per_second": 208.18278934664983,
+      "batch_latency_ms": {
+        "mean": 613.2046659574197,
+        "p95": 1191.8530300003094,
+        "max": 2809.0554000009433
+      },
+      "truncated_titles": 0
+    },
+    {
+      "threads": 12,
+      "batch_size": 256,
+      "titles": 12000,
+      "seconds": 53.53854490000231,
+      "titles_per_second": 224.13758204324083,
+      "batch_latency_ms": {
+        "mean": 1139.114395744787,
+        "p95": 2365.00998999945,
+        "max": 4464.62309999697
+      },
+      "truncated_titles": 0
+    },
+    {
+      "threads": 12,
+      "batch_size": 512,
+      "titles": 12000,
+      "seconds": 85.07870650000041,
+      "titles_per_second": 141.04586792230958,
+      "batch_latency_ms": {
+        "mean": 3544.9413624999884,
+        "p95": 7422.072410000509,
+        "max": 12515.775099996972
+      },
+      "truncated_titles": 0
+    }
+  ],
+  "process_peak_working_set_bytes": 3416883200,
+  "total_seconds": 797.7760132000003,
+  "qualification": "CPU embedding-only tuning; no Faiss insertion, FTS writes, or corpus scan time. Compare with the active build profile before changing all settings."
+}

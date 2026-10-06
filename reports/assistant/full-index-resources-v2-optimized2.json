@@ -1,0 +1,16 @@
+{
+  "started_at_utc": "2026-09-27T16:33:26.397059+00:00",
+  "ended_at_utc": "2026-09-28T02:44:03.282314+00:00",
+  "target_pid": 21292,
+  "target_exit_code": null,
+  "samples": 1221,
+  "sample_interval_seconds": 30,
+  "builder_peak_working_set_bytes": 8507879424,
+  "sidecar_peak_bytes_sampled": 12406292480,
+  "sidecar_final_bytes": 12348265211,
+  "drive_free_bytes_at_monitor_start": 731649794048,
+  "drive_free_bytes_min_sampled": 718792499200,
+  "drive_free_change_bytes_sampled": 12857294848,
+  "final_manifest_status": "building",
+  "qualification": "Disk free-space change is system-wide; sampled sidecar bytes include artifacts in its directory but exclude temporary files outside it."
+}

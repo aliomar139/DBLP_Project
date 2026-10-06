@@ -1,0 +1,11 @@
+{
+  "process_peak_working_set_bytes": {
+    "11492": 4763648,
+    "12888": 8824057856
+  },
+  "monitor_seconds": 254.27337839998654,
+  "sampled_candidate_directory_peak_bytes": 6638830535,
+  "existing_v1_bytes": 3243525573,
+  "sample_interval_seconds": 1,
+  "qualification": "Process lifetime memory peaks; candidate-directory disk sampled every second, includes prior v1 candidate and build temporary files."
+}

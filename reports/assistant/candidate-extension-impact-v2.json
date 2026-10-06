@@ -1,0 +1,18 @@
+{
+  "author_stats_count_changes": 241,
+  "old_distinct_topic_pairs": 1312937,
+  "new_distinct_topic_pairs": 1323430,
+  "added_topic_pairs": 10758,
+  "removed_topic_pairs": 265,
+  "missing_primary_classification": 164325,
+  "api_statuses": {
+    "/api/authors/search?q=Rog%C3%A9rio%20Schmidt%20Feris": 200,
+    "/api/authors/77": 200,
+    "/api/topics": 200,
+    "/api/topics/1": 200,
+    "/api/venues/1": 200,
+    "/api/publications/2": 200,
+    "/api/authors/momentum?limit=100": 200
+  },
+  "decoded_name_resolves_same_id": true
+}

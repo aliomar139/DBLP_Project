@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "status": "completed",
+  "candidate_sha256": "3b1b26662df6e8759ff0e5247fc073403c15b21815cc697d9dd66d279482e250",
+  "checkpoint_sha256": "1dac50094d0b3ffe5f67c67b0ab0357837e21d9d78a99ed69f2420246d6fb44f",
+  "checkpoint_vectors": 501760,
+  "sample_size": 8192,
+  "sample_seed": 20260928,
+  "configuration_results": [
+    {
+      "threads": 1,
+      "faiss_add_chunk": 64,
+      "titles": 8192,
+      "seconds": 9.228472599999805,
+      "titles_per_second": 887.6875248023355,
+      "checkpoint_vectors_before": 501760,
+      "result_vectors_after": 509952
+    },
+    {
+      "threads": 1,
+      "faiss_add_chunk": 256,
+      "titles": 8192,
+      "seconds": 5.56225540000014,
+      "titles_per_second": 1472.78386389805,
+      "checkpoint_vectors_before": 501760,
+      "result_vectors_after": 509952
+    },
+    {
+      "threads": 2,
+      "faiss_add_chunk": 64,
+      "titles": 8192,
+      "seconds": 8.340067000001,
+      "titles_per_second": 982.2463056950284,
+      "checkpoint_vectors_before": 501760,
+      "result_vectors_after": 509952
+    },
+    {
+      "threads": 2,
+      "faiss_add_chunk": 256,
+      "titles": 8192,
+      "seconds": 3.7540111999987857,
+      "titles_per_second": 2182.1991367534147,
+      "checkpoint_vectors_before": 501760,
+      "result_vectors_after": 509952
+    },
+    {
+      "threads": 4,
+      "faiss_add_chunk": 64,
+      "titles": 8192,
+      "seconds": 10.028132899999036,
+      "titles_per_second": 816.9018182837193,
+      "checkpoint_vectors_before": 501760,
+      "result_vectors_after": 509952
+    },
+    {
+      "threads": 4,
+      "faiss_add_chunk": 256,
+      "titles": 8192,
+      "seconds": 3.3497805999977572,
+      "titles_per_second": 2445.5332985107993,
+      "checkpoint_vectors_before": 501760,
+      "result_vectors_after": 509952
+    },
+    {
+      "threads": 6,
+      "faiss_add_chunk": 64,
+      "titles": 8192,
+      "seconds": 12.806271900000866,
+      "titles_per_second": 639.6865585838019,
+      "checkpoint_vectors_before": 501760,
+      "result_vectors_after": 509952
+    },
+    {
+      "threads": 6,
+      "faiss_add_chunk": 256,
+      "titles": 8192,
+      "seconds": 3.3833895999996457,
+      "titles_per_second": 2421.2405216357165,
+      "checkpoint_vectors_before": 501760,
+      "result_vectors_after": 509952
+    },
+    {
+      "threads": 8,
+      "faiss_add_chunk": 64,
+      "titles": 8192,
+      "seconds": 13.67637409999952,
+      "titles_per_second": 598.9891721373933,
+      "checkpoint_vectors_before": 501760,
+      "result_vectors_after": 509952
+    },
+    {
+      "threads": 8,
+      "faiss_add_chunk": 256,
+      "titles": 8192,
+      "seconds": 3.5861786999994365,
+      "titles_per_second": 2284.3256528184966,
+      "checkpoint_vectors_before": 501760,
+      "result_vectors_after": 509952
+    },
+    {
+      "threads": 10,
+      "faiss_add_chunk": 64,
+      "titles": 8192,
+      "seconds": 13.550563699998747,
+      "titles_per_second": 604.5504955635726,
+      "checkpoint_vectors_before": 501760,
+      "result_vectors_after": 509952
+    },
+    {
+      "threads": 10,
+      "faiss_add_chunk": 256,
+      "titles": 8192,
+      "seconds": 3.720698100001755,
+      "titles_per_second": 2201.737356760049,
+      "checkpoint_vectors_before": 501760,
+      "result_vectors_after": 509952
+    },
+    {
+      "threads": 12,
+      "faiss_add_chunk": 64,
+      "titles": 8192,
+      "seconds": 14.67408019999857,
+      "titles_per_second": 558.2632702253322,
+      "checkpoint_vectors_before": 501760,
+      "result_vectors_after": 509952
+    },
+    {
+      "threads": 12,
+      "faiss_add_chunk": 256,
+      "titles": 8192,
+      "seconds": 3.8364731000001484,
+      "titles_per_second": 2135.2945235038096,
+      "checkpoint_vectors_before": 501760,
+      "result_vectors_after": 509952
+    }
+  ],
+  "process_peak_working_set_bytes": 670699520,
+  "total_seconds": 115.1350581000006,
+  "qualification": "Faiss-only insertion benchmark using the actual scalar-8 checkpoint at 501,760 vectors. It excludes embedding and may not predict graph insertion cost at full corpus size."
+}

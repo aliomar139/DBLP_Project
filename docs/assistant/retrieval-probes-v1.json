@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "purpose": "Small title-only development probe set; not a held-out or user-reviewed relevance benchmark",
+  "boundary": "Expected IDs were read from the active DBLP database. Paraphrases describe titles only, not methods or findings.",
+  "probes": [
+    {"id": "robot_failure_explanations", "publication_id": 114143, "query": "inconsistent multimodal explanations for robot failures"},
+    {"id": "lisp_http", "publication_id": 671157, "query": "high speed web server written in Common Lisp"},
+    {"id": "companion_robot_acceptance", "publication_id": 947105, "query": "reasons people accept or refuse companion robots"},
+    {"id": "hadoop_replicas", "publication_id": 1797202, "query": "improving replica management in Hadoop distributed storage"},
+    {"id": "iot_interaction", "publication_id": 3219453, "query": "interacting with internet of things objects across time and space"},
+    {"id": "cold_start_credit", "publication_id": 3783907, "query": "predicting credit risk for new users with temporal graph networks"},
+    {"id": "children_wearables", "publication_id": 5218726, "query": "security and privacy concerns in wearable devices for children"},
+    {"id": "uav_circle", "publication_id": 6098205, "query": "fixed wing drones flying in a circular formation around a target in 3D"},
+    {"id": "medical_contours", "publication_id": 6371789, "query": "extracting medical objects using active contours and competing regions"},
+    {"id": "video_summary", "publication_id": 6931578, "query": "unsupervised video summarization combining actor critic and generative adversarial networks"},
+    {"id": "smart_air_conditioner", "publication_id": 7484121, "query": "air conditioning with convolutional neural network visual recognition in smart buildings"},
+    {"id": "qa_generation", "publication_id": 8045438, "query": "generating question and answer pairs for machine reading comprehension"}
+  ]
+}

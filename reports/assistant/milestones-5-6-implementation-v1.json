@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "milestones": {
+    "5": {
+      "status": "partial_controlled_answer_validation_local_model_not_selected",
+      "production_explanation": "developer-controlled wording only; no LLM output reaches users",
+      "validation": [
+        "structured claims correspond to rendered answer lines",
+        "claim source and calculation references must resolve",
+        "numeric tokens must be supported by referenced evidence",
+        "internal source links must match verified entity-kind routes"
+      ],
+      "limitation": "This does not establish semantic entailment for arbitrary model text.",
+      "local_model_benchmark_report": "reports/assistant/local-explanation-benchmark-v1.json",
+      "model_selection": "failed; one of four probes emitted an unsupported gendered pronoun; candidate not connected"
+    },
+    "6": {
+      "status": "assistant_ui_cache_and_timing_diagnostics_implemented",
+      "ui_route": "/assistant",
+      "cache": {
+        "scope": "process-local bounded LRU",
+        "key": "SHA-256(normalized question + active DuckDB size and nanosecond modification time)",
+        "ttl_seconds": 60,
+        "max_entries": 128,
+        "unavailable_responses_cached": false,
+        "fresh_request_id_on_hit": true
+      },
+      "diagnostics": "request ID, total elapsed milliseconds, SQL-stage elapsed milliseconds, cache hit, status, and error category; question text is not logged",
+      "sql_timeout_seconds": 9.5,
+      "ui_states": ["loading", "answered", "ambiguous", "not_found", "insufficient_evidence", "outside_scope", "unavailable", "request_error"],
+      "measurements_not_yet_run": ["ready-service mean and p95 latency", "cache hit rate", "operational error rate", "full reviewed-set correctness", "ready-service memory under load"],
+      "timeout_tuning_note": "The initial 8-second SQL deadline interrupted author ranking and title classification during the full suite; fixed SQL was optimized and the bounded deadline was set to 9.5 seconds. Both expensive-route checks and the full suite then passed. This is not a ready-service latency target result."
+    }
+  },
+  "verification": {
+    "backend_command": "python -m unittest backend.tests.test_trusted_boundary backend.tests.test_api backend.tests.test_final_intelligence backend.tests.test_strategic_intelligence",
+    "backend_tests_passed": 76,
+    "backend_tests_failed": 0,
+    "frontend_command": "npm run build",
+    "frontend_typescript_and_vite_build": "passed"
+  },
+  "active_database_changed": false,
+  "review_candidate_index_connected": false,
+  "assistant_model_connected": false
+}

@@ -1,0 +1,120 @@
+{
+  "version": 2,
+  "candidate_sha256": "3b1b26662df6e8759ff0e5247fc073403c15b21815cc697d9dd66d279482e250",
+  "checks": {
+    "publication_changes": {
+      "unexpected_rows": 0,
+      "seconds": 1.582033099999535
+    },
+    "unexpected_author_changes": {
+      "unexpected_rows": 0,
+      "seconds": 0.9273321000073338
+    },
+    "authorship_changes": {
+      "unexpected_rows": 0,
+      "seconds": 2.491929399999208
+    },
+    "venue_changes": {
+      "unexpected_rows": 0,
+      "seconds": 0.196754200005671
+    },
+    "unexpected_raw_changes": {
+      "unexpected_rows": 0,
+      "seconds": 2.898856599989813
+    },
+    "author_count_or_name_errors": {
+      "unexpected_rows": 0,
+      "seconds": 6.796246900004917
+    },
+    "duplicate_classification_pairs": {
+      "unexpected_rows": 0,
+      "seconds": 0.11344260000623763
+    },
+    "invalid_classification_evidence": {
+      "unexpected_rows": 0,
+      "seconds": 1.3942419000086375
+    },
+    "topic_summary_count_errors": {
+      "unexpected_rows": 0,
+      "seconds": 0.07421259999682661
+    },
+    "topic_year_count_errors": {
+      "unexpected_rows": 0,
+      "seconds": 0.1817350999917835
+    },
+    "author_topic_count_errors": {
+      "unexpected_rows": 0,
+      "seconds": 0.5171542999887606
+    },
+    "venue_topic_count_errors": {
+      "unexpected_rows": 0,
+      "seconds": 0.23045849999471102
+    },
+    "unchanged_excluded_publication_citations": {
+      "unexpected_rows": 0,
+      "seconds": 0.4612256999971578
+    },
+    "unchanged_excluded_author_impact_stats": {
+      "unexpected_rows": 0,
+      "seconds": 0.5786846999981208
+    },
+    "unchanged_excluded_institutions": {
+      "unexpected_rows": 0,
+      "seconds": 0.002432499997667037
+    },
+    "unchanged_excluded_author_institutions": {
+      "unexpected_rows": 0,
+      "seconds": 0.048751599999377504
+    },
+    "unchanged_excluded_institution_topics": {
+      "unexpected_rows": 0,
+      "seconds": 0.0012901000009151176
+    },
+    "unchanged_excluded_institution_year_stats": {
+      "unexpected_rows": 0,
+      "seconds": 0.0014241000026231632
+    },
+    "unchanged_excluded_institution_collaboration": {
+      "unexpected_rows": 0,
+      "seconds": 0.002162399992812425
+    },
+    "unchanged_excluded_field_statistics": {
+      "unexpected_rows": 0,
+      "seconds": 0.0024953000101959333
+    },
+    "unchanged_excluded_topic_forecast_signals": {
+      "unexpected_rows": 0,
+      "seconds": 0.0026412000006530434
+    },
+    "unchanged_excluded_paper_citation_lineage": {
+      "unexpected_rows": 0,
+      "seconds": 0.0014484999992419034
+    },
+    "unchanged_excluded_external_ecosystem_metadata": {
+      "unexpected_rows": 0,
+      "seconds": 0.002515899992431514
+    },
+    "unchanged_excluded_paper_embeddings": {
+      "unexpected_rows": 0,
+      "seconds": 0.007197799990535714
+    },
+    "unchanged_excluded_author_embeddings": {
+      "unexpected_rows": 0,
+      "seconds": 0.004250600002706051
+    },
+    "unchanged_excluded_topic_embeddings": {
+      "unexpected_rows": 0,
+      "seconds": 0.0015066999912960455
+    },
+    "independent_python_classification": {
+      "unexpected_rows": 0,
+      "sample_rows": 11000
+    },
+    "full_resolved_xml_titles_and_authors": {
+      "unexpected_rows": 0,
+      "records": 8738331
+    }
+  },
+  "passed": true,
+  "seconds": 251.98225840000669
+}

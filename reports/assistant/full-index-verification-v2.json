@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "database_sha256": "3b1b26662df6e8759ff0e5247fc073403c15b21815cc697d9dd66d279482e250",
+  "eligible_titles": 8738331,
+  "empty_title_exclusions": 0,
+  "faiss_vectors": 8738331,
+  "vector_id_rows": 8738331,
+  "fts_title_rows": 8738331,
+  "source_ids_exact_order": true,
+  "fts_titles_exact": true,
+  "id_sha256": "9cda8143481bea6cbe0415b5fa853cae9e679eaeba2e76f34df62d3db18d1f42",
+  "verification_seconds": 29.777,
+  "verification_method": "Independent DuckDB-to-SQLite scan in publication-ID order; direct title-string equality; Faiss and count checks."
+}

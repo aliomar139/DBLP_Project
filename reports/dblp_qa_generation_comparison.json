@@ -1,0 +1,62 @@
+[
+  {
+    "id": "qa1",
+    "question": "What are the two main overhead factors that influence the speedup of Time Warp simulation systems?",
+    "ground_truth": "The two main overhead factors are:1. Load balancing among simulators.2. Minimizing communication and rollbacks.",
+    "no_context_answer": "The two main overhead factors that influence the speedup of Time Warp simulation systems are communication overhead and synchronization overhead.",
+    "no_context_rouge_l": 0.4444444444444445,
+    "abstract_answer": "The two main overhead factors that influence the speedup of Time Warp simulation systems are the load balance on the simulators and the minimization of communication and rollbacks.",
+    "abstract_rouge_l": 0.5,
+    "improvement": 0.055555555555555525
+  },
+  {
+    "id": "qa2",
+    "question": "Why is differential diagnosis (DDx) a challenging task for physicians?",
+    "ground_truth": "DDx is challenging due to the existence of numerous diseases with complex symptoms, making accurate diagnosis difficult.",
+    "no_context_answer": "Differential diagnosis is challenging for physicians because it involves systematically considering and eliminating possible diagnoses based on patient symptoms, medical history, and other clinical information, while also accounting for the potential for rare or atypical conditions. This process requires strong analytical skills, experience, and the ability to interpret complex data accurately.",
+    "no_context_rouge_l": 0.11764705882352941,
+    "abstract_answer": "Differential diagnosis (DDx) is challenging for physicians due to the existence of numerous diseases and their complex symptoms, which can lead to difficulties in accurately identifying the correct diagnosis.",
+    "abstract_rouge_l": 0.5652173913043479,
+    "improvement": 0.44757033248081846
+  },
+  {
+    "id": "qa3",
+    "question": "What is CtRL-Sim?",
+    "ground_truth": "CtRL-Sim is a method that leverages return-conditioned offline reinforcement learning to efficiently generate reactive and controllable traffic agents.",
+    "no_context_answer": "CtRL-Sim is a software tool used for simulating and analyzing complex systems, particularly in the fields of control theory and systems engineering. It allows users to model, simulate, and optimize the behavior of dynamic systems, making it a valuable resource for researchers and engineers.",
+    "no_context_rouge_l": 0.18461538461538463,
+    "abstract_answer": "CtRL-Sim is a method that uses return-conditioned offline reinforcement learning to generate reactive and controllable traffic agents from real-world driving data processed through a physics-enhanced simulator. It allows for fine-grained manipulation of agent behaviors by adjusting desired returns for various reward components, enabling the creation of diverse and realistic driving scenarios.",
+    "abstract_rouge_l": 0.4736842105263158,
+    "improvement": 0.2890688259109312
+  },
+  {
+    "id": "qa4",
+    "question": "What is the proposed solution to alleviate the topology mismatching problem?",
+    "ground_truth": "To address this issue, we propose the Adaptive Overlay Topology Optimization (AOTO) technique. AOTO builds an overlay multicast tree between each source node and its direct logical neighbors, prioritizing the selection of physically closer nodes as logical neighbors.",
+    "no_context_answer": "The proposed solution to alleviate the topology mismatching problem is to use a topology-adaptive routing algorithm that dynamically adjusts routes based on the current network topology, ensuring efficient data transmission even in changing network conditions.",
+    "no_context_rouge_l": 0.10810810810810811,
+    "abstract_answer": "The proposed solution is the adaptive overlay topology optimization (AOTO) technique, which builds an overlay multicast tree between each source node and its direct logical neighbors. AOTO chooses closer nodes as logical neighbors to alleviate the topology mismatching problem and provides a larger query coverage range.",
+    "abstract_rouge_l": 0.6190476190476191,
+    "improvement": 0.510939510939511
+  },
+  {
+    "id": "qa5",
+    "question": "What solution is proposed to better assess deblurred images?",
+    "ground_truth": "To better assess the quality of motion deblurred images, the authors propose a new quality metric that specifically measures noise, ringing, and residual blur (NRRB)\u2014common distortions in motion deblurring.",
+    "no_context_answer": "A proposed solution to better assess deblurred images is to use a combination of visual inspection and quantitative metrics, such as peak signal-to-noise ratio (PSNR) and structural similarity index (SSIM), to evaluate the quality and fidelity of the deblurred images.",
+    "no_context_rouge_l": 0.2222222222222222,
+    "abstract_answer": "The proposed solution involves a new quality metric for motion deblurred images that addresses the limitations of existing metrics by separately evaluating noise, ringing, and residual blur (NRRB). This metric first estimates the noise level, measures the ringing effect using a visual saliency model, and extracts similarity features through a reblurring-based method to assess residual blur. The overall quality score is then obtained by combining these individual scores, demonstrating superior performance in experiments compared to existing metrics.",
+    "abstract_rouge_l": 0.24074074074074073,
+    "improvement": 0.018518518518518517
+  },
+  {
+    "id": "qa6",
+    "question": "What is Motion deblurring?",
+    "ground_truth": "Motion deblurring aims to recover a sharp image from a blurry one.",
+    "no_context_answer": "Motion blur is a visual effect caused by the motion of an object or camera in an image or video, resulting in a streaky appearance. It occurs when an object moves across the field of view while the camera is capturing the scene, with the pixels of the moving object blending into a single, elongated line.",
+    "no_context_rouge_l": 0.11764705882352941,
+    "abstract_answer": "Motion deblurring is a computer vision task that aims to recover sharp images from blurry ones, addressing the challenge of improving image quality in the presence of motion blur.",
+    "abstract_rouge_l": 0.3902439024390244,
+    "improvement": 0.27259684361549497
+  }
+]

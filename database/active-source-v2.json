@@ -1,0 +1,31 @@
+{
+  "status": "approved_application_default",
+  "approved_on": "2026-09-28",
+  "database": "database/dblp.duckdb",
+  "sha256": "3b1b26662df6e8759ff0e5247fc073403c15b21815cc697d9dd66d279482e250",
+  "bytes": 3395301376,
+  "approval_basis": "User approved using the repaired database overall if its verified core data was better.",
+  "verification_report": "reports/assistant/candidate-extension-verification-v2.json",
+  "index_verification_report": "reports/assistant/full-index-verification-v2.json",
+  "consolidation": "Repaired v2 promoted to the canonical path; original and intermediate database copies removed after verification.",
+  "environment_override": "DBLP_DB_PATH",
+  "excluded_snapshots_are_not_dblp_evidence": [
+    "publication_citations",
+    "author_impact_stats",
+    "institutions",
+    "author_institutions",
+    "institution_topics",
+    "institution_year_stats",
+    "institution_collaboration",
+    "field_statistics",
+    "topic_forecast_signals",
+    "paper_citation_lineage",
+    "external_ecosystem_metadata",
+    "paper_embeddings",
+    "author_embeddings",
+    "topic_embeddings"
+  ],
+  "assistant_index_connected": true,
+  "assistant_index": "database/indexes/dblp-title-v2",
+  "assistant_index_evaluation": "reports/assistant/connected-title-retrieval-v1.json"
+}

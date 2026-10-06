@@ -1,0 +1,96 @@
+{
+  "status": "ready",
+  "candidate": "database/candidates/dblp-repaired-v2.duckdb",
+  "sidecar": "database/indexes/dblp-title-v2",
+  "candidate_sha256": "3b1b26662df6e8759ff0e5247fc073403c15b21815cc697d9dd66d279482e250",
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "model_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "eligible_title_count_sql_measured": 8738331,
+  "empty_title_exclusions_sql_measured": 0,
+  "first_progress_at_titles": 51200,
+  "first_progress_elapsed_seconds": 352.5,
+  "first_progress_titles_per_second_including_startup": 145.25,
+  "linear_full_build_projection_hours_including_startup": 16.71,
+  "first_progress_process_peak_working_set_gib_rounded": 1.812,
+  "drive_free_bytes_at_measurement": 732607004672,
+  "latest_restart": {
+    "started_at_utc": "2026-09-27T16:32:30Z",
+    "checkpoint_vectors_available": 501760,
+    "previous_uncheckpointed_titles_discarded": 317440,
+    "reason": "Resumed after measured speed tuning; source ID prefix independently matched the saved checkpoint digest."
+  },
+  "latest_pause": {
+    "paused_after_utc": "2026-09-27T16:04:34Z",
+    "processed_titles_before_pause": 819200,
+    "checkpoint_vectors_preserved": 501760,
+    "uncheckpointed_vectors_discarded": 317440,
+    "reason": "Paused at the durable checkpoint for measured build-speed tuning."
+  },
+  "latest_progress": {
+    "titles": 8738331,
+    "eligible_titles": 8738331,
+    "coverage_fraction": 1.0,
+    "checkpoint_vectors": 8529920,
+    "titles_added_since_final_resume": 204800,
+    "final_resume_elapsed_seconds": 1699.0096591000038,
+    "final_resume_titles_per_second_including_prefix_replay": 120.54080970233346,
+    "process_peak_working_set_bytes": 10659774464,
+    "remaining_hours": 0.0,
+    "qualification": "Final resume includes replay of the saved prefix to rebuild FTS. The total uninterrupted end-to-end build duration is not available because the build was paused and resumed for tuning."
+  },
+  "measured_tuning": {
+    "embedding_sample_titles": 12000,
+    "embedding_best_threads": 6,
+    "embedding_best_batch_size": 64,
+    "embedding_best_titles_per_second": 508.07,
+    "larger_embedding_batches_helped": false,
+    "faiss_checkpoint_vectors": 501760,
+    "faiss_best_threads": 4,
+    "faiss_best_add_chunk": 256,
+    "faiss_best_titles_per_second": 2445.53,
+    "faiss_baseline_threads": 6,
+    "faiss_baseline_add_chunk": 64,
+    "faiss_baseline_titles_per_second": 639.69,
+    "estimated_build_throughput_after_change_titles_per_second": 255.5,
+    "estimated_total_hours_at_that_rate": 9.5,
+    "qualification": "Projection scales observed per-stage time from the partial build and the 8,192-vector Faiss checkpoint benchmark. Full-corpus scaling is not yet measured."
+  },
+  "active_build_config": {
+    "embedding_threads": 6,
+    "embedding_batch_size": 64,
+    "faiss_threads": 4,
+    "faiss_add_chunk": 256,
+    "checkpoint_source_prefix_verified": true
+  },
+  "projection_qualification": "Early full-build measurement, not completion. Rate and resource use can change with index growth; update from subsequent checkpoints and final verification.",
+  "activation": "review only",
+  "final_sidecar": {
+    "manifest_sha256": "bb0a8cc64155306d3e3977bf344c9a9f9484258d72ed269001ab3596083c1f8d",
+    "completed_at_utc": "2026-09-28T03:32:51.075652+00:00",
+    "candidate_sha256": "3b1b26662df6e8759ff0e5247fc073403c15b21815cc697d9dd66d279482e250",
+    "eligible_titles": 8738331,
+    "empty_title_exclusions": 0,
+    "vector_count": 8738331,
+    "vector_id_digest": "9cda8143481bea6cbe0415b5fa853cae9e679eaeba2e76f34df62d3db18d1f42",
+    "builder_coverage": {
+      "eligible_titles": 8738331,
+      "empty_title_exclusions": 0,
+      "vector_ids_unique": true,
+      "fts_rowids_unique": true,
+      "all_vectors_verified": true
+    },
+    "builder_peak_working_set_bytes": 10659774464,
+    "faiss_bytes": 5733494474,
+    "sqlite_bytes": 1523630080,
+    "sidecar_directory_bytes_including_checkpoints": 18121397414,
+    "timing_seconds": {
+      "embedding": 823.0612423999992,
+      "fts_inserts": 20.618039199936902,
+      "faiss_add": 722.5428112997688,
+      "index_training": 0.0,
+      "faiss_final_write": 3.529403699998511,
+      "total": 1699.0096591000038
+    },
+    "activation": "review only; candidate database selection and index activation require separate review"
+  }
+}

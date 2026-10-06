@@ -1,0 +1,199 @@
+{
+  "version": 1,
+  "status": "connected_full_title_retrieval_development_evaluation",
+  "observed_at_utc": "2026-09-28T08:24:08.153574+00:00",
+  "database_sha256": "3b1b26662df6e8759ff0e5247fc073403c15b21815cc697d9dd66d279482e250",
+  "index_id": "dblp-title-v2-3b1b26662df6e875",
+  "eligible_titles": 8738331,
+  "empty_title_exclusions": 0,
+  "index_initialization_seconds_including_database_fingerprint_check": 7.107803300008527,
+  "probe_count": 12,
+  "assistant_route_smoke": {
+    "http_status": 200,
+    "elapsed_ms_single_sample": 1855.1335999945877,
+    "status": "answered",
+    "expected_target_id": 114143,
+    "expected_target_cited": true,
+    "title_only_qualification_present": true,
+    "claims_validated": true
+  },
+  "target_recall_at_8": 0.9166666666666666,
+  "latency_ms": {
+    "mean": 2004.6148833328818,
+    "p95": 2445.4496199999994,
+    "max": 2456.58579999872
+  },
+  "process_working_set_bytes": 5948280832,
+  "process_peak_working_set_bytes": 6531751936,
+  "cases": [
+    {
+      "case_id": "robot_failure_explanations",
+      "expected_publication_id": 114143,
+      "target_rank_at_8": 1,
+      "returned_ids_validated_against_active_duckdb": true,
+      "stage_latency_ms": {
+        "encode_ms": 10.50750000285916,
+        "faiss_ms": 2.518900000723079,
+        "idmap_ms": 0.9617000032449141,
+        "keyword_ms": 246.8661000020802,
+        "active_database_validation_ms": 1795.8324999926845,
+        "total_ms": 2057.3242000100436
+      }
+    },
+    {
+      "case_id": "lisp_http",
+      "expected_publication_id": 671157,
+      "target_rank_at_8": 1,
+      "returned_ids_validated_against_active_duckdb": true,
+      "stage_latency_ms": {
+        "encode_ms": 3.0460999987553805,
+        "faiss_ms": 2.496799992513843,
+        "idmap_ms": 0.8741999918129295,
+        "keyword_ms": 418.70409999683034,
+        "active_database_validation_ms": 1332.4921000021277,
+        "total_ms": 1757.8704000043217
+      }
+    },
+    {
+      "case_id": "companion_robot_acceptance",
+      "expected_publication_id": 947105,
+      "target_rank_at_8": 1,
+      "returned_ids_validated_against_active_duckdb": true,
+      "stage_latency_ms": {
+        "encode_ms": 1.9839000015053898,
+        "faiss_ms": 2.4111999955493957,
+        "idmap_ms": 0.7573999901069328,
+        "keyword_ms": 144.9923000036506,
+        "active_database_validation_ms": 1404.7655000031227,
+        "total_ms": 1555.1109999942128
+      }
+    },
+    {
+      "case_id": "hadoop_replicas",
+      "expected_publication_id": 1797202,
+      "target_rank_at_8": 1,
+      "returned_ids_validated_against_active_duckdb": true,
+      "stage_latency_ms": {
+        "encode_ms": 2.3538999957963824,
+        "faiss_ms": 3.3939999993890524,
+        "idmap_ms": 1.6744999884394929,
+        "keyword_ms": 487.7018999977736,
+        "active_database_validation_ms": 1410.188299996662,
+        "total_ms": 1905.6407000025501
+      }
+    },
+    {
+      "case_id": "iot_interaction",
+      "expected_publication_id": 3219453,
+      "target_rank_at_8": 1,
+      "returned_ids_validated_against_active_duckdb": true,
+      "stage_latency_ms": {
+        "encode_ms": 2.1167000086279586,
+        "faiss_ms": 2.5898999883793294,
+        "idmap_ms": 0.8677000005263835,
+        "keyword_ms": 623.5313000070164,
+        "active_database_validation_ms": 1372.132699994836,
+        "total_ms": 2001.4376000035554
+      }
+    },
+    {
+      "case_id": "cold_start_credit",
+      "expected_publication_id": 3783907,
+      "target_rank_at_8": 1,
+      "returned_ids_validated_against_active_duckdb": true,
+      "stage_latency_ms": {
+        "encode_ms": 6.177600007504225,
+        "faiss_ms": 2.5323000008938834,
+        "idmap_ms": 0.8602000016253442,
+        "keyword_ms": 1071.8350999959512,
+        "active_database_validation_ms": 1354.6956999925897,
+        "total_ms": 2436.3031999964733
+      }
+    },
+    {
+      "case_id": "children_wearables",
+      "expected_publication_id": 5218726,
+      "target_rank_at_8": null,
+      "returned_ids_validated_against_active_duckdb": true,
+      "stage_latency_ms": {
+        "encode_ms": 4.347599999164231,
+        "faiss_ms": 2.546899995650165,
+        "idmap_ms": 0.891200004843995,
+        "keyword_ms": 320.5856999993557,
+        "active_database_validation_ms": 1406.8356000061613,
+        "total_ms": 1735.4349000088405
+      }
+    },
+    {
+      "case_id": "uav_circle",
+      "expected_publication_id": 6098205,
+      "target_rank_at_8": 1,
+      "returned_ids_validated_against_active_duckdb": true,
+      "stage_latency_ms": {
+        "encode_ms": 2.3332999990088865,
+        "faiss_ms": 2.4467999901389703,
+        "idmap_ms": 0.9343999990960583,
+        "keyword_ms": 326.16900000721216,
+        "active_database_validation_ms": 1493.1825999956345,
+        "total_ms": 1825.2839000051608
+      }
+    },
+    {
+      "case_id": "medical_contours",
+      "expected_publication_id": 6371789,
+      "target_rank_at_8": 3,
+      "returned_ids_validated_against_active_duckdb": true,
+      "stage_latency_ms": {
+        "encode_ms": 2.4769000010564923,
+        "faiss_ms": 2.3852999875089154,
+        "idmap_ms": 0.8556999964639544,
+        "keyword_ms": 1019.9757999944268,
+        "active_database_validation_ms": 1397.696799991536,
+        "total_ms": 2423.5944999963976
+      }
+    },
+    {
+      "case_id": "video_summary",
+      "expected_publication_id": 6931578,
+      "target_rank_at_8": 1,
+      "returned_ids_validated_against_active_duckdb": true,
+      "stage_latency_ms": {
+        "encode_ms": 2.81949999043718,
+        "faiss_ms": 2.353700008825399,
+        "idmap_ms": 1.4743000065209344,
+        "keyword_ms": 875.571000011405,
+        "active_database_validation_ms": 1355.5634999938775,
+        "total_ms": 2238.0102000024635
+      }
+    },
+    {
+      "case_id": "smart_air_conditioner",
+      "expected_publication_id": 7484121,
+      "target_rank_at_8": 1,
+      "returned_ids_validated_against_active_duckdb": true,
+      "stage_latency_ms": {
+        "encode_ms": 2.556199993705377,
+        "faiss_ms": 3.1439000013051555,
+        "idmap_ms": 0.8048000017879531,
+        "keyword_ms": 1056.30330000713,
+        "active_database_validation_ms": 1393.5068999999203,
+        "total_ms": 2456.545199995162
+      }
+    },
+    {
+      "case_id": "qa_generation",
+      "expected_publication_id": 8045438,
+      "target_rank_at_8": 2,
+      "returned_ids_validated_against_active_duckdb": true,
+      "stage_latency_ms": {
+        "encode_ms": 1.8459999992046505,
+        "faiss_ms": 2.4784999986877665,
+        "idmap_ms": 0.8286000083899125,
+        "keyword_ms": 328.8327000045683,
+        "active_database_validation_ms": 1328.1455999967875,
+        "total_ms": 1662.3205999931088
+      }
+    }
+  ],
+  "qualification": "12 title-only development probes, not held-out relevance or answer accuracy. Latency excludes index initialization and measures warmed retrieval plus active-DuckDB validation."
+}

@@ -1,0 +1,7 @@
+# Local assistant retrieval and benchmark dependencies; install with --target .work/rag-benchmark/packages.
+# Model inference runs on-device and does not call external services.
+onnxruntime==1.23.2
+tokenizers==0.22.2
+huggingface-hub==0.36.0
+faiss-cpu==1.13.2
+psutil==7.2.2

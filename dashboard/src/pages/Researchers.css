@@ -1,0 +1,144 @@
+/* Hallmark · genre: editorial · macrostructure: Index-First · theme: locked warm editorial
+ * tone: technical · anchor hue: burnt orange · enrichment: none · nav: existing side rail · footer: existing inline rule
+ * contrast: pass (40–41) · honest: pass (46) · chrome: pass (47) · tokens: pass (48)
+ * responsive: pass (34, 49, 50–57) · icons: pass (30)
+ */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R5 V4 */
+
+.researchers-page {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.researchers-page .page-heading h1 {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.researcher-dropdowns {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.researchers-table table {
+  min-width: 980px;
+}
+
+.researcher-identity,
+.researcher-career {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.researcher-identity a {
+  color: var(--text);
+  font-weight: 700;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.researcher-identity a:hover,
+.researcher-identity a:focus-visible {
+  color: var(--accent-dark);
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+}
+
+.researcher-identity span,
+.researcher-career small {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.4;
+}
+
+.researcher-identity mark {
+  background: transparent;
+  color: var(--accent-dark);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+.researcher-career > span {
+  white-space: nowrap;
+}
+
+.researchers-page .preset-chip {
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.researchers-page button,
+.researchers-page a,
+.researchers-page .sort-button {
+  white-space: nowrap;
+}
+
+.researchers-page button:focus-visible,
+.researchers-page a:focus-visible,
+.researchers-page input:focus-visible,
+.researchers-page select:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.researchers-page button:active,
+.researchers-page a:active {
+  transform: translateY(1px);
+}
+
+.researchers-page button:disabled,
+.researchers-page input:disabled,
+.researchers-page select:disabled {
+  cursor: not-allowed;
+  opacity: .55;
+}
+
+.researchers-page .papers-search-field {
+  min-height: 44px;
+  outline: 2px solid transparent;
+  outline-offset: 1px;
+}
+
+.researchers-page .active-filters button {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.researchers-loading {
+  min-height: 200px;
+}
+
+@media (max-width: 48rem) {
+  .researcher-dropdowns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .researchers-page .papers-filter-controls {
+    padding: var(--space-4);
+  }
+}
+
+@media (pointer: coarse) {
+  .researchers-page button,
+  .researchers-page select,
+  .researchers-page .paper-inspect-link-btn {
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .researchers-page button,
+  .researchers-page a {
+    transform: none;
+  }
+}

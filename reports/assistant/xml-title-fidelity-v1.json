@@ -1,0 +1,9 @@
+{
+  "audit": "full supported XML records, unresolved entities, title child-node loss risk",
+  "records": 8738331,
+  "titles_with_child_nodes": 205674,
+  "child_node_titles_with_empty_stored_prefix": 8194,
+  "seconds": 99.22965769999428,
+  "database_modified": false,
+  "qualification": "Structural extraction-risk count; not a repaired-title comparison"
+}

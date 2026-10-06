@@ -1,0 +1,32 @@
+{
+  "source_sha256": "8bda23faf854d4cee491b86e3eae6ccdf4e193f6d7f09ce2e0b0c5b0a50aa548",
+  "candidate_sha256": "576d2656db982989d22c3f8bbfdcf9cb5c068329aad87e60591f1770ac7fe0db",
+  "checks": {
+    "publication_identity_or_metadata_changes": {
+      "unexpected_rows": 0,
+      "seconds": 0.8925766999891493
+    },
+    "unexpected_title_changes": {
+      "unexpected_rows": 0,
+      "seconds": 1.5436497000046074
+    },
+    "raw_metadata_changes": {
+      "unexpected_rows": 0,
+      "seconds": 1.625139499999932
+    },
+    "author_identity_changes": {
+      "unexpected_rows": 0,
+      "seconds": 0.8490422000031685
+    },
+    "authorship_changes": {
+      "unexpected_rows": 0,
+      "seconds": 1.7837502999900607
+    },
+    "venue_changes": {
+      "unexpected_rows": 0,
+      "seconds": 0.27460489999793936
+    }
+  },
+  "passed": true,
+  "seconds": 13.391233000002103
+}

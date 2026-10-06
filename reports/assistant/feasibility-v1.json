@@ -1,0 +1,324 @@
+{
+  "benchmark_version": 1,
+  "status": "partial_corpus_experiment_not_production",
+  "observed_at_utc": "2026-09-26T21:15:05.063374+00:00",
+  "database_path": "C:\\DBLP_Project\\database\\candidates\\dblp-titles-v1.duckdb",
+  "database_size_bytes": 3243520000,
+  "database_mtime_ns": 1790457212051135300,
+  "database_sha256": "576d2656db982989d22c3f8bbfdcf9cb5c068329aad87e60591f1770ac7fe0db",
+  "model": {
+    "repository": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "sha256": {
+      "onnx/model_quint8_avx2.onnx": "b941bf19f1f1283680f449fa6a7336bb5600bdcd5f84d10ddc5cd72218a0fd21",
+      "tokenizer.json": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+      "tokenizer_config.json": "acb92769e8195aabd29b7b2137a9e6d6e25c476a4f15aa4355c233426c61576b",
+      "config.json": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+      "sentence_bert_config.json": "fc1993fde0a95c24ec6c022539d41cf6e2f7c9721e5415d6fb6897472a9cd4b7",
+      "1_Pooling/config.json": "4be450dde3b0273bb9787637cfbd28fe04a7ba6ab9d36ac48e92b11e350ffc23",
+      "README.md": "dcd602d2fd35c203a247304a06fec6654a12f7941b739f9221a064fe8dc3b7f0"
+    },
+    "purpose": "offline feasibility benchmark, not active retrieval"
+  },
+  "corpus_publications": 8738331,
+  "eligible_titles": 8738331,
+  "empty_title_exclusions": 0,
+  "sample_size": 20012,
+  "sample_seed": 42,
+  "sample_strategy": "single-thread reservoir over all eligible titles, supplemented with development probe targets",
+  "development_target_supplement_count": 12,
+  "sample_ids_sha256": "c9b0ebd1105d6d34e386f82765af9ceb34e57c98f7aaf0fa15d98a9025f06b5f",
+  "sample_seconds": 8.749746200002846,
+  "sample_type_counts": {
+    "incollection": 145,
+    "book": 44,
+    "phdthesis": 331,
+    "inproceedings": 9139,
+    "proceedings": 138,
+    "article": 10215
+  },
+  "corpus_type_counts": {
+    "article": 4457485,
+    "book": 21639,
+    "incollection": 71185,
+    "inproceedings": 3965290,
+    "mastersthesis": 27,
+    "phdthesis": 157236,
+    "proceedings": 65469
+  },
+  "sample_year_range": [
+    1954,
+    2027
+  ],
+  "title_characters": {
+    "mean": 79.95317809314412,
+    "p95": 130.0,
+    "max": 434.0
+  },
+  "machine": {
+    "processor": "Intel64 Family 6 Model 154 Stepping 4, GenuineIntel",
+    "logical_cpus": 12,
+    "ram_bytes": 42641252352,
+    "threads": 6
+  },
+  "batch_size": 64,
+  "work_directory": "C:\\DBLP_Project\\.work\\rag-benchmark\\run-20260926T211450581032",
+  "lexical": {
+    "unicode": {
+      "build_seconds": 0.17493260001356248,
+      "bytes": 4489216,
+      "linear_projected_full_bytes": 1960236624,
+      "linear_projected_full_build_minutes": 1.2730852835041588,
+      "exact_title_id_hit_at_10": 1.0,
+      "search_ms": {
+        "mean": 14.728774000395788,
+        "p95": 25.750654999137623,
+        "max": 28.579500009072945
+      },
+      "queries": "Bounded first 32 title tokens joined by OR; exact-title discovery proxy only",
+      "development_paraphrase_results": [
+        {
+          "id": "robot_failure_explanations",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "lisp_http",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "companion_robot_acceptance",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "hadoop_replicas",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "iot_interaction",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "cold_start_credit",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "children_wearables",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "uav_circle",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "medical_contours",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "video_summary",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "smart_air_conditioner",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "qa_generation",
+          "target_hit_at_10": true
+        }
+      ],
+      "development_paraphrase_target_hit_at_10": 1.0
+    },
+    "porter": {
+      "build_seconds": 0.17222979999496602,
+      "bytes": 4325376,
+      "linear_projected_full_bytes": 1888695142,
+      "linear_projected_full_build_minutes": 1.2534154510791953,
+      "exact_title_id_hit_at_10": 1.0,
+      "search_ms": {
+        "mean": 15.416970999503974,
+        "p95": 27.059495005232748,
+        "max": 30.934700000216253
+      },
+      "queries": "Bounded first 32 title tokens joined by OR; exact-title discovery proxy only",
+      "development_paraphrase_results": [
+        {
+          "id": "robot_failure_explanations",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "lisp_http",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "companion_robot_acceptance",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "hadoop_replicas",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "iot_interaction",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "cold_start_credit",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "children_wearables",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "uav_circle",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "medical_contours",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "video_summary",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "smart_air_conditioner",
+          "target_hit_at_10": true
+        },
+        {
+          "id": "qa_generation",
+          "target_hit_at_10": true
+        }
+      ],
+      "development_paraphrase_target_hit_at_10": 1.0
+    }
+  },
+  "vector": {
+    "hnsw32_float32": {
+      "training_seconds": 1.0700008715502918e-05,
+      "add_seconds": 4.128239499987103,
+      "bytes": 36184178,
+      "linear_projected_full_bytes": 15799986224,
+      "linear_projected_full_add_hours_lower_bound": 0.5007262753203884,
+      "projection_warning": "Graph construction/search costs change with corpus size; sample timing is not full-scale proof.",
+      "settings": [
+        {
+          "ef_search": 32,
+          "ann_recall_at_10": 0.9969999999999999,
+          "exact_title_id_hit_at_10": 1.0,
+          "search_ms": {
+            "mean": 0.36806300093303435,
+            "p95": 0.43962499257759186,
+            "max": 0.6199000054039061
+          },
+          "development_paraphrase_ann_recall_at_10": 1.0,
+          "development_paraphrase_target_hit_at_10": 1.0
+        },
+        {
+          "ef_search": 64,
+          "ann_recall_at_10": 0.9969999999999999,
+          "exact_title_id_hit_at_10": 1.0,
+          "search_ms": {
+            "mean": 0.6014079989108723,
+            "p95": 0.7250400012708269,
+            "max": 0.8315000013681129
+          },
+          "development_paraphrase_ann_recall_at_10": 1.0,
+          "development_paraphrase_target_hit_at_10": 1.0
+        },
+        {
+          "ef_search": 128,
+          "ann_recall_at_10": 1.0,
+          "exact_title_id_hit_at_10": 1.0,
+          "search_ms": {
+            "mean": 1.0049580005579628,
+            "p95": 1.2564800046675373,
+            "max": 1.3910999987274408
+          },
+          "development_paraphrase_ann_recall_at_10": 1.0,
+          "development_paraphrase_target_hit_at_10": 1.0
+        }
+      ],
+      "peak_process_rss_bytes": 566763520
+    },
+    "hnsw32_scalar8": {
+      "training_seconds": 0.01076910000119824,
+      "add_seconds": 2.138405400008196,
+      "bytes": 13133462,
+      "linear_projected_full_bytes": 5734786034,
+      "linear_projected_full_add_hours_lower_bound": 0.25937346199862055,
+      "projection_warning": "Graph construction/search costs change with corpus size; sample timing is not full-scale proof.",
+      "settings": [
+        {
+          "ef_search": 32,
+          "ann_recall_at_10": 0.993,
+          "exact_title_id_hit_at_10": 1.0,
+          "search_ms": {
+            "mean": 0.23196300011477433,
+            "p95": 0.30002999992575496,
+            "max": 0.5538000114029273
+          },
+          "development_paraphrase_ann_recall_at_10": 0.9916666666666667,
+          "development_paraphrase_target_hit_at_10": 1.0
+        },
+        {
+          "ef_search": 64,
+          "ann_recall_at_10": 0.993,
+          "exact_title_id_hit_at_10": 1.0,
+          "search_ms": {
+            "mean": 0.39169599971501157,
+            "p95": 0.5917349903029387,
+            "max": 0.8850000012898818
+          },
+          "development_paraphrase_ann_recall_at_10": 0.9916666666666667,
+          "development_paraphrase_target_hit_at_10": 1.0
+        },
+        {
+          "ef_search": 128,
+          "ann_recall_at_10": 0.995,
+          "exact_title_id_hit_at_10": 1.0,
+          "search_ms": {
+            "mean": 0.5648950001341291,
+            "p95": 0.8753699978115036,
+            "max": 1.0821000032592565
+          },
+          "development_paraphrase_ann_recall_at_10": 0.9916666666666667,
+          "development_paraphrase_target_hit_at_10": 1.0
+        }
+      ],
+      "peak_process_rss_bytes": 566763520
+    }
+  },
+  "model_load_seconds": 0.24003079999238253,
+  "embedding": {
+    "seconds": 52.934394399955636,
+    "titles_per_second": 378.05287520238016,
+    "batch_seconds": {
+      "mean": 0.16911947092637583,
+      "p95": 0.24267057999968528,
+      "max": 0.5847208000050159
+    },
+    "truncated_titles": 0,
+    "projected_full_embedding_hours": 6.4205679307881764,
+    "projection_warning": "Linear sample projection excludes thermal slowdown, full-index construction, retries and validation.",
+    "peak_process_rss_bytes": 566763520
+  },
+  "development_probes": {
+    "file": "C:\\DBLP_Project\\docs\\assistant\\retrieval-probes-v1.json",
+    "sha256": "cf80f9ac6dff4d6137d4ccb40fa340135cf21eec1d1dadd22e9b9bd627eafc35",
+    "count": 12,
+    "qualification": "Title-only development set; not held-out evaluation or full-corpus recall",
+    "exact_vector_target_hit_at_10": 1.0
+  },
+  "peak_process_rss_bytes": 566763520,
+  "experiment_disk_bytes": 91166696,
+  "duration_seconds": 82.13185710000107,
+  "limitations": [
+    "No full-corpus build or 10-second end-to-end latency measurement.",
+    "ANN recall against exact neighbors measures index fidelity, not relevance.",
+    "Paraphrases form a 12-item title-only development set, not user-reviewed or held-out evaluation.",
+    "Process peak includes retained vectors, exact baseline, and sequential candidate builds.",
+    "Full build must handle or explicitly report long-title token truncation.",
+    "Results bind to the recorded database fingerprint; candidate and active corpora must not be confused."
+  ]
+}

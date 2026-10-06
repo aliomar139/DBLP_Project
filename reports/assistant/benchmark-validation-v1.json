@@ -1,0 +1,11 @@
+{
+  "rows": 20012,
+  "unique_ids": 20012,
+  "vector_shape": [
+    20012,
+    384
+  ],
+  "all_finite": true,
+  "max_unit_norm_error": 1.7881393432617188e-07,
+  "missing_or_mismatched_source_rows": 0
+}

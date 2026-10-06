@@ -1,0 +1,167 @@
+{
+  "version": 1,
+  "state": "candidate_review_only",
+  "created_at_utc": "2026-09-26T21:06:49.346180+00:00",
+  "source_database": "C:\\DBLP_Project\\database\\dblp.duckdb",
+  "source_sha256": "8bda23faf854d4cee491b86e3eae6ccdf4e193f6d7f09ce2e0b0c5b0a50aa548",
+  "candidate_database": "C:\\DBLP_Project\\database\\candidates\\dblp-titles-v1.duckdb",
+  "xml_sha256": "ffca48717fdb3704fd506c56d8d927cf16dcf859d89371ca588da3eb8e5dc4b6",
+  "dtd_sha256": "03ec35cb34a4227572a0e89da407b06b6e44a6cc23e19cabc3b49b702a5f897d",
+  "batch_size": 250000,
+  "author_identity_changed": false,
+  "active_database_modified": false,
+  "xml_records_compared": 8738331,
+  "before": {
+    "publications": 8738331,
+    "eligible_titles": 8730137,
+    "empty_title_exclusions": 8194
+  },
+  "after": {
+    "publications": 8738331,
+    "eligible_titles": 8738331,
+    "empty_title_exclusions": 0
+  },
+  "changed_titles": 205674,
+  "title_change_examples": [
+    [
+      2,
+      "ms/Ley2006",
+      "Der Einfluss kleiner naturnaher Retentionsma",
+      "Der Einfluss kleiner naturnaher Retentionsmaßnahmen in der Fläche auf den Hochwasserabfluss - Kleinrückhaltebecken -."
+    ],
+    [
+      354,
+      "series/class/ChouakriaN06",
+      "Improved Fr",
+      "Improved Fréchet Distance for Time Series."
+    ],
+    [
+      460,
+      "series/class/Meyer-Waarden05",
+      "Loyalty Programs and Their Impact on Repeat Purchase Behaviour: An Extension on the \"Single Source\" Panel",
+      "Loyalty Programs and Their Impact on Repeat Purchase Behaviour: An Extension on the \"Single Source\" Panel BehaviorScan."
+    ],
+    [
+      509,
+      "series/class/GardnerR06",
+      "Sub-species of",
+      "Sub-species of Homopus Areolatus? Biplots and Small Class Inference with Analysis of Distance."
+    ],
+    [
+      650,
+      "series/hhl/Novaes08",
+      "Logic in the 14",
+      "Logic in the 14th century after Ockham."
+    ],
+    [
+      658,
+      "series/hhl/AttenK09",
+      "G",
+      "Gödel's Logic."
+    ],
+    [
+      668,
+      "series/hhl/Peckhaus04",
+      "Schr",
+      "Schröder's logic."
+    ],
+    [
+      679,
+      "series/hhl/Parsons08",
+      "The development of supposition theory in the later 12",
+      "The development of supposition theory in the later 12th through 14th centuries."
+    ],
+    [
+      709,
+      "series/hhl/Lecq08",
+      "Logic and theories of meaning in the late 13",
+      "Logic and theories of meaning in the late 13th and early 14th century including the modistae."
+    ],
+    [
+      725,
+      "series/hhl/Steprans12",
+      "History of the Continuum in the 20",
+      "History of the Continuum in the 20th Century."
+    ],
+    [
+      752,
+      "series/hhl/Woods12",
+      "A History of the Fallacies in Western Logic",
+      "A History of the Fallacies in Western Logic1."
+    ],
+    [
+      777,
+      "series/hhl/KamareddineLN12",
+      "A History of Types",
+      "A History of Types*."
+    ]
+  ],
+  "source_author_string_differences": 1185299,
+  "author_difference_examples": [
+    [
+      13,
+      "series/ifip/EhrigK99",
+      "Hartmut Ehrig|||Hans-J&ouml;rg Kreowski",
+      "Hartmut Ehrig|||Hans-Jörg Kreowski"
+    ],
+    [
+      19,
+      "series/ifip/Puigjaner12",
+      "Ram&oacute;n Puigjaner",
+      "Ramón Puigjaner"
+    ],
+    [
+      27,
+      "series/ifip/Kovacs12",
+      "Gy&oacute;z&ouml; Kov&aacute;cs",
+      "Gyózö Kovács"
+    ],
+    [
+      31,
+      "series/ifip/BasinK99",
+      "David A. Basin|||Bernd Krieg-Br&uuml;ckner",
+      "David A. Basin|||Bernd Krieg-Brückner"
+    ],
+    [
+      33,
+      "series/ifip/HeibeyLT85",
+      "Hanns-Wilhelm Heibey|||Bernd Lutterbeck|||Michael T&ouml;pel",
+      "Hanns-Wilhelm Heibey|||Bernd Lutterbeck|||Michael Töpel"
+    ],
+    [
+      53,
+      "series/ifip/Schroder95",
+      "Florian Schr&ouml;der",
+      "Florian Schröder"
+    ],
+    [
+      58,
+      "series/ifip/DavisonDBRWBBWPJTFWRMK24",
+      "Robert M. Davison|||Antonio D&iacute;az-Andrade|||Arlene Bailey|||Ephias Ruhode|||Geoff Walsham|||Jean-Paul Van Belle|||Judy van Biljon|||Kutoma Wakunuma|||Kyung Ryul Park|||Luiz Antonio Joia|||Manoj A. Thomas|||Neki Frasheri|||P. J. Wall|||Renata L&egrave;bre La Rovere|||Silvia Masiero|||Stan Karanasios",
+      "Robert M. Davison|||Antonio Díaz-Andrade|||Arlene Bailey|||Ephias Ruhode|||Geoff Walsham|||Jean-Paul Van Belle|||Judy van Biljon|||Kutoma Wakunuma|||Kyung Ryul Park|||Luiz Antonio Joia|||Manoj A. Thomas|||Neki Frasheri|||P. J. Wall|||Renata Lèbre La Rovere|||Silvia Masiero|||Stan Karanasios"
+    ],
+    [
+      60,
+      "series/ifip/Rosvik14",
+      "Sindre R&oslash;svik",
+      "Sindre Røsvik"
+    ],
+    [
+      81,
+      "series/ifip/Steinmuller85",
+      "Wilhelm Steinm&uuml;ller",
+      "Wilhelm Steinmüller"
+    ],
+    [
+      102,
+      "series/ifip/FinkenM24",
+      "Sisse Finken|||Christina M&ouml;rtberg",
+      "Sisse Finken|||Christina Mörtberg"
+    ]
+  ],
+  "stale_derived_tables": "All title-dependent classifications, summaries, narratives and legacy embeddings require review/rebuild. Candidate is not approved for activation.",
+  "source_quality_limit": "Author-name strings/IDs and venue extraction are unchanged; title repair alone does not resolve homonyms or all XML import defects.",
+  "candidate_sha256": "576d2656db982989d22c3f8bbfdcf9cb5c068329aad87e60591f1770ac7fe0db",
+  "candidate_bytes": 3243520000,
+  "seconds": 413.8691727999976
+}

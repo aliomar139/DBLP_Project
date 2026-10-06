@@ -1,0 +1,106 @@
+/* Hallmark · macrostructure: Ecosystem Index · theme: existing warm editorial · tone: analytical · anchor hue: amber
+ * Audience: researchers, students, analysts · Use: explore research activity · Enrichment: none
+ * Nav: side rail adapted for research navigation · Footer: inline rule
+ */
+ :root {
+  --color-ink: oklch(21% .008 65);
+  --color-paper: oklch(96% .014 85);
+  --color-paper-2: oklch(92% .02 85);
+  --color-panel: oklch(98.5% .008 85);
+  --color-muted: oklch(47% .018 75);
+  --color-accent: oklch(62% .15 43);
+  --color-accent-dark: oklch(43% .12 43);
+  --color-grid: oklch(88% .016 85);
+  --color-line: oklch(83% .02 85);
+  --color-positive: oklch(40% .08 155);
+  --color-error: oklch(42% .15 30);
+  --color-error-bg: oklch(95% .04 35);
+  --color-network-edge: oklch(75% .035 80);
+  --color-network-node: oklch(47% .045 145);
+  --color-focus: oklch(47% .16 250);
+
+  /* Canonical Aliases */
+  --ink: var(--color-ink);
+  --text: var(--color-ink);
+  --paper: var(--color-paper);
+  --paper-2: var(--color-paper-2);
+  --panel: var(--color-panel);
+  --muted: var(--color-muted);
+  --accent: var(--color-accent);
+  --accent-dark: var(--color-accent-dark);
+  --grid: var(--color-grid);
+  --line: var(--color-line);
+  --network-edge: var(--color-network-edge);
+  --network-node: var(--color-network-node);
+  --bg: var(--paper);
+  --line-dark: var(--ink);
+  --on-accent: var(--panel);
+  --overlay: rgba(17, 19, 21, 0.45);
+  --positive: var(--color-positive);
+  --warning: #d97706;
+  --alert: var(--color-error);
+  --info: #2563eb;
+
+  /* Typography */
+  --font-display: 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-body: 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, 'SF Mono', Consolas, monospace;
+
+  /* Typography Scale */
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-body: 14px;
+  --text-md: 15px;
+  --text-card-title: 16px;
+  --text-section: 21px;
+  --text-heading: 32px;
+  --text-display: 40px;
+
+  /* Spacing Scale (Strict 4/8/12/16/24/32/48/64px) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Legacy space aliases */
+  --space-xs: var(--space-1);
+  --space-sm: var(--space-2);
+  --space-md: var(--space-4);
+  --space-lg: var(--space-5);
+  --space-xl: var(--space-6);
+  --space-2xl: var(--space-7);
+
+  /* Radii */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 9999px;
+
+  /* Elevation & Borders */
+  --rule-thin: 1px;
+  --shadow-subtle: 0 1px 3px rgba(17, 19, 21, 0.04), 0 1px 2px rgba(17, 19, 21, 0.02);
+  --shadow-dropdown: 0 10px 30px rgba(17, 19, 21, 0.12), 0 1px 3px rgba(17, 19, 21, 0.08);
+
+  /* Animation & Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 120ms;
+  --dur-normal: 200ms;
+
+  /* Charts */
+  --chart-1: var(--accent);
+  --chart-2: #d97706;
+  --chart-3: #64748b;
+  --chart-4: #db2777;
+  --chart-5: #7c3aed;
+  --chart-6: #0284c7;
+
+  /* Global Container */
+  --container-max-width: 1360px;
+}
+
