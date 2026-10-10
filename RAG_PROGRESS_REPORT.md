@@ -29,7 +29,31 @@ These systems use different evidence, so the results below are not a controlled 
 
 The title index can find similar wording and exact terms. It cannot retrieve methods or findings that a title never mentions.
 
-## 3. Keyword engine change and measured result
+## 3. Why these models and techniques fit this project
+
+These choices match the project's main constraints: millions of records, title-only retrieval for most papers, local operation, and a need to answer both exact-term and paraphrased queries. They are practical design choices, not proof that these tools are best for every collection.
+
+### Search and data tools
+
+| Choice | Why it fits this project | What common alternatives would change |
+| :--- | :--- | :--- |
+| **MiniLM embeddings** | A compact model creates vectors locally, making meaning-based search practical over millions of short titles without sending queries to an embedding service. | A larger embedding model may represent meaning better, but uses more compute and storage. Exact keyword search is cheaper but often misses paraphrases. No larger-model comparison has been run here. |
+| **Faiss HNSW with 8-bit vectors** | HNSW searches a graph of likely neighbors instead of checking all 8.7 million vectors for every query. 8-bit scalar quantization reduces vector storage. Faiss keeps this index local. | Exact scanning can return the true nearest neighbors but must examine every vector. A managed vector service could move index hosting elsewhere, but would add a service and data dependency. Approximate search and quantization can miss or reorder matches; recall needs continued measurement. |
+| **Tantivy with BM25** | An inverted index is suited to literal terms, names, acronyms, and phrases. Tantivy runs locally and the paired 12-query probe showed the same hit@8 as FTS5 with faster measured retrieval. | SQLite FTS5 is simpler and remains a fallback, but was slower in that paired probe. A hosted search service could add richer operations, but requires service setup and may send data outside the local project. The small probe does not prove broad quality gains. |
+| **Hybrid search with reciprocal-rank fusion (RRF)** | Semantic and keyword search cover different query styles. RRF combines their ranks, so their scores do not need to use the same numeric scale. | Choosing only one retriever leaves some query styles uncovered. Combining raw similarity and BM25 scores requires careful score calibration. On the 12 probes, fusion did not outperform semantic search alone, so its added value is coverage across query types rather than a proven score increase. |
+| **DuckDB as canonical data store** | The project asks many analytical questions across publication, author, venue, and related tables. DuckDB supports local SQL analysis, while the retrieval indexes only propose candidates. | A hosted or multi-user database may fit concurrent, always-on workloads better, but adds operational setup. A search index alone is not a substitute for relational queries and counts. The project validates retrieved records against DuckDB to keep it as the source of truth. |
+
+### Answer models
+
+- **MiniLM is for finding titles, not writing answers.** Its compact local embeddings keep semantic retrieval self-contained. A larger model could be evaluated if measured retrieval quality justifies its extra compute and index cost.
+- **Groq-hosted Qwen is the configured primary answer writer.** It avoids requiring large-model inference hardware on the project machine. The smoke run confirms the route responds, but it does not establish that its answers are more accurate than local or other hosted models.
+- **Ollama Qwen2.5-Coder:7B is the configured local fallback.** It can run without a cloud inference request when local hardware and the model are available. The project has no successful live fallback measurement yet, and it has not been compared on identical questions and evidence with the Groq route.
+- **Phi-3 Mini is retained for a narrower legacy task.** It selects from predefined query intents, while deterministic tools execute the database operations. This limits what the model can request compared with free-form SQL generation, but does not replace the newer general assistant path.
+- **RAGScholar models are reference results, not project selections.** The paper's Mistral-7B, Phi-4, TinyLlama-1.1B, and FLAN-T5 results provide context for an abstract-based system. Its corpus includes abstracts; this project's main index contains titles, so the scores are not a direct model bake-off.
+
+**Evidence limit:** The retrieval choices have small paired probes and a 50-question benchmark. There is no controlled, same-evidence comparison of answer models, no large held-out query set, and no broad latency or resource study across alternative systems.
+
+## 4. Keyword engine change and measured result
 
 ### What changed
 
@@ -53,7 +77,7 @@ The Tantivy index covers all 8,738,331 titles, uses about 309 MB, and took about
 
 **Limit:** These 12 probes show a speed improvement, not a general quality gain. The queries are not held out or user-reviewed. Per-query results are in [`reports/assistant/keyword-engine-ab-v1.json`](reports/assistant/keyword-engine-ab-v1.json); the Tantivy-only run is in [`reports/assistant/tantivy-connected-retrieval-v1.json`](reports/assistant/tantivy-connected-retrieval-v1.json).
 
-## 4. Models and fallback paths
+## 5. Models and fallback paths
 
 ### Model guide: what each one does
 
@@ -82,7 +106,7 @@ The repository has no same-prompt, same-evidence quality comparison between Groq
 
 The paper evaluates Mistral-7B, Phi-4, TinyLlama-1.1B, and FLAN-T5. Its generator receives the top-ranked abstracts, with context settings including 3 or 5 documents.
 
-## 5. System comparison
+## 6. System comparison
 
 | Area | RAGScholar | DBLP Research Intelligence |
 | :--- | :--- | :--- |
@@ -95,7 +119,7 @@ The paper evaluates Mistral-7B, Phi-4, TinyLlama-1.1B, and FLAN-T5. Its generato
 
 DBLP's broader metadata includes books and proceedings that may lack abstracts. Its title index cannot find a concept that appears only in an abstract.
 
-## 6. Retrieval benchmark results
+## 7. Retrieval benchmark results
 
 ### DBLP-QA: saved 50-question baseline
 
@@ -118,7 +142,7 @@ The saved FTS5 run averaged 1,733 ms per query, with a 3,046 ms p95. The Tantivy
 
 A separate full-corpus evaluation used 12 development probes. It reported 4.4 ms average for the Faiss search stage only and 4.21 seconds average for SQLite FTS5, with a 6.61-second p95. That harness differs from the paired A/B run, so its FTS5 timing is not directly comparable. The earlier evaluation is in [`reports/assistant/full-retrieval-evaluation-v2.json`](reports/assistant/full-retrieval-evaluation-v2.json).
 
-## 7. Answer-generation benchmark results
+## 8. Answer-generation benchmark results
 
 | Model and setting | Context | ROUGE-L F1 | Latency | Evidence status |
 | :--- | :--- | ---: | :--- | :--- |
@@ -138,7 +162,7 @@ On October 6, `scripts/run_benchmark.py` completed two prompts through Groq. Eac
 
 The run had two prompts and no repeated trials or answer-quality scoring. The CtRL-Sim response may have used cached abstract evidence; the benchmark did not record which sources had abstracts. An earlier restricted-network run could not reach Groq or Ollama and ended with synthesis errors. A live fallback measurement requires Ollama to run locally with the configured model.
 
-## 8. Implementation progress
+## 9. Implementation progress
 
 ### Completed milestones 1-5
 
@@ -157,7 +181,7 @@ The run had two prompts and no repeated trials or answer-quality scoring. The Ct
 10. **Cloud model and local fallback (October 6):** Set Groq `qwen/qwen3.8-27b` as primary and Ollama `qwen2.5-coder:7b` as fallback. The two-prompt smoke run completed through Groq; no ROUGE-L claim is made.
 11. **Tantivy keyword replacement (October 10):** Replaced FTS5 as the active keyword engine with Tantivy; FTS5 remains the fallback. On 12 development probes, both had 91.7% hit@8 and Tantivy cut average full retrieval time by about 41%. On DBLP-QA, both engines produced the same target ranks for all 50 questions and the same recall/MRR scores.
 
-## 9. Verified results at a glance
+## 10. Verified results at a glance
 
 | System and setting | Method | Result | Status |
 | :--- | :--- | :--- | :--- |
@@ -167,7 +191,7 @@ The run had two prompts and no repeated trials or answer-quality scoring. The Ct
 | DBLP assistant, Groq | Agentic planner, retrieval, and `qwen/qwen3.8-27b` | 3.15-9.58 seconds across two prompts and two modes; no ROUGE-L | October 6 smoke run |
 | DBLP assistant, Ollama fallback | `qwen2.5-coder:7b` through the same dispatcher | No successful measurement in this pass | Local service unavailable during restricted-network run |
 
-## 10. Roadmap
+## 11. Roadmap
 
 1. **Review retrieval on more queries.** Add user-checked examples, including questions that require abstract content.
 2. **Track abstract coverage.** Record which returned papers have cached abstract evidence.
