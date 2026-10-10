@@ -1,0 +1,132 @@
+{
+  "status": "isolated_full_title_keyword_engine_comparison",
+  "tantivy_version": "tantivy v0.26.2, index_format v7",
+  "index_document_count": 8738331,
+  "source_manifest_sha256": "5bed61e6f1b68dc9d75506d1dff5a5d58a56b009ff8259dd07465c13d1e66aa2",
+  "probe_count": 12,
+  "build_seconds": 27.352819200008526,
+  "tantivy_index_bytes": 309418413,
+  "retrieval": {
+    "fts5_target_hit_at_10": 0.8333333333333334,
+    "tantivy_target_hit_at_10": 0.8333333333333334,
+    "mean_top10_overlap": 9.833333333333334
+  },
+  "latency_ms": {
+    "fts5_mean": 531.714950001818,
+    "fts5_p95": 974.822200005292,
+    "tantivy_mean": 6.4487250019737985,
+    "tantivy_p95": 9.940999996615574
+  },
+  "qualification": "12 title-only development probes, not held-out or user-reviewed; candidate ranking measured without DuckDB validation.",
+  "cases": [
+    {
+      "case_id": "robot_failure_explanations",
+      "target_id": 114143,
+      "fts5_rank": 1,
+      "tantivy_rank": 1,
+      "fts5_ms": 251.11549999564886,
+      "tantivy_ms": 6.704700004775077,
+      "top10_overlap": 10
+    },
+    {
+      "case_id": "lisp_http",
+      "target_id": 671157,
+      "fts5_rank": 1,
+      "tantivy_rank": 1,
+      "fts5_ms": 364.1515000053914,
+      "tantivy_ms": 4.9596000026213005,
+      "top10_overlap": 9
+    },
+    {
+      "case_id": "companion_robot_acceptance",
+      "target_id": 947105,
+      "fts5_rank": 1,
+      "tantivy_rank": 1,
+      "fts5_ms": 114.36829999729525,
+      "tantivy_ms": 2.37129999732133,
+      "top10_overlap": 10
+    },
+    {
+      "case_id": "hadoop_replicas",
+      "target_id": 1797202,
+      "fts5_rank": 1,
+      "tantivy_rank": 1,
+      "fts5_ms": 466.7823000054341,
+      "tantivy_ms": 5.622800003038719,
+      "top10_overlap": 10
+    },
+    {
+      "case_id": "iot_interaction",
+      "target_id": 3219453,
+      "fts5_rank": 1,
+      "tantivy_rank": 1,
+      "fts5_ms": 579.8844000091776,
+      "tantivy_ms": 7.018100004643202,
+      "top10_overlap": 10
+    },
+    {
+      "case_id": "cold_start_credit",
+      "target_id": 3783907,
+      "fts5_rank": 1,
+      "tantivy_rank": 1,
+      "fts5_ms": 1024.3754999974044,
+      "tantivy_ms": 9.339700001874007,
+      "top10_overlap": 10
+    },
+    {
+      "case_id": "children_wearables",
+      "target_id": 5218726,
+      "fts5_rank": null,
+      "tantivy_rank": null,
+      "fts5_ms": 305.4091000085464,
+      "tantivy_ms": 4.461300006369129,
+      "top10_overlap": 10
+    },
+    {
+      "case_id": "uav_circle",
+      "target_id": 6098205,
+      "fts5_rank": 1,
+      "tantivy_rank": 1,
+      "fts5_ms": 289.713699996355,
+      "tantivy_ms": 4.536200009169988,
+      "top10_overlap": 10
+    },
+    {
+      "case_id": "medical_contours",
+      "target_id": 6371789,
+      "fts5_rank": null,
+      "tantivy_rank": null,
+      "fts5_ms": 961.5147000004072,
+      "tantivy_ms": 10.416999997687526,
+      "top10_overlap": 10
+    },
+    {
+      "case_id": "video_summary",
+      "target_id": 6931578,
+      "fts5_rank": 1,
+      "tantivy_rank": 1,
+      "fts5_ms": 765.4323000024306,
+      "tantivy_ms": 8.03099999029655,
+      "top10_overlap": 10
+    },
+    {
+      "case_id": "smart_air_conditioner",
+      "target_id": 7484121,
+      "fts5_rank": 2,
+      "tantivy_rank": 2,
+      "fts5_ms": 974.822200005292,
+      "tantivy_ms": 9.940999996615574,
+      "top10_overlap": 10
+    },
+    {
+      "case_id": "qa_generation",
+      "target_id": 8045438,
+      "fts5_rank": 4,
+      "tantivy_rank": 4,
+      "fts5_ms": 283.00989999843296,
+      "tantivy_ms": 3.982000009273179,
+      "top10_overlap": 9
+    }
+  ],
+  "elapsed_seconds": 33.97627100000682
+}

@@ -1,0 +1,199 @@
+{
+  "status": "tantivy_connected_full_retrieval_development_evaluation",
+  "keyword_engine": "tantivy",
+  "probe_count": 12,
+  "target_recall_at_8": 0.9166666666666666,
+  "query_latency_ms": {
+    "mean": 759.9929750019024,
+    "p95": 837.8138999978546,
+    "max": 1163.4620999975596
+  },
+  "keyword_latency_ms": {
+    "mean": 7.999691667161339,
+    "max": 15.89100000273902
+  },
+  "index_initialization_seconds": null,
+  "qualification": "12 title-only development probes, not held-out or user-reviewed. Latency includes warmed retrieval and DuckDB validation; excludes service initialization.",
+  "cases": [
+    {
+      "case_id": "robot_failure_explanations",
+      "target_rank_at_8": 1,
+      "returned_records_validated": true,
+      "stage_latency_ms": {
+        "encode_ms": 4.819900001166388,
+        "faiss_ms": 3.436600003624335,
+        "idmap_ms": 1.0024999937741086,
+        "keyword_ms": 6.6580999991856515,
+        "keyword_engine": "tantivy",
+        "active_database_validation_ms": 1147.1380000002682,
+        "total_ms": 1163.411300003645
+      },
+      "elapsed_ms": 1163.4620999975596
+    },
+    {
+      "case_id": "lisp_http",
+      "target_rank_at_8": 1,
+      "returned_records_validated": true,
+      "stage_latency_ms": {
+        "encode_ms": 3.6400999961188063,
+        "faiss_ms": 3.516299999319017,
+        "idmap_ms": 0.9145999938482419,
+        "keyword_ms": 6.862299997010268,
+        "keyword_engine": "tantivy",
+        "active_database_validation_ms": 769.0414999960922,
+        "total_ms": 784.2259000026388
+      },
+      "elapsed_ms": 784.2744999943534
+    },
+    {
+      "case_id": "companion_robot_acceptance",
+      "target_rank_at_8": 1,
+      "returned_records_validated": true,
+      "stage_latency_ms": {
+        "encode_ms": 2.6470999873708934,
+        "faiss_ms": 2.572800003690645,
+        "idmap_ms": 0.866900008986704,
+        "keyword_ms": 3.0611999973189086,
+        "keyword_engine": "tantivy",
+        "active_database_validation_ms": 695.519000000786,
+        "total_ms": 705.0062000053003
+      },
+      "elapsed_ms": 705.0516000017524
+    },
+    {
+      "case_id": "hadoop_replicas",
+      "target_rank_at_8": 1,
+      "returned_records_validated": true,
+      "stage_latency_ms": {
+        "encode_ms": 1.8064000032609329,
+        "faiss_ms": 4.042100001242943,
+        "idmap_ms": 0.8893000049283728,
+        "keyword_ms": 6.4208999974653125,
+        "keyword_engine": "tantivy",
+        "active_database_validation_ms": 694.0089000127045,
+        "total_ms": 707.4045999906957
+      },
+      "elapsed_ms": 707.4772000050871
+    },
+    {
+      "case_id": "iot_interaction",
+      "target_rank_at_8": 1,
+      "returned_records_validated": true,
+      "stage_latency_ms": {
+        "encode_ms": 3.2737000001361594,
+        "faiss_ms": 2.9854999884264544,
+        "idmap_ms": 0.9524000051897019,
+        "keyword_ms": 7.922400007373653,
+        "keyword_engine": "tantivy",
+        "active_database_validation_ms": 708.5316000011517,
+        "total_ms": 723.9050999924075
+      },
+      "elapsed_ms": 723.9628999959677
+    },
+    {
+      "case_id": "cold_start_credit",
+      "target_rank_at_8": 1,
+      "returned_records_validated": true,
+      "stage_latency_ms": {
+        "encode_ms": 2.5845999916782603,
+        "faiss_ms": 2.8209000010974705,
+        "idmap_ms": 1.648099991143681,
+        "keyword_ms": 10.061699998914264,
+        "keyword_engine": "tantivy",
+        "active_database_validation_ms": 677.3775000037858,
+        "total_ms": 694.7578000108479
+      },
+      "elapsed_ms": 694.8257999902125
+    },
+    {
+      "case_id": "children_wearables",
+      "target_rank_at_8": null,
+      "returned_records_validated": true,
+      "stage_latency_ms": {
+        "encode_ms": 2.049200003966689,
+        "faiss_ms": 2.8224999987287447,
+        "idmap_ms": 0.8149999921442941,
+        "keyword_ms": 4.271900004823692,
+        "keyword_engine": "tantivy",
+        "active_database_validation_ms": 827.4836000055075,
+        "total_ms": 837.6781999977538
+      },
+      "elapsed_ms": 837.8138999978546
+    },
+    {
+      "case_id": "uav_circle",
+      "target_rank_at_8": 1,
+      "returned_records_validated": true,
+      "stage_latency_ms": {
+        "encode_ms": 3.7622999952873215,
+        "faiss_ms": 3.1641000095987692,
+        "idmap_ms": 1.3181999966036528,
+        "keyword_ms": 6.318700005067512,
+        "keyword_engine": "tantivy",
+        "active_database_validation_ms": 734.6352000022307,
+        "total_ms": 749.534999995376
+      },
+      "elapsed_ms": 749.6014000062132
+    },
+    {
+      "case_id": "medical_contours",
+      "target_rank_at_8": 3,
+      "returned_records_validated": true,
+      "stage_latency_ms": {
+        "encode_ms": 3.72179999249056,
+        "faiss_ms": 2.9537999944295734,
+        "idmap_ms": 1.197300007333979,
+        "keyword_ms": 11.762900001485832,
+        "keyword_engine": "tantivy",
+        "active_database_validation_ms": 672.0980000100099,
+        "total_ms": 692.0499999978347
+      },
+      "elapsed_ms": 692.1446000051219
+    },
+    {
+      "case_id": "video_summary",
+      "target_rank_at_8": 1,
+      "returned_records_validated": true,
+      "stage_latency_ms": {
+        "encode_ms": 3.720299995620735,
+        "faiss_ms": 2.5618000072427094,
+        "idmap_ms": 1.0206999868387356,
+        "keyword_ms": 9.590100002242252,
+        "keyword_engine": "tantivy",
+        "active_database_validation_ms": 669.2754000105197,
+        "total_ms": 686.4347999944584
+      },
+      "elapsed_ms": 686.5194000129122
+    },
+    {
+      "case_id": "smart_air_conditioner",
+      "target_rank_at_8": 1,
+      "returned_records_validated": true,
+      "stage_latency_ms": {
+        "encode_ms": 4.400200006784871,
+        "faiss_ms": 2.963199993246235,
+        "idmap_ms": 1.2085000053048134,
+        "keyword_ms": 15.89100000273902,
+        "keyword_engine": "tantivy",
+        "active_database_validation_ms": 677.523200007272,
+        "total_ms": 702.2958000015933
+      },
+      "elapsed_ms": 702.3599000094691
+    },
+    {
+      "case_id": "qa_generation",
+      "target_rank_at_8": 2,
+      "returned_records_validated": true,
+      "stage_latency_ms": {
+        "encode_ms": 2.845700000762008,
+        "faiss_ms": 2.8796999977203086,
+        "idmap_ms": 1.7246999923372641,
+        "keyword_ms": 7.175099992309697,
+        "keyword_engine": "tantivy",
+        "active_database_validation_ms": 657.3277999996208,
+        "total_ms": 672.3667999904137
+      },
+      "elapsed_ms": 672.4224000063259
+    }
+  ]
+}

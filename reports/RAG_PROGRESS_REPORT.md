@@ -9,39 +9,49 @@
 
 ## 1. Executive Summary & Purpose
 
-This progress report tracks the development, benchmarking, and architectural evolution of the **Retrieval-Augmented Generation (RAG)** systems within the `DBLP_Project` repository. It provides:
-1. Formal definitions and operational mechanics of each RAG approach studied and deployed.
-2. An empirical head-to-head comparison against the state-of-the-art academic benchmark **DBLP-QA / RAGScholar**.
-3. A breakdown of domain trade-offs (Bibliographic Relational Intelligence vs. Scientific Abstract Reading).
-4. Concrete technical progress milestones and future integration roadmap.
+This report compares the project’s metadata-centered assistant with RAGScholar, a paper-content system that retrieves abstracts. The systems answer different kinds of questions: our system is built for DBLP record discovery and relational analysis, while RAGScholar’s abstract corpus can support questions about paper content.
+
+The project now uses Groq Cloud with `qwen/qwen3.8-27b` as the primary model for agentic planning and answer synthesis when credentials are configured. Failed cloud calls fall back to Ollama’s local `qwen2.5-coder:7b`. A two-prompt smoke benchmark completed through both streaming and synchronous paths on October 6. It records latency and successful responses, not answer quality or ROUGE-L.
+
+This update keeps the original RAGScholar comparison, corrects older claims that no longer match the implementation, and separates retrieval measurements from generation measurements.
 
 ---
 
 ## 2. Definitions & Approach Overviews
 
 ### A. RAGScholar (Abstract-Reading Scientific RAG)
-* **Definition:** A traditional document-grounded RAG architecture specifically built to answer scientific definition and research outcome questions by reading publication abstracts.
-* **Architecture:**
-  * **Knowledge Base:** 4.6 million computer science abstracts obtained by enriching dblp metadata with the Semantic Scholar API.
-  * **Retriever:** Apache Lucene BM25 ($k_1=1.2, b=2.0$) indexing paper titles, abstracts, authors, and venues.
-  * **Context Formulation:** Top-$k$ Concatenated Documents (`Top-k-CD`, with $k \in \{3, 5\}$). Raw abstract texts are merged into the LLM prompt.
-  * **Generator:** Instruction-tuned LLMs (Mistral-7B, Phi-4, TinyLlama-1.1B, FLAN-T5).
-* **Primary Objective:** Answer questions formulated around the internal content of research papers (e.g., *"What is CtRL-Sim?"*, *"Why is differential diagnosis difficult for physicians?"*).
+* **Definition:** A document-grounded RAG system designed to answer scientific questions using publication abstracts.
+* **Architecture reported by the paper:**
+  * **Knowledge Base:** About 4.6 million computer science abstracts enriched from DBLP records using Semantic Scholar.
+  * **Retriever:** Apache Lucene BM25 over titles, abstracts, authors, and venues, with the paper reporting `k1=1.2` and `b=2.0`.
+  * **Context Formulation:** Top-k concatenated documents (`Top-k-CD`), with k values including 3 and 5.
+  * **Generator:** The paper evaluates instruction-tuned models including Mistral-7B, Phi-4, TinyLlama-1.1B, and FLAN-T5.
+* **Primary Objective:** Answer questions about paper definitions, methods, and findings, such as “What is CtRL-Sim?” or “Why is differential diagnosis difficult for physicians?”
 
 ### B. DBLP Research Intelligence (Our System — Agentic Relational RAG)
-* **Definition:** A schema-aware, hybrid agentic system combining Text-to-SQL on relational data warehouses with semantic vector search for end-to-end bibliographic discovery and analytics.
+* **Definition:** A schema-aware assistant that combines relational queries with title-level hybrid retrieval over DBLP bibliographic records.
 * **Architecture:**
-  * **Knowledge Base:** Canonical DuckDB database (`database/dblp.duckdb`, 3.4 GB) with 8.7M publications, authors, affiliations, venues, citation lineage, and topic tables.
-  * **Title Retriever:** Hybrid sidecar (`database/indexes/dblp-title-v2`) combining Faiss HNSW embeddings (MiniLM-L6-v2, 384-dim) and SQLite FTS5 lexical matching across 8,738,331 titles.
-  * **Planner & Self-Correction:** Local Ollama (`qwen2.5-coder:7b`) with schema-aware SQL formulation, single-statement execution guards, memory limits, 8s timeouts, and automatic retry on DuckDB errors.
-  * **Generator:** `qwen2.5-coder:7b` conditioned on returned SQL rows or retrieved publication cards, returning structured `AssistantSource` and calculation provenance.
-* **Primary Objective:** Answer complex analytical, institutional, bibliometric, and discovery questions across the computing literature landscape.
+  * **Knowledge Base:** Canonical DuckDB database (`database/dblp.duckdb`) containing approximately 8.7 million publication records, with author, venue, topic, and other project-derived analytical tables.
+  * **Title Retriever:** Local sidecar (`database/indexes/dblp-title-v2`) combining 384-dimensional MiniLM embeddings in Faiss HNSW with SQLite FTS5 over 8,738,331 titles. Retrieved IDs are validated against DuckDB.
+  * **Planner and Generator:** Groq Cloud using configured model `qwen/qwen3.8-27b` is primary when credentials are present. On call failure, the dispatcher falls back to Ollama `qwen2.5-coder:7b`. Structured questions execute through validated query plans; discovery questions use title retrieval.
+  * **Abstract Enrichment:** A separate SQLite cache can store abstracts retrieved from OpenAlex and Semantic Scholar. Chat searches check for cached abstracts; catalog export fetches missing abstracts. The project does not have an indexed abstract corpus.
+* **Primary Objective:** Support bibliographic discovery, author and venue questions, counts, rankings, and other relational analysis. Abstract-dependent responses rely on abstracts available in the cache.
 
 ### C. Legacy Bounded Interpreter (Offline Fallback)
-* **Definition:** A deterministic classifier and bounded tool executor designed as a resilient fail-safe when local LLM inference engines are offline.
-* **Architecture:**
-  * Fixed regex patterns and local Phi-3 Mini intent classifier mapping queries to 17 predefined parameter slots.
-  * Deterministic query execution across static helper functions (`backend/app/services/assistant_tools.py`).
+* **Definition:** A local intent classifier and bounded executor for supported queries when the agentic route cannot complete.
+* **Architecture:** Fixed intent patterns and a local Phi-3 Mini model map questions to predefined slots, then deterministic database tools execute the supported operation. This path covers fewer questions than the main agentic route.
+
+### D. Why These Models and Retrieval Components
+
+**Primary model: Groq `qwen/qwen3.8-27b`.** The project uses a hosted 27B model for planning and synthesis so those generation steps do not depend on laptop CPU inference. The October 6 smoke run confirms the configured model completes the current assistant path in 3.15-9.58 seconds across two prompts and two request modes. That is an operational check, not evidence that this model is more accurate than Mistral, Phi, or other hosted models. The repository has no same-prompt, same-evidence quality comparison that would justify calling it the best model.
+
+**Fallback model: Ollama `qwen2.5-coder:7b`.** This is the configured local alternative when a Groq request fails, preserving an offline route without requiring another hosted provider. Its trade-off is local hardware dependence and likely slower generation. The fallback was not available in the October 6 restricted-network run, so this report does not claim a successful live fallback benchmark. The legacy Phi-3 Mini interpreter remains a smaller, intent-limited option; it does not replace the general answer generator.
+
+**Semantic retrieval: MiniLM embeddings with Faiss HNSW.** Titles are embedded locally into 384-dimensional vectors. HNSW searches an approximate-neighbor graph instead of calculating similarity against every one of 8.7 million titles for each query; the index uses 8-bit scalar quantization to reduce vector storage. This makes broad topical and paraphrase discovery practical on a local sidecar, with an explicit recall-versus-resource trade-off. It retrieves by title meaning, not by methods or findings absent from the title.
+
+**Lexical retrieval: SQLite FTS5.** A full-text inverted index can match literal terms, acronyms, names, and technical phrases that an embedding model may rank poorly. It runs locally beside the vector index and does not require a separate search service. The assistant combines the semantic and lexical ranked lists with reciprocal-rank fusion (RRF), which rewards items appearing in both lists without requiring their raw scores to share a scale. Candidate lists are bounded before canonical DuckDB validation.
+
+The two retrievers were selected to cover different query shapes over a title-only corpus: semantic similarity for wording variation and lexical matching for exact vocabulary. The 12 development probes show 100% paraphrase target hit@10 for semantic search, 83.3% for keyword search, and 91.7% for the fused hybrid. On this small set, hybrid did not beat semantic search alone, so the probe results support feasibility but do not establish a measured quality gain from fusion. The lexical timing in that probe harness also averaged about 4.21 seconds (p95 6.61 seconds); this is a warning to profile and optimize the lexical path, not proof of production latency.
 
 ---
 
@@ -49,13 +59,12 @@ This progress report tracks the development, benchmarking, and architectural evo
 
 | Dimension | RAGScholar (Paper) | DBLP Research Intelligence (Our Project) |
 | :--- | :--- | :--- |
-| **Data Scope** | 4.6M paper abstracts (merged via Semantic Scholar) | 8.7M bibliographic records, citations, authors, affiliations, venues, topics |
-| **Abstract Availability** | **Yes** (core source of evidence) | **No** (DBLP XML dump is strictly bibliographic metadata) |
-| **Retrieval Mechanism** | Lexical BM25 over abstract text | Hybrid Semantic Vector (Faiss HNSW) + SQLite FTS5 on titles |
-| **Query Flexibility** | Unstructured text retrieval only | Hybrid: Structured DuckDB SQL + Unstructured Title Discovery |
-| **Execution Paradigm** | Single-turn static prompt context (`Top-k-CD`) | Multi-step Agentic planning, Text-to-SQL, and self-correction |
-| **Hardware Footprint** | Cloud/Server-grade LLM inference | 100% Local CPU inference (Intel i5, 40GB RAM, Ollama) |
-| **Response Contract** | Text answer + cited document IDs | Markdown synthesis + Clickable entity cards + Calculation provenance |
+| **Data Scope** | Paper metadata enriched with an indexed abstract corpus | Approximately 8.7M bibliographic records and project-derived relational data |
+| **Abstract Availability** | Abstracts are a core retrieval source | DBLP records contain metadata; optional abstracts live in a separate cache |
+| **Retrieval Mechanism** | Lucene BM25 over titles and abstracts | DuckDB query plans for structured questions; Faiss HNSW + SQLite FTS5 over titles for discovery |
+| **Query Flexibility** | Document retrieval and synthesis | Relational analytics plus bounded title discovery |
+| **Generation Path** | Models and settings reported by the paper | Groq `qwen/qwen3.8-27b` primary; local Ollama `qwen2.5-coder:7b` fallback |
+| **Response Contract** | Text answer with source-attributed paper IDs | Answer, DBLP source records, and calculation provenance |
 
 ---
 
@@ -74,93 +83,100 @@ This progress report tracks the development, benchmarking, and architectural evo
    - "Explain why differential diagnosis is hard"                      - "What was Hinton's publication output in 2021?"
                  │                                                                     │
                  ▼                                                                     ▼
-      RAGScholar is Superior                                                DBLP System is Superior
-   (Grounds answers in abstract texts)                                  (Executes multi-table relational SQL)
+  RAGScholar has the abstract evidence                                  DBLP system queries relational records
 ```
 
-### Where RAGScholar Wins
-1. **Methodological Question Answering:** Questions addressing how algorithms work, experimental findings, and paper definitions.
-2. **Dense Keyword Matching in Bodies:** Queries with terms only discussed inside the abstract body (e.g., matching *"Time Warp speedup"* to a paper titled *"Corolla partitioning for VLSI"*).
-3. **Multi-Abstract Synthesis:** Comparing findings directly across 3 to 5 paper abstracts.
+### Where RAGScholar Has an Advantage
+1. **Paper-content questions:** Abstract retrieval can support questions about methods, definitions, and reported findings when those details do not appear in a title.
+2. **Abstract-level matching:** Queries may match terms that occur in abstract text but not in the paper title.
+3. **Cross-paper content synthesis:** Retrieved abstracts provide direct source material for comparing papers.
 
-### Where DBLP Research Intelligence Wins
-1. **Complex Relational Analytics:** Queries requiring aggregations over millions of rows (e.g., *"Which university published the most papers at NeurIPS between 2020 and 2024?"*).
-2. **Citation Lineage & Impact:** Tracing paper citation trees, author h-indices, and co-authorship graphs.
-3. **Cross-Entity Benchmarking:** Head-to-head comparisons between institutions, topics, or countries.
-4. **Data Breadth:** Full coverage of all 8.7M dblp entries, including pre-abstract and book/proceedings metadata.
-5. **Explainable Provenance:** Every claim is tied to real DuckDB rows and verifiable database SQL queries.
+### Where DBLP Research Intelligence Has an Advantage
+1. **Relational analytics:** DBLP tables support counts, rankings, and filters across millions of records.
+2. **Entity relationships:** The project can answer supported questions involving authors, venues, topics, and citation or collaboration data.
+3. **Metadata breadth:** DBLP coverage includes records that may not have abstracts, including books and proceedings.
+4. **Database provenance:** Structured responses can include the matched records and calculation details.
+
+These strengths are complementary. Our title index cannot match RAGScholar’s abstract search for abstract-only concepts, and the available benchmark figures do not compare the same corpus or generation path.
 
 ---
 
 ## 5. Empirical Benchmark Comparison (DBLP-QA Test)
 
-We executed the official **50-query DBLP-QA benchmark** against our active system and recorded direct metric comparisons with RAGScholar.
+The repository contains a 50-question DBLP-QA retrieval result and paper-reported RAGScholar figures. The figures below compare retrieval outcomes on the benchmark, but they should not be read as a controlled comparison of identical indexes: RAGScholar searches titles and abstracts, while this project’s DBLP index searches titles.
 
 ### A. Retrieval Evaluation (RQ1)
 
-| Metric | RAGScholar (Lucene BM25) | DBLP Hybrid Title Index | Gap Explanation |
+| Metric | RAGScholar (Lucene BM25, paper-reported) | DBLP Hybrid Title Index (repository result) | Interpretation |
 | :--- | :--- | :--- | :--- |
-| **Indexed Content** | Titles + Abstracts | Titles Only | DBLP XML dump lacks abstracts |
-| **Recall@1** | **0.8800** (44 / 50) | **0.1800** (9 / 50) | Abstract-specific terms not present in titles |
-| **Recall@3** | **1.0000** (50 / 50) | **0.2000** (10 / 50) | Benchmark questions derived from abstract body |
-| **Recall@5** | *Not Reported* | **0.2200** (11 / 50) | 11 out of 50 found in top 5 |
-| **MRR@3** | **0.9300** | **0.1867** | High precision when title matches; 0 otherwise |
-| **Latency** | Server-grade | **~850 ms** | Fast local CPU search across 8.73M records |
+| **Indexed Content** | Titles and abstracts | Titles only | Abstract-only query terms are unavailable to our index |
+| **Recall@1** | **0.8800** (44 / 50) | **0.1800** (9 / 50) | The benchmark includes many content questions |
+| **Recall@3** | **1.0000** (50 / 50) | **0.2000** (10 / 50) | Different evidence coverage limits direct comparison |
+| **Recall@5** | Not reported | **0.2200** (11 / 50) | Repository artifact reports title-index result |
+| **MRR@3** | **0.9300** | **0.1867** | Paper-reported and repository-reported values |
+| **Latency** | Server-grade, paper setup | Varies by query and run | Do not compare the prior approximate latency note as a controlled measurement |
 
-#### Diagnostic Analysis of Retrieval Gap
-* **Title Matches (100% Rank 1 Success):** When a question mentions terms present in the title (e.g., *"Zero-Maintenance Address Allocation"*, *"Enclosure Sphere Based Cell Visibility"*, *"SLO Auditing"*, *"TRaX"*), our hybrid retriever placed the target paper at **Rank 1 in <900ms**.
-* **Abstract-Exclusive Concepts:** For questions like *"What are the two main overhead factors that influence the speedup of Time Warp simulation systems?"* (Paper title: *"Corolla partitioning for distributed logic simulation of VLSI circuits"*), a title-only index cannot retrieve the document because the relevant keywords exist **exclusively in the abstract**.
+The repository’s detailed result is [`reports/dblp_qa_retrieval_results.json`](dblp_qa_retrieval_results.json). For example, a Time Warp question targets “Corolla partitioning for distributed logic simulation of VLSI circuits”; the terms asked about do not appear in that title. An abstract index can retrieve evidence that a title-only index cannot see.
+
+The current full-corpus title-index evaluation is a separate 12-probe development set in [`reports/assistant/full-retrieval-evaluation-v2.json`](assistant/full-retrieval-evaluation-v2.json). Its hybrid paraphrase target hit rate is 91.7% at rank 10. The probes are not held out or user-reviewed and do not replace the DBLP-QA evaluation. In the evaluation script, Faiss lookup averaged 4.4 ms (search stage only; encoding and ID mapping excluded), while the SQLite FTS5 query averaged 4.21 seconds with a 6.61-second p95. The FTS5 timing is a material bottleneck in that probe run and should be optimized before making a latency claim for hybrid retrieval.
 
 ### B. Generation Quality (RQ2 & RQ4)
 
-| Model & Setting | Context Strategy | ROUGE-L F1 | Latency / Call | Notes |
+| Model & Setting | Context Strategy | ROUGE-L F1 | Latency / Call | Evidence status |
 | :--- | :--- | :--- | :--- | :--- |
-| **Mistral-7B (Paper)** | Top-5 Concatenated Abstracts (`Top-5-CD`) | **0.3400** | GPU | Best overall paper score |
-| **Mistral-7B (Paper)** | No-Context Baseline | **0.2100** | GPU | Parametric memory hallucination |
-| **Phi-4 (Paper)** | Top-3 Concatenated Abstracts (`Top-3-CD`) | **0.3700** | GPU | High precision on abstract reading |
-| **Phi-4 (Paper)** | No-Context Baseline | **0.1000** | GPU | Strict refusals without context |
-| **Qwen-2.5-Coder:7B (Ours)** | Title + Domain Concept Context | **0.3556** | **~25.5s** | Runs locally on CPU; strong technical alignment |
+| **Mistral-7B (RAGScholar paper)** | Top-5 concatenated abstracts | **0.3400** | GPU in paper setup | Paper-reported |
+| **Mistral-7B (RAGScholar paper)** | No-context baseline | **0.2100** | GPU in paper setup | Paper-reported |
+| **Phi-4 (RAGScholar paper)** | Top-3 concatenated abstracts | **0.3700** | GPU in paper setup | Paper-reported |
+| **Phi-4 (RAGScholar paper)** | No-context baseline | **0.1000** | GPU in paper setup | Paper-reported |
+| **Qwen `qwen/qwen3.8-27b` (ours)** | Live assistant retrieval and synthesis | Not measured | 3.15–9.58 s in smoke run | Two prompts; no correctness score or repeated trials |
+| **Qwen2.5-Coder:7B (local fallback)** | Same RAG dispatcher after online failure | Not measured in successful run | Not measured | Ollama was unavailable during the restricted-network run |
+
+On October 6, 2026, `scripts/run_benchmark.py` completed two prompts using the configured Groq model. Each prompt ran once through streaming and once synchronously. The successful run had no fallback warning.
+
+| Prompt | Streaming total | Time to first content | Synchronous total | Sources |
+| :--- | ---: | ---: | ---: | ---: |
+| “list all papers related to prediciting student burnout” | 9.58 s | 4.96 s | 3.15 s | 26 |
+| “What is CtRL-Sim?” | 5.44 s | 5.22 s | 4.26 s | 8 |
+
+This is a smoke benchmark, not a quality comparison. It has two prompts, no repeated trials, and no ROUGE-L or correctness scoring. The CtRL-Sim answer may have used cached abstract evidence; the harness did not record which sources carried abstracts. An earlier restricted-network run could not reach Groq or Ollama and ended with synthesis errors, so the fallback requires Ollama to be running locally with the configured model.
+
+Earlier copies of this report claimed a local ROUGE-L score of 0.4648 and projected a cloud score from it. The checked-in artifacts do not establish those as results for the current route or configured Groq model, so they are not included as verified results here.
 
 ---
 
 ## 6. Implementation Progress Tracker
 
 ### Completed Milestones
-- [x] **Milestone 1 — Relational Core:** DuckDB schema loaded with 8.7M publications, authors, citations, venues, and institutions.
-- [x] **Milestone 2 — Title Indexing:** Full 8.73M title hybrid index built and verified using Faiss HNSW embeddings + SQLite FTS5.
-- [x] **Milestone 3 — Agentic Text-to-SQL Engine:** Schema-aware query planner (`agentic_rag.py`) with self-correction retry loops, safety filters, and structured responses.
-- [x] **Milestone 4 — DBLP-QA Benchmark Harness:** Ingested the official 50-pair DBLP-QA dataset, mapped all 50 keys to active DuckDB records, and implemented automated evaluation scripts (`scripts/evaluate_dblp_qa.py`).
-- [x] **Milestone 5 — Empirical Baseline Established:** Generated full retrieval and generation metrics comparing our system against RAGScholar.
+- [x] **Milestone 1 — Relational Core:** Canonical DuckDB database holds approximately 8.7M publication records and associated author, venue, and analytical data.
+- [x] **Milestone 2 — Title Indexing:** Built a full 8.73M-title sidecar with Faiss HNSW embeddings and SQLite FTS5; the runtime validates the index against the canonical database fingerprint.
+- [x] **Milestone 3 — Agentic Query and Retrieval:** Added structured query planning, guarded database execution, hybrid title retrieval, and source/provenance responses.
+- [x] **Milestone 4 — DBLP-QA Retrieval Evaluation:** Added the 50-question retrieval harness and saved per-question results.
+- [x] **Milestone 5 — Retrieval Baseline:** Recorded title retrieval metrics alongside paper-reported RAGScholar results, with the data-scope difference documented above.
 
 ### Completed Milestones (Continued)
-- [x] **Milestone 6 — Abstract Enrichment Layer:** Built SQLite sidecar cache (`database/abstracts_cache.sqlite` with WAL mode) with OpenAlex API (inverted index reconstruction) and Semantic Scholar fallback. Pre-warmed benchmark & top-cited abstracts.
-- [x] **Milestone 7 — Hybrid Unified Router & Top-3-CD Context:** Equipped `agentic_rag.py` with exact title term boosting and `Top-3-CD` concatenated abstract document grounding, boosting scientific ROUGE-L to **0.4648** (surpassing RAGScholar's 0.34–0.37).
-- [x] **Milestone 8 — Streaming Truncation Resolution:** Resolved token cutoff by raising synthesis budget to 1,200 tokens with 4,096 context window, accompanied by client-side SSE buffer stream flushing.
-- [x] **Milestone 9 — All-Papers Topic Discovery & Excel Abstract Export:** Added intelligent `(all papers)` intent detection, dynamically querying DuckDB without standard candidate caps (up to 150 papers). Integrated styled Excel (`.xlsx`) generation via `openpyxl` with on-demand scientific abstract fetching for all matching records.
-- [x] **Milestone 10 — Hybrid Online/Offline LLM Routing & Cloud Acceleration (2026-10-06):**
-  - Designed and deployed dual-tier LLM routing in `backend/app/services/agentic_rag.py` via `call_rag_llm()`.
-  - **Online Tier (Primary):** Connects to Groq Cloud API (`qwen/qwen3.8-27b`), delivering ~400+ tokens/sec and reducing planning + synthesis latency from 25–45s down to 1–2s.
-  - **Offline Tier (Fallback):** Automatically catches connection timeouts/network absence and routes to local Ollama (`qwen2.5-coder:7b`) on CPU with multi-threaded configuration.
-  - **Zero-Friction Readiness:** Unified `is_agentic_rag_ready()` and backward-compatible `is_ollama_ready()` aliases allow the assistant to run smoothly online even when local Ollama is not active.
-  - **Dynamic Context Budget:** Increased online generation token cap from 110 to 300 tokens, enabling comprehensive scientific markdown synthesis without latency penalty.
+- [x] **Milestone 6 — Abstract Enrichment Cache:** Added a SQLite cache populated on demand from OpenAlex, with Semantic Scholar as a fallback. Successful results are reused for later requests and exports.
+- [x] **Milestone 7 — Cached Abstract Grounding:** Topic discovery can attach cached abstracts for up to the first three candidates to answer synthesis. Chat search does not fetch missing abstracts; catalog export performs the on-demand fetch.
+- [x] **Milestone 8 — Streaming Assistant:** Added server-sent event streaming for status, sources, and answer content. The current benchmark records first-content and total response times for two prompts.
+- [x] **Milestone 9 — All-Papers Discovery and Catalog Export:** Added all-papers intent handling and Excel/CSV export with authors, venues, years, DBLP links, and abstract lookup. Current chat and export paths are capped at 150 records by default.
+- [x] **Milestone 10 — Primary Cloud Model with Local Fallback (2026-10-06):** Configured Groq Cloud with `qwen/qwen3.8-27b` as the primary model and Ollama `qwen2.5-coder:7b` as fallback. The dispatcher catches online-call failures and tries the local model. Readiness checks allow the main route to run when Groq credentials exist, even if Ollama is not active. A two-prompt smoke benchmark completed through Groq; no ROUGE-L claim is made for this run.
 
 ---
 
 ## 7. Verified Empirical Benchmark Summary
 
-| System / Setting | Architecture | Context Strategy | Scientific ROUGE-L | Grounding Source | Latency / Call |
+| System / Setting | Architecture | Context Strategy | Retrieval / Generation Result | Grounding Source | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **RAGScholar (SCOLIA '26)** | Mistral-7B / BM25 | `Top-5-CD` Concatenated Abstracts | 0.3400 | Lucene abstracts index | Server GPU |
-| **RAGScholar (SCOLIA '26)** | Phi-4 / BM25 | `Top-3-CD` Concatenated Abstracts | 0.3700 | Lucene abstracts index | Server GPU |
-| **DBLP Intelligence (Ours - Local CPU)** | Qwen2.5-Coder:7B | Hybrid Title Match | 0.3556 | Title Index | ~25.5s (Laptop CPU) |
-| **DBLP Super-System (Ours - Grounded Local)** | Qwen2.5-Coder:7B | `Top-3-CD` Abstracts + Title Boost | **0.4648** | OpenAlex/Semantic Scholar SQLite Sidecar | ~20-30s (Laptop CPU) |
-| **DBLP Super-System (Ours - Hybrid Cloud Groq)** | Qwen 27B / GPT-OSS 120B | `Top-3-CD` Abstracts + Title Boost | **0.4648+** | OpenAlex/Semantic Scholar + Groq Cloud | **~1-3s (Cloud Accelerated)** |
+| **RAGScholar (SCOLIA '26 paper)** | Lucene BM25 + paper models | Top-k abstracts | Recall@1 0.88; Recall@3 1.00; paper-reported ROUGE-L 0.34–0.37 for listed settings | Indexed abstract corpus | Published comparison values; not rerun here |
+| **DBLP title retrieval, DBLP-QA set** | Faiss HNSW + SQLite FTS5 | Title candidates | Recall@1 0.18; Recall@3 0.20; Recall@5 0.22; MRR@3 0.1867 | DBLP titles | Saved 50-question repository result |
+| **DBLP title retrieval, development probes** | Full-corpus MiniLM/Faiss + SQLite FTS5 | Hybrid title retrieval | 91.7% paraphrase target hit@10 | DBLP titles | 12 development probes, not held out |
+| **DBLP assistant, configured Groq model** | Agentic planner + retrieval + `qwen/qwen3.8-27b` | Live retrieved records; cached abstracts when available | 3.15–9.58 s total across two prompts and two modes; no ROUGE-L | DBLP metadata and optional cached abstracts | October 6 smoke benchmark |
+| **DBLP assistant, local Ollama fallback** | `qwen2.5-coder:7b` | Same dispatcher after online error | No successful fallback measurement in this pass | Depends on retrieved DBLP evidence | Local service was unavailable during restricted-network run |
 
 ---
 
 ## 8. Strategic Roadmap & Live Features
 
-1. **Relational Core Moat:** DuckDB Text-to-SQL handles all complex bibliometric, coauthorship, trajectory, and citation network queries.
-2. **On-Demand Abstract Fetching:** SQLite sidecar cache eliminates the need for 30+ GB local abstract storage while delivering sub-second cached abstract hits and concurrent OpenAlex background fetching.
-3. **Super-System All-Papers Discovery:** Users can ask for all papers on any topic (`"papers on large language models (all papers)"`), inspect the complete catalog in the UI, and download a styled Excel spreadsheet containing titles, authors, venues, years, DBLP links, and full scientific abstracts.
-4. **Resilient Dual-Tier Inference:** The assistant never halts due to network drops or slow CPU limitations. When connected, it utilizes cloud-accelerated Groq inference (~400 t/s); when disconnected, it gracefully falls back to local CPU Ollama.
+1. **Relational analytics:** Continue using DuckDB for supported bibliographic queries, counts, rankings, and entity relationships.
+2. **Abstract enrichment:** Keep fetching abstracts on catalog export and reusing cached abstracts during later topic searches. Track which returned records have abstract evidence.
+3. **All-papers discovery:** The current 150-record cap applies to both chat results and exports. To support larger catalogs, remove the cap in a controlled export path, add batching, and report partial abstract-fetch failures; avoid sending an unbounded publication list inside the chat response.
+4. **Inference evaluation:** Run a larger reviewed prompt set against the same retrieved evidence on Groq and local Ollama. Record model ID, provider path, source IDs, cache coverage, answer correctness, first-content latency, total latency, and errors before making quality or speed comparisons.

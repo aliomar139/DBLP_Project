@@ -59,7 +59,7 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def _import_local_runtime() -> tuple[Any, Any, Any, Any, Any]:
+def _import_local_runtime() -> tuple[Any, Any, Any, Any, Any, Any | None]:
     packages = Path(os.environ.get('DBLP_RETRIEVAL_PACKAGES', str(DEFAULT_PACKAGES))).resolve()
     if not packages.is_dir():
         raise TitleIndexUnavailable('Local retrieval dependencies are not installed')
@@ -70,11 +70,15 @@ def _import_local_runtime() -> tuple[Any, Any, Any, Any, Any]:
         np = importlib.import_module('numpy')
         ort = importlib.import_module('onnxruntime')
         tokenizer_module = importlib.import_module('tokenizers')
+        try:
+            tantivy = importlib.import_module('tantivy')
+        except Exception:
+            tantivy = None
     except Exception as exc:
         raise TitleIndexUnavailable('Local retrieval dependencies could not be loaded') from exc
     if not hasattr(faiss, 'read_index'):
         raise TitleIndexUnavailable('The local Faiss installation is incomplete')
-    return faiss, np, ort, tokenizer_module.Tokenizer, None
+    return faiss, np, ort, tokenizer_module.Tokenizer, None, tantivy
 
 
 class _Encoder:
@@ -125,7 +129,7 @@ class FullTitleIndex:
     """One-process, read-only handle for the approved full-corpus index."""
 
     def __init__(self):
-        self.faiss, self.np, ort, tokenizer_type, _ = _import_local_runtime()
+        self.faiss, self.np, ort, tokenizer_type, _, tantivy = _import_local_runtime()
         self.manifest = json.loads((SIDECAR_PATH / 'manifest.json').read_text(encoding='utf-8'))
         source = json.loads((ROOT / 'database' / 'active-source-v2.json').read_text(encoding='utf-8'))
         database = Path(os.environ.get('DBLP_DB_PATH', str(DB_PATH))).resolve()
@@ -157,6 +161,27 @@ class FullTitleIndex:
         expected = self.manifest['expected_eligible_titles']
         if counts != (expected, expected):
             raise TitleIndexUnavailable('Keyword and vector-ID coverage differs from the full-title manifest')
+        self._tantivy_index = None
+        self._tantivy_searcher = None
+        self._tantivy_module = tantivy
+        self._keyword_engine = 'sqlite_fts5'
+        tantivy_path = SIDECAR_PATH / 'keyword-tantivy'
+        tantivy_manifest_path = tantivy_path / 'manifest.json'
+        if tantivy is not None and tantivy_manifest_path.is_file():
+            tantivy_manifest = json.loads(tantivy_manifest_path.read_text(encoding='utf-8'))
+            if (tantivy_manifest.get('source_corpus_sha256') != self.manifest['corpus_sha256'] or
+                    tantivy_manifest.get('source_manifest_sha256') != _sha256(SIDECAR_PATH / 'manifest.json') or
+                    tantivy_manifest.get('expected_titles') != expected or
+                    tantivy_manifest.get('engine') != 'tantivy'):
+                raise TitleIndexUnavailable('The Tantivy keyword index does not match the active title corpus')
+            try:
+                self._tantivy_index = tantivy.Index.open(str(tantivy_path))
+                self._tantivy_searcher = self._tantivy_index.searcher()
+            except Exception as exc:
+                raise TitleIndexUnavailable('The Tantivy keyword index could not be opened') from exc
+            if self._tantivy_searcher.num_docs != expected:
+                raise TitleIndexUnavailable('The Tantivy keyword index does not cover every active title')
+            self._keyword_engine = 'tantivy'
         self._search_lock = Lock()
         self._db_lock = Lock()
         import duckdb
@@ -205,7 +230,16 @@ class FullTitleIndex:
                     semantic_scores[pid] = float(score)
             terms = _lexical_terms(query)
             expression = ' OR '.join('"' + term.replace('"', '') + '"' for term in terms)
-            if expression:
+            if expression and self._tantivy_searcher is not None:
+                stage_started = perf_counter()
+                query_object = self._tantivy_index.parse_query(expression, ['title'])
+                found = self._tantivy_searcher.search(query_object, MAX_CANDIDATES_PER_RETRIEVER)
+                lexical_ids = [
+                    int(self._tantivy_searcher.doc(address)['publication_id'][0])
+                    for _, address in found.hits
+                ]
+                keyword_seconds = perf_counter() - stage_started
+            elif expression:
                 stage_started = perf_counter()
                 with sqlite3.connect(self._sqlite_uri, uri=True) as sidecar:
                     sidecar.set_progress_handler(lambda: int(perf_counter() >= deadline), 1000)
@@ -268,15 +302,16 @@ class FullTitleIndex:
             if len(results) >= limit:
                 break
         _log.info('Title retrieval complete elapsed_ms=%.1f encode_ms=%.1f faiss_ms=%.1f '
-                  'idmap_ms=%.1f keyword_ms=%.1f validate_ms=%.1f semantic=%d keyword=%d '
+                  'idmap_ms=%.1f keyword_ms=%.1f keyword_engine=%s validate_ms=%.1f semantic=%d keyword=%d '
                   'validated=%d returned=%d',
                   (perf_counter() - started) * 1000, encode_seconds * 1000,
                   faiss_seconds * 1000, map_seconds * 1000, keyword_seconds * 1000,
-                  database_seconds * 1000, len(semantic_ids), len(lexical_ids),
+                  self._keyword_engine, database_seconds * 1000, len(semantic_ids), len(lexical_ids),
                   len(record_map), len(results))
         self.last_timings = {
             'encode_ms': encode_seconds * 1000, 'faiss_ms': faiss_seconds * 1000,
             'idmap_ms': map_seconds * 1000, 'keyword_ms': keyword_seconds * 1000,
+            'keyword_engine': self._keyword_engine,
             'active_database_validation_ms': database_seconds * 1000,
             'total_ms': (perf_counter() - started) * 1000,
         }

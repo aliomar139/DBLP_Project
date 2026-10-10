@@ -43,6 +43,14 @@ data/compressed/dblp.xml.gz
 *.zip
 *.tar
 *.7z
+*.jsonl
+*.ndjson
+
+# Local full-corpus exports and graph datasets (keep these out of Git).
+/collaborations.txt
+/com-dblp.ungraph.txt
+data/raw/
+data/derived/large/
 
 # Retain small schema & benchmark data files in data/
 !data/dblp.dtd

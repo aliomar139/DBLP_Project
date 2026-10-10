@@ -2,9 +2,11 @@
 from __future__ import annotations
 
 import csv
+import argparse
 import json
 from pathlib import Path
 import re
+import statistics
 import sys
 import time
 
@@ -37,6 +39,12 @@ def rouge_l(reference: str, hypothesis: str) -> float:
     return (2 * prec * rec) / (prec + rec) if (prec + rec) > 0 else 0.0
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path,
+                        default=ROOT / 'reports' / 'dblp_qa_retrieval_results.json')
+    parser.add_argument('--expected-engine', choices=('tantivy', 'sqlite_fts5'), default='tantivy')
+    args = parser.parse_args()
+
     print("=== Loading DBLP-QA Dataset ===")
     csv_path = ROOT / 'data' / 'benchmarks' / 'dblp_qa.csv'
     with open(csv_path, 'r', encoding='utf-8') as f:
@@ -54,14 +62,20 @@ def main():
     db.close()
     print(f"Matched {len(key_to_pub)} / {len(qa_pairs)} keys in DuckDB.")
 
-    print("=== Initializing Local Hybrid Title Index (Faiss + FTS5) ===")
+    print("=== Initializing Local Hybrid Title Index ===")
     start_init = time.perf_counter()
     index = get_full_title_index()
+    if index._keyword_engine != args.expected_engine:
+        raise RuntimeError(
+            f"Expected keyword engine {args.expected_engine}, got {index._keyword_engine}; refusing to run the wrong benchmark."
+        )
+    print(f"Keyword engine: {index._keyword_engine}")
     print(f"Index ready in {time.perf_counter() - start_init:.2f}s")
 
     print("\n=== Evaluating Retrieval Performance (RQ1) ===")
     results = []
     ranks = []
+    latencies = []
     
     for i, item in enumerate(qa_pairs, 1):
         q_id = item['id']
@@ -74,6 +88,7 @@ def main():
         start_q = time.perf_counter()
         matches = index.search(question, limit=5)
         latency = (time.perf_counter() - start_q) * 1000
+        latencies.append(latency)
 
         retrieved_keys = [m.db_key for m in matches]
         retrieved_titles = [m.title for m in matches]
@@ -116,11 +131,16 @@ def main():
     print("="*50)
 
     # Save retrieval results
-    output_path = ROOT / 'reports' / 'dblp_qa_retrieval_results.json'
+    output_path = args.output if args.output.is_absolute() else ROOT / args.output
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump({
+            'keyword_engine': index._keyword_engine,
+            'index_id': index.manifest['corpus_id'],
+            'index_title_count': index.manifest['expected_eligible_titles'],
             'total': total,
+            'mean_latency_ms': statistics.fmean(latencies) if latencies else 0,
+            'p95_latency_ms': sorted(latencies)[min(len(latencies) - 1, round((len(latencies) - 1) * .95))] if latencies else 0,
             'recall_at_1': r_at_1,
             'recall_at_3': r_at_3,
             'recall_at_5': r_at_5,

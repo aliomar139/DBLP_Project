@@ -1,0 +1,401 @@
+{
+  "status": "paired_full_retriever_keyword_engine_comparison",
+  "observed_at_utc": "2026-10-10T05:56:15.802004+00:00",
+  "corpus_sha256": "3b1b26662df6e8759ff0e5247fc073403c15b21815cc697d9dd66d279482e250",
+  "index_title_count": 8738331,
+  "probe_count": 12,
+  "warmup_runs_per_engine": 1,
+  "engine_results": {
+    "fts5": {
+      "target_hit_at_8": 0.9166666666666666,
+      "mean_ms": 1272.81085833359,
+      "p50_ms": 1192.1130500049912,
+      "p95_ms": 1749.976920003246,
+      "max_ms": 1824.6106000005966,
+      "mean_keyword_stage_ms": 576.9481583350474
+    },
+    "tantivy": {
+      "target_hit_at_8": 0.9166666666666666,
+      "mean_ms": 753.0894500002129,
+      "p50_ms": 718.6034999976982,
+      "p95_ms": 874.9462200008564,
+      "max_ms": 956.6210000048159,
+      "mean_keyword_stage_ms": 7.2691500014722505
+    }
+  },
+  "qualification": "12 title-only development probes; paired full retrieval includes Faiss, keyword search, RRF, and active DuckDB validation. Not held-out or user-reviewed.",
+  "cases": [
+    {
+      "case_id": "robot_failure_explanations",
+      "fts5": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 1120.9430000017164,
+        "stages": {
+          "encode_ms": 2.916700002970174,
+          "faiss_ms": 2.7805999998236075,
+          "idmap_ms": 1.0305000032531098,
+          "keyword_ms": 242.57760000182316,
+          "keyword_engine": "fts5",
+          "active_database_validation_ms": 871.3089000084437,
+          "total_ms": 1120.891800004756
+        }
+      },
+      "tantivy": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 766.3868999952683,
+        "stages": {
+          "encode_ms": 2.3575999948661774,
+          "faiss_ms": 2.8191000019432977,
+          "idmap_ms": 1.25119999574963,
+          "keyword_ms": 3.7059000023873523,
+          "keyword_engine": "tantivy",
+          "active_database_validation_ms": 755.9108999994351,
+          "total_ms": 766.3461000047391
+        }
+      }
+    },
+    {
+      "case_id": "lisp_http",
+      "tantivy": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 708.6631999991369,
+        "stages": {
+          "encode_ms": 2.8872999973827973,
+          "faiss_ms": 2.834600003552623,
+          "idmap_ms": 0.9640000062063336,
+          "keyword_ms": 5.463800000143237,
+          "keyword_engine": "tantivy",
+          "active_database_validation_ms": 695.85439999355,
+          "total_ms": 708.6007000034442
+        }
+      },
+      "fts5": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 1263.283100008266,
+        "stages": {
+          "encode_ms": 2.540499990573153,
+          "faiss_ms": 2.5354000099468976,
+          "idmap_ms": 0.9147000091616064,
+          "keyword_ms": 450.07590000750497,
+          "keyword_engine": "fts5",
+          "active_database_validation_ms": 806.1969999980647,
+          "total_ms": 1263.244300003862
+        }
+      }
+    },
+    {
+      "case_id": "companion_robot_acceptance",
+      "fts5": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 960.9339000016917,
+        "stages": {
+          "encode_ms": 2.0905999990645796,
+          "faiss_ms": 2.7092999953310937,
+          "idmap_ms": 0.7808999944245443,
+          "keyword_ms": 133.8819000084186,
+          "keyword_engine": "fts5",
+          "active_database_validation_ms": 821.1970999982441,
+          "total_ms": 960.8920000027865
+        }
+      },
+      "tantivy": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 772.6098999992246,
+        "stages": {
+          "encode_ms": 2.248500008136034,
+          "faiss_ms": 2.78539999271743,
+          "idmap_ms": 1.3380999880610034,
+          "keyword_ms": 2.6910000015050173,
+          "keyword_engine": "tantivy",
+          "active_database_validation_ms": 763.1776000052923,
+          "total_ms": 772.552700000233
+        }
+      }
+    },
+    {
+      "case_id": "hadoop_replicas",
+      "tantivy": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 956.6210000048159,
+        "stages": {
+          "encode_ms": 3.232900009606965,
+          "faiss_ms": 2.6751000114018098,
+          "idmap_ms": 1.3799000007566065,
+          "keyword_ms": 6.921199994394556,
+          "keyword_engine": "tantivy",
+          "active_database_validation_ms": 942.1165999956429,
+          "total_ms": 956.564599997364
+        }
+      },
+      "fts5": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 1069.414900004631,
+        "stages": {
+          "encode_ms": 2.5314000085927546,
+          "faiss_ms": 2.720499993301928,
+          "idmap_ms": 1.0514000023249537,
+          "keyword_ms": 492.69210000056773,
+          "keyword_engine": "fts5",
+          "active_database_validation_ms": 570.0333999993745,
+          "total_ms": 1069.3753999948967
+        }
+      }
+    },
+    {
+      "case_id": "iot_interaction",
+      "fts5": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 1402.100799998152,
+        "stages": {
+          "encode_ms": 2.2017000010237098,
+          "faiss_ms": 2.7774999907705933,
+          "idmap_ms": 0.9876999974949285,
+          "keyword_ms": 612.6461999956518,
+          "keyword_engine": "fts5",
+          "active_database_validation_ms": 783.1898000004003,
+          "total_ms": 1402.0549999986542
+        }
+      },
+      "tantivy": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 770.2296000061324,
+        "stages": {
+          "encode_ms": 2.3237999994307756,
+          "faiss_ms": 2.883499997551553,
+          "idmap_ms": 1.214500007336028,
+          "keyword_ms": 7.090400002198294,
+          "keyword_engine": "tantivy",
+          "active_database_validation_ms": 756.3755000010133,
+          "total_ms": 770.1892000040971
+        }
+      }
+    },
+    {
+      "case_id": "cold_start_credit",
+      "tantivy": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 808.1213999976171,
+        "stages": {
+          "encode_ms": 2.532500002416782,
+          "faiss_ms": 2.7192999987164512,
+          "idmap_ms": 1.2851999927079305,
+          "keyword_ms": 10.326200004783459,
+          "keyword_engine": "tantivy",
+          "active_database_validation_ms": 790.9236999985296,
+          "total_ms": 808.0619999964256
+        }
+      },
+      "fts5": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 1824.6106000005966,
+        "stages": {
+          "encode_ms": 2.621699997689575,
+          "faiss_ms": 2.77799999457784,
+          "idmap_ms": 1.0015000007115304,
+          "keyword_ms": 1028.9735999976983,
+          "keyword_engine": "fts5",
+          "active_database_validation_ms": 788.9040000009118,
+          "total_ms": 1824.5752999937395
+        }
+      }
+    },
+    {
+      "case_id": "children_wearables",
+      "fts5": {
+        "target_rank_at_8": null,
+        "records_validated": true,
+        "elapsed_ms": 1082.8900999913458,
+        "stages": {
+          "encode_ms": 2.230099998996593,
+          "faiss_ms": 2.637099998537451,
+          "idmap_ms": 1.8128999945474789,
+          "keyword_ms": 334.1089000023203,
+          "keyword_engine": "fts5",
+          "active_database_validation_ms": 741.8395999993663,
+          "total_ms": 1082.852899999125
+        }
+      },
+      "tantivy": {
+        "target_rank_at_8": null,
+        "records_validated": true,
+        "elapsed_ms": 705.3431000094861,
+        "stages": {
+          "encode_ms": 3.2128000020748004,
+          "faiss_ms": 2.9071000026306137,
+          "idmap_ms": 1.3306000037118793,
+          "keyword_ms": 6.048800001735799,
+          "keyword_engine": "tantivy",
+          "active_database_validation_ms": 691.4114999963203,
+          "total_ms": 705.2630999969551
+        }
+      }
+    },
+    {
+      "case_id": "uav_circle",
+      "tantivy": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 695.667100007995,
+        "stages": {
+          "encode_ms": 3.614200002630241,
+          "faiss_ms": 3.0125000048428774,
+          "idmap_ms": 1.0439000034239143,
+          "keyword_ms": 6.273400009376928,
+          "keyword_engine": "tantivy",
+          "active_database_validation_ms": 681.3720999925863,
+          "total_ms": 695.6077000068035
+        }
+      },
+      "fts5": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 899.1105999884894,
+        "stages": {
+          "encode_ms": 2.3072000039974228,
+          "faiss_ms": 2.824399998644367,
+          "idmap_ms": 0.7646000012755394,
+          "keyword_ms": 309.56130000413395,
+          "keyword_engine": "fts5",
+          "active_database_validation_ms": 583.3845000015572,
+          "total_ms": 899.0722000016831
+        }
+      }
+    },
+    {
+      "case_id": "medical_contours",
+      "fts5": {
+        "target_rank_at_8": 3,
+        "records_validated": true,
+        "elapsed_ms": 1579.64670000365,
+        "stages": {
+          "encode_ms": 3.255100004025735,
+          "faiss_ms": 2.3845999967306852,
+          "idmap_ms": 1.0614000057103112,
+          "keyword_ms": 1010.8203000127105,
+          "keyword_engine": "fts5",
+          "active_database_validation_ms": 561.8508000043221,
+          "total_ms": 1579.605699997046
+        }
+      },
+      "tantivy": {
+        "target_rank_at_8": 3,
+        "records_validated": true,
+        "elapsed_ms": 710.1387000002433,
+        "stages": {
+          "encode_ms": 2.0434000034583732,
+          "faiss_ms": 2.5448999949730933,
+          "idmap_ms": 0.8959999977378175,
+          "keyword_ms": 9.73550000344403,
+          "keyword_engine": "tantivy",
+          "active_database_validation_ms": 694.6217000077013,
+          "total_ms": 710.0729999947362
+        }
+      }
+    },
+    {
+      "case_id": "video_summary",
+      "tantivy": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 709.7382999927504,
+        "stages": {
+          "encode_ms": 3.7478000012924895,
+          "faiss_ms": 2.7595999999903142,
+          "idmap_ms": 1.3612000038847327,
+          "keyword_ms": 9.194500002195127,
+          "keyword_engine": "tantivy",
+          "active_database_validation_ms": 692.3335000028601,
+          "total_ms": 709.6739999979036
+        }
+      },
+      "fts5": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 1436.9785000017146,
+        "stages": {
+          "encode_ms": 2.595899990410544,
+          "faiss_ms": 2.5449999957345426,
+          "idmap_ms": 0.7303000020328909,
+          "keyword_ms": 863.5036000050604,
+          "keyword_engine": "fts5",
+          "active_database_validation_ms": 567.3306000098819,
+          "total_ms": 1436.9289000023855
+        }
+      }
+    },
+    {
+      "case_id": "smart_air_conditioner",
+      "fts5": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 1688.9130000054138,
+        "stages": {
+          "encode_ms": 2.851800003554672,
+          "faiss_ms": 2.624100001412444,
+          "idmap_ms": 0.9936999995261431,
+          "keyword_ms": 1075.8959999948274,
+          "keyword_engine": "fts5",
+          "active_database_validation_ms": 606.2793999881251,
+          "total_ms": 1688.8687000027858
+        }
+      },
+      "tantivy": {
+        "target_rank_at_8": 1,
+        "records_validated": true,
+        "elapsed_ms": 727.0682999951532,
+        "stages": {
+          "encode_ms": 3.234299991163425,
+          "faiss_ms": 2.7202000055694953,
+          "idmap_ms": 1.375499996356666,
+          "keyword_ms": 14.918499990017153,
+          "keyword_engine": "tantivy",
+          "active_database_validation_ms": 704.3717000051402,
+          "total_ms": 726.9409000000451
+        }
+      }
+    },
+    {
+      "case_id": "qa_generation",
+      "tantivy": {
+        "target_rank_at_8": 2,
+        "records_validated": true,
+        "elapsed_ms": 706.4858999947319,
+        "stages": {
+          "encode_ms": 2.643599989823997,
+          "faiss_ms": 2.7956999983871356,
+          "idmap_ms": 1.2970999960089102,
+          "keyword_ms": 4.860600005486049,
+          "keyword_engine": "tantivy",
+          "active_database_validation_ms": 694.5636000018567,
+          "total_ms": 706.4398999937112
+        }
+      },
+      "fts5": {
+        "target_rank_at_8": 2,
+        "records_validated": true,
+        "elapsed_ms": 944.9050999974133,
+        "stages": {
+          "encode_ms": 2.494000000297092,
+          "faiss_ms": 2.6903999969363213,
+          "idmap_ms": 0.7584999984828755,
+          "keyword_ms": 368.6404999898514,
+          "keyword_engine": "fts5",
+          "active_database_validation_ms": 569.9758999980986,
+          "total_ms": 944.86250000773
+        }
+      }
+    }
+  ]
+}
